@@ -5,8 +5,8 @@
 
 import React from 'react';
 import Layout from '../components/Layout';
+import { searchMovieByTitle } from '../utils/API';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 
 const Home = props => {
     return (
@@ -19,15 +19,8 @@ const Home = props => {
 };
 
 Home.getInitialProps = async () => {
-    try {
-        // call server at endpoint /search-title
-        const res = await axios.get('http://localhost:5000/search-title');
-        // res.data is the JSON object returned which is { Success: ***data*** }
-        return { result: res.data.Success }
-    } catch (error) {
-        console.error(error);
-        return { result: 'Failed to fetch data from server' }
-    }
+    const res = await searchMovieByTitle();
+    return { result: res.response }
 };
 
 export default Home;
