@@ -6,12 +6,12 @@ Participate in a forum for each title and contribute to its rating. Your input h
 
 ## Installation Instructions
 1. Clone repo onto your local machine
-2. Open project in your editor of choice (VS Code rec.)
+2. Open project in your editor of choice (VS Code recommended)
 3. Install Node.js (via Homebrew or installer)
 4. Open terminal in your project folder
 5. Run the following commands to install missing dependencies
 ```
-npm install npm-install-missing
+npm install -g npm-install-missing
 npm-install-missing
 ```
 6. Open another terminal in your project folder
