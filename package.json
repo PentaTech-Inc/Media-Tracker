@@ -1,0 +1,33 @@
+{
+  "name": "CS-4800-Group-Project",
+  "version": "1.0.0",
+  "description": "An application that helps keep track of the shows and movies you watch, while also making it social! Participate in a forum for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mamenjivar/CS-4800-Group-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mamenjivar/CS-4800-Group-Project/issues"
+  },
+  "homepage": "https://github.com/mamenjivar/CS-4800-Group-Project#readme",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.0.5",
+    "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.9.0"
+  }
+}
