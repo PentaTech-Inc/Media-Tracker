@@ -11,7 +11,7 @@ Participate in a forum for each title and contribute to its rating. Your input h
 4. Open terminal in your project folder
 5. Run the following commands to install missing dependencies
 ```
-npm install npm-install-missing
+npm install -g npm-install-missing
 npm-install-missing
 ```
 6. Open another terminal in your project folder
