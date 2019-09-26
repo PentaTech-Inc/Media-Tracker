@@ -11,7 +11,7 @@ const SearchBar = props => {
         <div>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className=" mr-sm-2" />
-                <Button type="submit" variant="light" size="sm"> Submit</Button>
+                <Button type="submit" variant="light" size="sm" onClick=""> Submit</Button>
             </Form>
         </div>
     );
