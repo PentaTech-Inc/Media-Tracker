@@ -7,6 +7,7 @@
  */
 
 import Header from './Header';
+import '../styles/index.css';
 
 const layoutStyle = {
     margin: 20,

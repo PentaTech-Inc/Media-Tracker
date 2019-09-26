@@ -11,7 +11,6 @@ import NavLink from './NavLink';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = () => {
-
     return (
         <NavBar bg="primary" expand="sm">
             <NavBar.Brand href="/" style={{ color: "whitesmoke" }}>Media Tracker</NavBar.Brand>
