@@ -30,7 +30,7 @@ const Home = props => {
         <Layout>
             <Container fluid={true} style={containerStyle}>
                 <Row style={rowStyle}>
-                    <Col><h1>Media Tracker</h1></Col>
+                    <Col><h1>Home</h1></Col>
                 </Row>
                 <br />
                 <Row style={rowStyle}>

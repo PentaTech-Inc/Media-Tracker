@@ -4,14 +4,20 @@
  */
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import { Nav } from 'react-bootstrap';
+
+const buttonStyle = {
+    backgroundColor: 'whitesmoke',
+    borderRadius: 5,
+}
 
 const SearchBar = props => {
+
     return (
         <div>
             <Form inline>
-                <FormControl type="text" placeholder="Search" className=" mr-sm-2" />
-                <Button type="submit" variant="light" size="sm" onClick=""> Submit</Button>
+                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                <Nav.Link href={"/search"} style={buttonStyle}>Search</Nav.Link>
             </Form>
         </div>
     );

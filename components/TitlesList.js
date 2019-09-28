@@ -12,14 +12,14 @@ const listStyle = {
     paddingTop: 6,
     paddingLeft: 3,
     paddingRight: 3,
-    borderRadius: 10
+    borderRadius: 5
 }
 
 const itemStyle = {
     backgroundColor: '#DCDCDC',
     marginBottom: 5,
     paddingLeft: 10,
-    borderRadius: 10
+    borderRadius: 5
 }
 
 const TitlesList = props => {

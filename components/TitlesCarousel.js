@@ -9,7 +9,7 @@ import theOfficeCover from '../assets/The_Office_Cover.png';
 import parksAndRecCover from '../assets/Parks_And_Rec_Cover.png';
 import gotCover from '../assets/GOT_Cover.jpg';
 
-const listStyle = {
+const carouselStyle = {
     padding: 15,
     borderRadius: 10,
     backgroundColor: "grey",
@@ -18,9 +18,9 @@ const listStyle = {
 const TitlesCarousel = props => {
     mixins: [Carousel.ControllerMixin];
     return (
-        <div style={{ width: '100%' }}>
+        <div>
             <h5>{props.title}</h5>
-            <div style={listStyle}>
+            <div style={carouselStyle}>
                 <Carousel slidesToShow={3} cellAlign="left" slidesToScroll={3} cellSpacing={10}
                     renderCenterLeftControls={({ previousSlide }) => (
                         <button onClick={previousSlide}>&lt;</button>)}
