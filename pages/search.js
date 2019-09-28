@@ -19,6 +19,7 @@ const Search = props => {
         <Layout>
             <h1>Search</h1>
             <p>{`Res: ${props.result}`}</p>
+            <p>{`Query: ${router.query.title}`}</p>
             <Button>Click</Button>
         </Layout>
     );

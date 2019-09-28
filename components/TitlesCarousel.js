@@ -10,8 +10,8 @@ import parksAndRecCover from '../assets/Parks_And_Rec_Cover.png';
 import gotCover from '../assets/GOT_Cover.jpg';
 
 const carouselStyle = {
-    padding: 15,
-    borderRadius: 10,
+    padding: 10,
+    borderRadius: 5,
     backgroundColor: "grey",
 };
 

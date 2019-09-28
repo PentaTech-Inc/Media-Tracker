@@ -5,10 +5,11 @@
 
 import React from 'react';
 import Layout from '../components/Layout';
-import { Grid, Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from 'react-bootstrap';
 import TitlesCarousel from '../components/TitlesCarousel';
 import TitlesList from '../components/TitlesList';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const containerStyle = {
     padding: 0,
@@ -26,6 +27,7 @@ const rowStyle = {
 }
 
 const Home = props => {
+    
     return (
         <Layout>
             <Container fluid={true} style={containerStyle}>
