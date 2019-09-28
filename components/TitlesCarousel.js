@@ -25,7 +25,8 @@ const TitlesCarousel = props => {
                     renderCenterLeftControls={({ previousSlide }) => (
                         <button onClick={previousSlide}>&lt;</button>)}
                     renderCenterRightControls={({ nextSlide }) => (
-                        <button onClick={nextSlide}>&gt;</button>)} >
+                        <button onClick={nextSlide}>&gt;</button>)} 
+                    renderBottomCenterControls={({pagingDots}) => (<></>)}>
                     <img src={theOfficeCover} />
                     <img src={parksAndRecCover} />
                     <img src={gotCover} />
