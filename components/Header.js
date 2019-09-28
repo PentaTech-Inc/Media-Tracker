@@ -13,12 +13,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const brandStyle = {
     color: 'whitesmoke'
-}
+};
 
 const navListStyle = {
     display: 'flex',
     flexDirection: 'row'
-}
+};
 
 const Header = () => {
     return (

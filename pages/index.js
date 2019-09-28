@@ -14,20 +14,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const containerStyle = {
     padding: 0,
     margin: 0
-}
+};
 
 const rightColStyle = {
     padding: 0
-}
+};
 
 const rowStyle = {
     width: '100%',
     paddingLeft: 0,
     paddingRight: 0
-}
+};
 
 const Home = props => {
-    
+
     return (
         <Layout>
             <Container fluid={true} style={containerStyle}>

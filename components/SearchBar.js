@@ -2,29 +2,32 @@
  * SearchBar
  * @summary This component is the default search bar used to query for movies or shows.
  */
-import { Form, FormControl } from 'react-bootstrap';
-import { Nav } from 'react-bootstrap';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { Form, FormControl, Button } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa';
 
-
-const buttonStyle = {
-    backgroundColor: 'whitesmoke',
-    borderRadius: 5,
-}
 
 const SearchBar = () => {
-    const [input, setInput] = useState('');
+    const router = useRouter();
+    const [input, setInput] = useState(''); // state of input in search bar
 
     // handles the changes in search bar's input field and updates the state of input var
     const handleChange = event => {
         setInput(event.target.value);
     };
 
+    // handles submission of search form
+    const handleSubmit = e => {
+        e.preventDefault();
+        router.push('/search?title=' + input.split(" ").join("\+"));
+    };
+
     return (
         <div>
             <Form inline>
-                <FormControl onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2" />
-                <Nav.Link href={ "/search?title=" + input } style={buttonStyle}>Search</Nav.Link>
+                <FormControl size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2" />
+                <Button size='sm' variant='light' type='submit' onClick={handleSubmit}><FaSearch /></Button>
             </Form>
         </div>
     );

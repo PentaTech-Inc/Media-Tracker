@@ -8,7 +8,6 @@
 import { searchMovieByTitle, searchShowByTitle } from '../utils/API';
 import Layout from '../components/Layout';
 import { useRouter } from 'next/router';
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -18,15 +17,19 @@ const Search = props => {
     return (
         <Layout>
             <h1>Search</h1>
-            <p>{`Res: ${props.result}`}</p>
+            <p>{`Res: ${props.result.data}`}</p>
             <p>{`Query: ${router.query.title}`}</p>
-            <Button>Click</Button>
+            <div>
+                <p>{}</p>
+            </div>
         </Layout>
     );
 };
 
-Search.getInitialProps = async () => {
-    const res = await searchMovieByTitle();
+// possibly return query in return object to remove useRouter() dependency?
+Search.getInitialProps = async ({req, query: { title }}) => {
+    const res = await searchMovieByTitle(title);
+
     return { result: res.response }
 };
 

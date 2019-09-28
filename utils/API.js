@@ -8,8 +8,9 @@ import axios from 'axios';
 
 export const searchMovieByTitle = async (title) => {
     try {
-        const res = await axios.get('http://localhost:5000/search-title')
-        return { response: res.data.Success }
+        const res = await axios.get('http://localhost:5000/search-title?title=' + title);
+        console.log(res.data);
+        return { response: res.data }
     } catch (error) {
         return { response: 'Error fetching data from server' }
     }
@@ -17,7 +18,7 @@ export const searchMovieByTitle = async (title) => {
 
 export const searchShowByTitle = async (title) => {
     try {
-        const res = await axios.get('http://localhost:5000/search-title')
+        const res = await axios.get('http://localhost:5000/search-title');
         return { response: res.data.Success }
     } catch (error) {
         return { response: 'Error fetching data from server' }
