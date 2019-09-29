@@ -18,8 +18,8 @@ const SearchBar = () => {
     };
 
     // handles submission of search form
-    const handleSubmit = e => {
-        e.preventDefault();
+    const handleSubmit = event => {
+        event.preventDefault();
         router.push('/search?title=' + input.split(" ").join("\+"));
     };
 

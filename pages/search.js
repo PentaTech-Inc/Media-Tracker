@@ -11,14 +11,38 @@ import { useRouter } from 'next/router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+const cardStyle = {
+    backgroundColor: 'lightgray',
+    borderRadius: 5,
+    padding: 5,
+    margin: 0
+};
+
+const itemStyle = {
+    margin: 0
+};
+
 const Search = props => {
     const router = useRouter();
+    const results = props.result; // save results of api call (saved as an array)
 
     return (
         <Layout>
             <h1>Search</h1>
-            <p>{`Res: ${props.result.data}`}</p>
-            <p>{`Query: ${router.query.title}`}</p>
+            <br />
+            <h5>Query</h5>
+            <p>{`${router.query.title}`}</p>
+            <h5>Results</h5>
+            {
+                results.map((item, index) => {
+                    return (
+                        <div key={index} style={cardStyle}>
+                            <p style={itemStyle}>{`${index+1}) ${item.title}`}</p>
+                        </div>
+                    );
+                })
+            }
+
             <div>
                 <p>{}</p>
             </div>
