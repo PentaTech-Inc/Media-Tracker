@@ -9,6 +9,8 @@
 import Header from './Header';
 import '../styles/index.css';
 
+import Footer from './Footer';
+
 const layoutStyle = {
     margin: 20,
     padding: 20,
@@ -26,6 +28,7 @@ const Layout = props => {
             <div style={layoutStyle}>
                 {props.children} {/* page's actual content */}
             </div>
+            <Footer /> {/* will be displayed on all pages */}
         </div>
     );
 };
