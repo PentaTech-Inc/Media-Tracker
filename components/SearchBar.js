@@ -8,7 +8,7 @@ import { Form, FormControl, Button } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 
 
-const SearchBar = () => {
+const SearchBar = props => {
     const router = useRouter();
     const [input, setInput] = useState(''); // state of input in search bar
 
@@ -18,6 +18,10 @@ const SearchBar = () => {
     };
 
     // handles submission of search form
+    /*
+        leading and trailing whitespace
+        consecutive whitespace in between
+    */
     const handleSubmit = event => {
         event.preventDefault();
         router.push('/search?title=' + input.split(" ").join("\+"));
@@ -27,7 +31,7 @@ const SearchBar = () => {
         <div>
             <Form inline>
                 <FormControl size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2" />
-                <Button size='sm' variant='light' type='submit' onClick={handleSubmit}><FaSearch /></Button>
+                <Button size='sm' variant={props.varStyle ? props.varStyle : 'light'} type='submit' onClick={handleSubmit}><FaSearch /></Button>
             </Form>
         </div>
     );

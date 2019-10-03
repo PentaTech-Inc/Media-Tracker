@@ -37,55 +37,53 @@ const itemStyle = {
 
 const Search = props => {
     const router = useRouter();
-    const results = props.result; // save results of api call (saved as an array)
+    const results = (props.result !== null ? props.result : null); // save results of api call (saved as an array)
 
     return (
         <Layout>
             <Container style={containerStyle}>
-            <Row style={rowStyle}>
-            <Col><h1>Search</h1></Col>
-            </Row>
-            <br />
-            <Row style={rowStyle} float='center'>
-            <Col><SearchBar /></Col> {/* ...props to implemenet child components inheriting size */}
-            </Row>
-            <br />
-            { 
-                // If no search was made, just '--domain--/search', omit search results section
-                typeof router.query.title !== 'undefined' ?
-                    <div>
-                        <h5>Results for:</h5>
-                        <p>{`${router.query.title}`}</p>
-                        {
-                            results.map((item, index) => {
-                                return (
-                                    <div key={index} style={cardStyle}>
-                                        <p style={itemStyle}><b>{index+1}</b>) {item.title}</p>
-                                        <p style={itemStyle}><i>{item.overview}</i></p>
-                                    </div>
-                                );
-                            })
-                        }
-                    </div>
-                :
-                    null
-            }
+                <Row style={rowStyle}>
+                    <Col><h1>Search</h1></Col>
+                </Row>
+                <br />
+                <Row style={rowStyle} float='center'>
+                    <Col><SearchBar varStyle='dark' /></Col> {/* ...props to implement child components inheriting size */}
+                </Row>
+                <br />
+                {
+                    // If no search was made, just '--domain--/search', omit search results section
+                    results !== null ?
+                        <div>
+                            <h5>Results for:</h5>
+                            <p>{`${router.query.title}`}</p>
+                            {
+                                results.map((item, index) => {
+                                    return (
+                                        <div key={index} style={cardStyle}>
+                                            <p style={itemStyle}><b>{index + 1}</b>) {item.title}</p>
+                                            <p style={itemStyle}><i>{item.overview}</i></p>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                        :
+                        null
+                }
             </Container>
         </Layout>
     );
 };
 
 // possibly return query in return object to remove useRouter() dependency?
-Search.getInitialProps = async ({req, query: { title }}) => {
-    // avoids unneccessary call to API if no query params were given
-    if (typeof title !== 'undefined') {
-        console.log('in here')
+Search.getInitialProps = async ({ req, query: { title } }) => {
+    // avoids unnecessary call to API if no query params were given
+    if (typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
         const res = await searchMovieByTitle(title);
 
         return { result: res.response }
     } else {
-        console.log('it worked');
-        return { result: 'undefined'}
+        return { result: null }
     }
 };
 
