@@ -1,5 +1,5 @@
 {
-  "name": "CS-4800-Group-Project",
+  "name": "Media-Tracker",
   "version": "1.0.0",
   "description": "An application that helps keep track of the shows and movies you watch, while also making it social! Participate in a forum for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.",
   "main": "index.js",
@@ -8,26 +8,38 @@
     "build": "next build",
     "start": "next start"
   },
+  "proxy": "http://localhost:5000",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mamenjivar/CS-4800-Group-Project.git"
+    "url": "git+https://github.com/pentatech-inc/Media-Tracker"
   },
   "keywords": [],
-  "author": "",
+  "author": "PentaTeck Inc. - Chy Lim, Fabian Flores, Jasmine Dao, Miguel Menjivar, Val Feist",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mamenjivar/CS-4800-Group-Project/issues"
+    "url": "https://github.com/pentatech-inc/Media-Tracker/issues"
   },
-  "homepage": "https://github.com/mamenjivar/CS-4800-Group-Project#readme",
+  "homepage": "https://github.com/pentatech-inc/Media-Tracker#readme",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "dotenv": "^8.1.0",
+    "dotenv-webpack": "^1.7.0",
     "express": "^4.17.1",
-    "next": "^9.0.5",
+    "mdbreact": "^4.21.0",
+    "next": "^9.0.6",
+    "next-compose-plugins": "^2.2.0",
+    "next-fonts": "^0.18.0",
+    "next-images": "^1.2.0",
     "npm-install-missing": "^0.1.4",
+    "nuka-carousel": "^4.5.12",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "file-loader": "^4.2.0",
+    "url-loader": "^2.1.0"
   }
 }

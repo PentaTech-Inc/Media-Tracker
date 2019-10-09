@@ -5,29 +5,57 @@
 
 import React from 'react';
 import Layout from '../components/Layout';
+import { Grid, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
+import TitlesCarousel from '../components/TitlesCarousel';
+import TitlesList from '../components/TitlesList';
+
+const containerStyle = {
+    padding: 0,
+    margin: 0
+}
+
+const rightColStyle = {
+    padding: 0
+}
+
+const rowStyle = {
+    width: '100%',
+    paddingLeft: 0,
+    paddingRight: 0
+}
 
 const Home = props => {
     return (
         <Layout>
-            <h1>Media Tracker</h1>
-            <p>Home page</p>
-            <p>{`Res: ${props.result}`}</p>
+            <Container fluid={true} style={containerStyle}>
+                <Row style={rowStyle}>
+                    <Col><h1>Media Tracker</h1></Col>
+                </Row>
+                <br />
+                <Row style={rowStyle}>
+                    <Col sm={4} md={4} lg={3} xl={3}>
+                        <TitlesList title="My List" />
+                        <TitlesList title="Popular Titles" />
+                    </Col>
+                    <Col sm={8} md={8} lg={9} xl={9} style={rightColStyle}>
+                        <Row className="justify-content-md-left">
+                            <Col><TitlesCarousel title="Currently Watching" /></Col>
+                        </Row>
+                        <br />
+                        <Row className="justify-content-md-left">
+                            <Col><TitlesCarousel title="Recommended for Fabian" /></Col>
+                        </Row>
+                        <br />
+                        <Row className="justify-content-md-left">
+                            <Col><TitlesCarousel title="Friends are watching" /></Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
         </Layout>
     );
 };
 
-Home.getInitialProps = async () => {
-    try {
-        // call server at endpoint /search-title
-        const res = await axios.get('http://localhost:5000/search-title');
-        // res.data is the JSON object returned which is { Success: ***data*** }
-        return { result: res.data.Success }
-    } catch (error) {
-        console.error(error);
-        return { result: 'Failed to fetch data from server' }
-    }
-};
 
 export default Home;
