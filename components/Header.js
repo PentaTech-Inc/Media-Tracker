@@ -10,16 +10,27 @@ import Nav from 'react-bootstrap/Nav';
 import NavLink from './NavLink';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Header = () => {
 
+const brandStyle = {
+    color: 'whitesmoke'
+};
+
+const navListStyle = {
+    display: 'flex',
+    flexDirection: 'row'
+};
+
+const Header = () => {
     return (
         <NavBar bg="primary" expand="sm">
-            <NavBar.Brand href="/" style={{ color: "whitesmoke" }}>Media Tracker</NavBar.Brand>
-            <Nav style={{ display: 'flex', flexDirection: 'row', }}>
+            <NavBar.Brand href="/" style={brandStyle}>Media Tracker</NavBar.Brand>
+            <Nav style={navListStyle}>
                 <NavLink title="Home" />
                 <NavLink title="About" />
             </Nav>
-            <SearchBar />
+            <Nav className="ml-auto">
+                <SearchBar />
+            </Nav>
         </NavBar>
     );
 };
