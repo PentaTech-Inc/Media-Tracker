@@ -5,32 +5,34 @@
 
 import React from 'react';
 import Layout from '../components/Layout';
-import { Grid, Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from 'react-bootstrap';
 import TitlesCarousel from '../components/TitlesCarousel';
 import TitlesList from '../components/TitlesList';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const containerStyle = {
     padding: 0,
     margin: 0
-}
+};
 
 const rightColStyle = {
     padding: 0
-}
+};
 
 const rowStyle = {
     width: '100%',
     paddingLeft: 0,
     paddingRight: 0
-}
+};
 
 const Home = props => {
+
     return (
         <Layout>
             <Container fluid={true} style={containerStyle}>
                 <Row style={rowStyle}>
-                    <Col><h1>Media Tracker</h1></Col>
+                    <Col><h1>Home</h1></Col>
                 </Row>
                 <br />
                 <Row style={rowStyle}>
