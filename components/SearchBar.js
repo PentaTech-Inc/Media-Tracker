@@ -24,14 +24,17 @@ const SearchBar = props => {
     */
     const handleSubmit = event => {
         event.preventDefault();
-        router.push('/search?title=' + input.split(" ").join("\+"));
+        if (input === "")
+            router.push('/search');
+        else
+            router.push('/search?title=' + input.split(" ").join("\+"));
     };
 
     return (
         <div>
             <Form inline>
                 <FormControl size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2" />
-                <Button size='sm' variant={props.varStyle ? props.varStyle : 'light'} type='submit' onClick={handleSubmit}><FaSearch /></Button>
+                <Button size='sm' variant={props.buttonStyle ? props.buttonStyle : 'light'} type='submit' onClick={handleSubmit}><FaSearch /></Button>
             </Form>
         </div>
     );
