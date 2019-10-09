@@ -16,14 +16,14 @@ const Footer = () => {
 
     return (
 
-        <MDBFooter color="blue" className="font-small pt-4 mt-4">  
+        <MDBFooter color="blue" className="font-small pt-4 mt-4">
             <MDBContainer fluid className="text-center text-md-left">
                 <MDBRow>
                     <MDBCol className="text-center" md="6">
                         <h5 className="title">PentaTech Inc</h5>
                         <p>
                             We can further explain what our website is about and how to learn
-                            more about it. 
+                            more about it.
                         </p>
                     </MDBCol>
                     <MDBCol md="6" className="text-center">
@@ -39,7 +39,7 @@ const Footer = () => {
             </MDBContainer>
             <div className="footer-copyright text-center py-3">
                 <MDBContainer fluid>
-                    &copy; {new Date().getFullYear()} Copyright: <a href="http://cs480-projects.github.io/teams-fall2019/PentaTech-Inc/index.html"> PentaTech Inc </a>
+                    &copy; {new Date().getFullYear()} Copyright <a href="http://cs480-projects.github.io/teams-fall2019/PentaTech-Inc/index.html">PentaTech Inc</a>
                 </MDBContainer>
             </div>
         </MDBFooter>
