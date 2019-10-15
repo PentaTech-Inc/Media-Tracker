@@ -27,6 +27,7 @@ const Header = () => {
             <Nav style={navListStyle}>
                 <NavLink title="Home" />
                 <NavLink title="About" />
+                <NavLink title="Profile" />
             </Nav>
             <Nav className="ml-auto">
                 <SearchBar />
