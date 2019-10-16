@@ -12,20 +12,37 @@ import { FaUserPlus } from 'react-icons/fa';
 import { FaCommentDots } from 'react-icons/fa';
 
 const rowStyle = {
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 100,
+    marginLeft: '5%',
+    marginRight: '5%'
+};
+
+const colStyle = {
+    width: '100%',
+};
+
+const alignCenter = {
     textAlign: 'center'
-}
+};
+
+const underline = {
+    textAlign: 'left',
+    color: '#1f57a4',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'cornflowerBlue',
+    borderBottomWidth: 2
+};
 
 const profileCard = {
     display: 'block',
     width: 350,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 20,
-    marginBottom: 100,
     padding: 20,
     borderStyle: 'solid',
-    borderColor: 'black',
-    borderWidth: 1
+    borderColor: '#d8d8d8',
+    borderWidth: 2,
+    
 };
 
 const profileImg = {
@@ -57,14 +74,17 @@ const tabs = {
 };
 
 const tab = {
-    color: 'black'
+    color: 'black',
+    borderStyle: 'solid',
+    borderColor: '#d8d8d8',
+    borderWidth: 1,
+    borderTop: 'none'
 };
 
 const section = {
-    margin: 70,
-    borderWidth: 1, 
-    borderStyle: 'solid',
-    borderColor: 'black'
+    padding: 50,
+    marginLeft: 50,
+    marginRight: 50
 };
 
 
@@ -81,24 +101,35 @@ const Profile = () => {
 
     return (
         <Layout fluid={true}>
-            <div style={profileCard}>
-                <img src="" alt="profile picture" style={profileImg} />
-                <br />
-                <h3 style={username}>Username</h3>
+            <Row style={rowStyle}>
+                <Col style={colStyle}>
+                    <div style={profileCard}>
+                        <img src="" alt="profile picture" style={profileImg} />
+                        <br />
+                        <h3 style={username}>Username</h3>
 
-                <Row style={rowStyle}>
-                    <Col>
-                        <a href=""><FaUserPlus style={icon} size="xs" /><br /><small>Add User</small></a>
-                    </Col>
-                    <Col>
-                        <a href=""><FaCommentDots style={icon} size="xs" /><br /><small>Message</small></a>
-                    </Col>
-                </Row>
-                <br />
-            </div>
+                        <Row style={alignCenter}>
+                            <Col>
+                                <a href=""><FaUserPlus style={icon} size="xs" /><br /><small>Add User</small></a>
+                            </Col>
+                            <Col>
+                                <a href=""><FaCommentDots style={icon} size="xs" /><br /><small>Message</small></a>
+                            </Col>
+                        </Row>
+                        <br />
+                    </div>
+                </Col>
 
-            <Tabs defaultActiveKey="updates" id="tabs" style={tabs} className="nav-justified">
-                <Tab eventKey="updates" title="Latest Updates" style={tab}>
+                <Col style={colStyle}>
+                    <div>
+                        <h3 style={underline}>Latest Updates</h3>
+
+                    </div>
+                </Col>
+            </Row>
+
+            <Tabs defaultActiveKey="statistics" id="tabs" style={tabs} className="nav-justified">
+                <Tab eventKey="statistics" title="Statistics" style={tab}>
                     <div style={section}> 
                         <p>Blah</p>
                     </div>
@@ -108,7 +139,7 @@ const Profile = () => {
                         <p>Blah</p>
                     </div>
                 </Tab>
-                <Tab eventKey="statistics" title="Statistics" style={tab}>
+                <Tab eventKey="friends" title="Friends" style={tab}>
                     <div style={section}> 
                         <p>Blah</p>
                     </div>
