@@ -4,7 +4,7 @@
  * calling API's, updating the database, etc.
  * i.e. Things not involved with the frontend.
  */
-
+require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -24,14 +24,15 @@ const nextApp = next({ dev })
 const handle = nextApp.getRequestHandler() //part of next config
 // blank for purpose of security on github. actual api key should be stored locally on pc
 // DO NOT commit to remote branch with API key. Add only during local development
-const TMDB_API_KEY = '';
-
+// const TMDB_API_KEY = '';
+const TMDB_API_KEY = process.env.MOVIEDB_KEY;
 
 // Passport Config
 require('./config/passport')(passport);
 
 // DB Config
-const db = require('./config/keys').mongoURI;
+//const db = require('./config/keys').mongoURI;
+const db = process.env.MONGO_URL;
 
 // Connect to MongoDB
 mongoose.connect(db, { useUnifiedTopology: true , useNewUrlParser: true })
