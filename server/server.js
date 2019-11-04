@@ -8,14 +8,68 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-
 const app = express();
+const expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 const port = process.env.port || 5000;
-
 // blank for purpose of security on github. actual api key should be stored locally on pc
 // DO NOT commit to remote branch with API key. Add only during local development
 const TMDB_API_KEY = '';
 
+
+// Passport Config
+require('../config/passport')(passport);
+
+// DB Config
+const db = require('../config/keys').mongoURI;
+
+// Connect to MongoDB
+mongoose.connect(db, { useUnifiedTopology: true , useNewUrlParser: true })
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
+
+// set up EJS views
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views')  // get view directory
+app.set('layout', 'layout')             // hook up express layouts
+app.use(expressLayouts)                 // use the express layouts
+app.use(express.static('public'))       // tell where public files are like stylesheets and js files
+
+
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
+
+// Express session
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Routes
+app.use('/', require('../routes/index.js'));
+app.use('/users', require('../routes/users.js'));
+///////////////////////////////////////////////////////////////////////////////
 app.use(cors());
 
 // report server is up and running

@@ -9,6 +9,7 @@ import NavBar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavLink from './NavLink';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Link from 'next/link';
 
 
 const brandStyle = {
@@ -32,6 +33,7 @@ const Header = () => {
             <Nav className="ml-auto">
                 <SearchBar />
             </Nav>
+            <a href="/about" class="btn btn-outline-light btn-lg">Sign-up/Login</a>
         </NavBar>
     );
 };
