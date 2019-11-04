@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "devStart": "nodemon server.js"
   },
   "proxy": "http://localhost:5000",
   "repository": {

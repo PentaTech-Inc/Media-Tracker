@@ -15,16 +15,23 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const port = process.env.port || 5000;
+
+const { createServer } = require('http')
+const { parse } = require('url')
+const next = require('next')
+const dev = process.env.NODE_DEV !== 'production' //true false
+const nextApp = next({ dev })
+const handle = nextApp.getRequestHandler() //part of next config
 // blank for purpose of security on github. actual api key should be stored locally on pc
 // DO NOT commit to remote branch with API key. Add only during local development
 const TMDB_API_KEY = '';
 
 
 // Passport Config
-require('../config/passport')(passport);
+require('./config/passport')(passport);
 
 // DB Config
-const db = require('../config/keys').mongoURI;
+const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose.connect(db, { useUnifiedTopology: true , useNewUrlParser: true })
@@ -38,37 +45,65 @@ app.set('layout', 'layout')             // hook up express layouts
 app.use(expressLayouts)                 // use the express layouts
 app.use(express.static('public'))       // tell where public files are like stylesheets and js files
 
+nextApp.prepare().then(() => {
+    // Express body parser
+    app.use(express.urlencoded({ extended: true }));
 
-// Express body parser
-app.use(express.urlencoded({ extended: true }));
+    // Express session
+    app.use(
+    session({
+        secret: 'secret',
+        resave: true,
+        saveUninitialized: true
+    })
+    );
 
-// Express session
-app.use(
-  session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-  })
-);
+    // Passport middleware
+    app.use(passport.initialize());
+    app.use(passport.session());
 
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+    // Connect flash
+    app.use(flash());
 
-// Connect flash
-app.use(flash());
+    // Global variables
+    app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+    });
 
-// Global variables
-app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
-});
+    // Routes
+    app.use('/auth', require('./routes/index.js'));
+    app.use('/users', require('./routes/users.js'));
 
-// Routes
-app.use('/', require('../routes/index.js'));
-app.use('/users', require('../routes/users.js'));
+    // createServer((req, res) => {
+    //     // Be sure to pass `true` as the second argument to `url.parse`.
+    //     // This tells it to parse the query portion of the URL.
+    //     const parsedUrl = parse(req.url, true)
+    //     const { pathname, query } = parsedUrl
+    
+    //     if (pathname === '') {
+    //       app.render(req, res, '/index', query)
+    //     } else if (pathname === '') {
+    //       app.render(req, res, '/index', query)
+    //     }
+    //     else if (pathname === '/auth') {
+    //         app.use('/auth', require('./routes/index.js'));
+    //     } else {
+    //       handle(req, res, parsedUrl)
+    //     }
+    //   }).listen(3000, err => {
+    //     if (err) throw err
+    //     console.log('> Ready on http://localhost:3000')
+    //   })
+    // for all the react stuff, that doesn't have preset express route
+    app.get('*', (req,res) => {
+        return handle(req,res) 
+    })
+})
+
+
 ///////////////////////////////////////////////////////////////////////////////
 app.use(cors());
 
