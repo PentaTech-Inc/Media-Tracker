@@ -22,19 +22,12 @@ const next = require('next')
 const dev = process.env.NODE_DEV !== 'production' //true false
 const nextApp = next({ dev })
 const handle = nextApp.getRequestHandler() //part of next config
-// blank for purpose of security on github. actual api key should be stored locally on pc
-// DO NOT commit to remote branch with API key. Add only during local development
-//const TMDB_API_KEY = '';
-const TMDB_API_KEY = process.env.MOVIEDB_KEY;
 
 // Passport Config
 require('./config/passport')(passport);
 
-// DB Config
-//const db = require('./config/keys').mongoURI;
-const db = process.env.MONGO_URL;
 // Connect to MongoDB
-mongoose.connect(db, { useUnifiedTopology: true , useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URL, { useUnifiedTopology: true , useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
@@ -74,9 +67,14 @@ nextApp.prepare().then(() => {
     });
 
     // Routes
+    app.use('/', require('./routes/index.js'));
     app.use('/auth', require('./routes/index.js'));
     app.use('/users', require('./routes/users.js'));
 
+    app.get('*', (req,res) => {
+        return handle(req,res) 
+    })
+    
     // createServer((req, res) => {
     //     // Be sure to pass `true` as the second argument to `url.parse`.
     //     // This tells it to parse the query portion of the URL.
@@ -98,9 +96,7 @@ nextApp.prepare().then(() => {
     //     console.log('> Ready on http://localhost:3000')
     //   })
     // for all the react stuff, that doesn't have preset express route
-    app.get('*', (req,res) => {
-        return handle(req,res) 
-    })
+
 })
 
 
@@ -117,7 +113,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 app.get('/search-title?:title', (req, res) => {
     const query = req.query.title; // save query params
 
-    axios.get('https://api.themoviedb.org/3/search/multi?api_key=' + TMDB_API_KEY + '&query=' + query + '&language=en-US&page=1&include_adult=false')
+    axios.get('https://api.themoviedb.org/3/search/multi?api_key=' + process.env.MOVIEDB_KEY + '&query=' + query + '&language=en-US&page=1&include_adult=false')
         .then(result => {
             // filter the results of the multi-search GET request
             const movies = result.data.results.filter(item => item.media_type === "movie");
