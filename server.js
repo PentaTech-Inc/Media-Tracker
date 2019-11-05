@@ -4,7 +4,7 @@
  * calling API's, updating the database, etc.
  * i.e. Things not involved with the frontend.
  */
-
+require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');

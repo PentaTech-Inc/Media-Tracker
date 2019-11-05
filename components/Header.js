@@ -33,7 +33,11 @@ const Header = () => {
             <Nav className="ml-auto">
                 <SearchBar />
             </Nav>
+<<<<<<< HEAD
             <a href="/auth" className="btn btn-outline-light btn-lg">Sign-up/Login</a>
+=======
+            <a href="../pages/auth.js" className="btn btn-outline-light btn-lg">Sign-up/Login</a>
+>>>>>>> b7288c06c160ffed4a4a08598027fb555e8322fa
         </NavBar>
     );
 };
