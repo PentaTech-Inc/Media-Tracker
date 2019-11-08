@@ -17,7 +17,7 @@ npm-install-missing
 6. Open another terminal in your project folder
 7. On one terminal run
 ```
-npm run dev
+npm run start
 ```
 8. On the other terminal run
 ```

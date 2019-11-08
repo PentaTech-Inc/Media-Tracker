@@ -6,10 +6,11 @@
  * {props.children} is to display all other components that inside Layout.
  */
 
+import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 import '../styles/index.css';
 
-import Footer from './Footer';
 
 const layoutStyle = {
     margin: 20,

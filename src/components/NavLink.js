@@ -1,8 +1,9 @@
 /** Component to help clean up links in NavBar 
- * @returns <Nav.Link> component with appropriate contextual data
+ * @returns <Nav> component with appropriate contextual data
 */
 
-import Nav from 'react-bootstrap/Nav';
+import React from 'react';
+import { Nav } from 'react-bootstrap';
 
 // easily apply CSS rules to components in JSON
 const linkStyle = {

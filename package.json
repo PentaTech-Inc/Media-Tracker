@@ -1,56 +1,50 @@
 {
-  "name": "Media-Tracker",
-  "version": "1.0.0",
-  "description": "An application that helps keep track of the shows and movies you watch, while also making it social! Participate in a forum for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.",
-  "main": "index.js",
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "devStart": "nodemon server.js"
-  },
-  "proxy": "http://localhost:5000",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pentatech-inc/Media-Tracker"
-  },
-  "keywords": [],
-  "author": "PentaTeck Inc. - Chy Lim, Fabian Flores, Jasmine Dao, Miguel Menjivar, Val Feist",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pentatech-inc/Media-Tracker/issues"
-  },
-  "homepage": "https://github.com/pentatech-inc/Media-Tracker#readme",
+  "name": "media-tracker",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.3.1",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "dotenv-webpack": "^1.7.0",
-    "ejs": "^2.7.1",
-    "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.0",
-    "mdbreact": "^4.21.0",
-    "mongoose": "^5.7.7",
-    "next": "^9.1.2",
-    "next-compose-plugins": "^2.2.0",
-    "next-fonts": "^0.18.0",
-    "next-images": "^1.2.0",
-    "npm-install-missing": "^0.1.4",
+    "hookrouter": "^1.2.3",
+    "mdbreact": "^4.22.0",
+    "mongoose": "^5.7.8",
     "nuka-carousel": "^4.5.12",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "react": "^16.9.0",
-    "react-bootstrap": "^1.0.0-beta.12",
-    "react-dom": "^16.9.0",
-    "react-icons": "^3.7.0"
+    "qs": "^6.9.0",
+    "react": "^16.11.0",
+    "react-bootstrap": "^1.0.0-beta.14",
+    "react-dom": "^16.11.0",
+    "react-icons": "^3.8.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0"
   },
-  "devDependencies": {
-    "file-loader": "^4.2.0",
-    "url-loader": "^2.1.0"
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "devStart": "nodemon server.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
