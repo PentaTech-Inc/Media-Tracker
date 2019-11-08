@@ -6,8 +6,10 @@
  */
 
 //  imports to make footer functional
-import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import React from 'react';
+import SearchBar from './SearchBar';
+import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
+import { Link } from 'react-router-dom';
 import 'mdbreact/dist/css/mdb.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,23 +19,31 @@ const Footer = () => {
     return (
 
         <MDBFooter color="blue" className="font-small pt-4 mt-4">
-            <MDBContainer fluid className="text-center text-md-left">
+            <MDBContainer fluid className="text-center text-md-center">
                 <MDBRow>
-                    <MDBCol className="text-center" md="6">
-                        <h5 className="title">PentaTech Inc</h5>
+                    <MDBCol md="4" className="text-center">
+                        <h5 className="title"><strong>Media Tracker</strong> by PentaTech Inc</h5>
                         <p>
-                            We can further explain what our website is about and how to learn
-                            more about it.
+                            <strong>Media Tracker</strong> is an application that helps you keep track of shows and movies you watch, while also making it social!
+                            Participate in forums for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.
                         </p>
                     </MDBCol>
-                    <MDBCol md="6" className="text-center">
-                        <h5 className="title">Links</h5>
+                    <MDBCol md="4" class="text-center">
+                        <h5 className="title"><strong>Quick Links</strong></h5>
                         <ul>
                             <li className="list-unstyled">
-                                <a href="#!">Link 1</a>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li className="list-unstyled">
+                                <Link to="/about">About</Link>
+                            </li>
+                            <li className="list-unstyled">
+                                <Link to="/login">Login</Link>
                             </li>
                         </ul>
-
+                    </MDBCol>
+                    <MDBCol md="4">
+                        <SearchBar />
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>

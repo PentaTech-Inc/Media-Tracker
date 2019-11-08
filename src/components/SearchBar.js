@@ -35,7 +35,7 @@ const SearchBar = props => {
     return (
         <div>
             <Form inline>
-                <FormControl size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2" />
+                <FormControl style={{width:164}} size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2 " />
                 <Button size='sm' variant={props.buttonStyle ? props.buttonStyle : 'light'} type='submit' onClick={handleSubmit}><FaSearch /></Button>
             </Form>
         </div>
