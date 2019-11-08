@@ -1,6 +1,5 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import '../styles/Login.css';
@@ -9,13 +8,27 @@ const Login = props => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    useEffect(() => {
+        fetch("http://localhost:5000/checkToken", { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    props.history.push('/');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error checking for valid token.');
+            });
+    }, []);
+
     function validateForm() {
         return email.length > 0 && password.length > 0;
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch("http://localhost:5000/api/auth?email=" + email + "&password=" + password)
+        fetch("http://localhost:5000/api/auth?email=" + email + "&password=" + password
+            , { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     props.history.push('/');
@@ -26,12 +39,12 @@ const Login = props => {
             })
             .catch(err => {
                 console.error(err);
-                alert('Error logging in please try again');
+                alert('Error logging in. Please try again.');
             });
     }
 
     return (
-        <Layout>
+        <div>
             <h1>Login</h1>
             <div className="Login">
                 <form onSubmit={handleSubmit}>
@@ -54,11 +67,11 @@ const Login = props => {
                     </FormGroup>
                     <Button block bsSize="large" disabled={!validateForm()} type="submit">
                         Login
-          </Button>
+                    </Button>
                 </form>
             </div>
-        </Layout>
+        </div>
     );
 };
 
-export default Login;
+export default withRouter(Login);
