@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/profile" component={Profile} />
           <Route path="/search" component={Search} />
           <Route path="/search?:title" component={Search} />
+          <Route path="/login" component={Login} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
