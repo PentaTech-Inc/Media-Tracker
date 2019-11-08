@@ -5,11 +5,14 @@
  * Will request search results from our server here.
  */
 
+import React from 'react';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
+import ResultCard from '../components/ResultCard';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
-import { useRouter } from 'next/router';
 import { searchByTitle } from '../utils/API';
+import { useState, useEffect } from 'react';
+import * as qs from 'qs';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -32,20 +35,53 @@ const tabsStyle = {
     padding: 5
 };
 
-const cardStyle = {
-    backgroundColor: 'lightgray',
-    borderRadius: 5,
-    padding: 5,
-    margin: 5
-};
-
-const itemStyle = {
-    margin: 0
-};
-
 const Search = props => {
-    const router = useRouter();
-    const results = (props.result !== null ? props.result : null); // save results of API call in getIntialProps
+    const query = qs.parse(props.location.search, {
+        ignoreQueryPrefix: true
+    });
+    let title = query.title;
+    const [results, setResults] = useState(null);
+
+    // const results = {
+    //     movies: [
+    //         {
+    //             title: "Joker",
+    //             release_date: "2019-10-04",
+    //             overview: "A crazy movie about the Joker"
+    //         },
+    //         {
+    //             title: "The Avengers: End Game",
+    //             release_date: "2019-05-10",
+    //             overview: "The last installment"
+    //         }
+    //     ],
+    //     shows: [
+    //         {
+    //             name: "The Office",
+    //             first_air_date: "2009-05-12",
+    //             overview: "A paper company is met with surprises every day by their crazy boss Michael Scott."
+    //         },
+    //         {
+    //             name: "Parks and Recreation",
+    //             first_air_date: "2011-07-19",
+    //             overview: "A day-to-day look at the Parks and Recreation department of local government."
+    //         }
+    //     ]
+    // };
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            let res;
+            console.log("Title: " + title);
+            if (typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
+                const res = await searchByTitle(title);
+                setResults(res.response);
+            } else {
+                setResults(null);
+            }
+        };
+        fetchResults();
+    }, [title]);
 
     return (
         <Layout>
@@ -62,20 +98,17 @@ const Search = props => {
                     {
                         // If no search was made, just '--domain--/search', omit search results section
                         results !== null ?
-                            <div>
+                            <Col style={colStyle}>
                                 <h5>Results for:</h5>
 
-                                <p>{`${router.query.title}`}</p>
+                                <p>{`${title}`}</p>
                                 <div style={resultsStyle}>
                                     <Tabs style={tabsStyle} defaultActiveKey="movies" id="results-tab">
                                         <Tab eventKey="movies" title="Movies">
                                             {
                                                 results.movies.map((item, index) => {
                                                     return (
-                                                        <div key={index} style={cardStyle}>
-                                                            <p style={itemStyle}><b>{index + 1}</b>) {item.title}</p>
-                                                            <p style={itemStyle}><i>{item.overview}</i></p>
-                                                        </div>
+                                                        <ResultCard key={index} title={item.title} overview={item.overview} release_date={item.release_date} />
                                                     );
                                                 })
                                             }
@@ -84,17 +117,14 @@ const Search = props => {
                                             {
                                                 results.shows.map((item, index) => {
                                                     return (
-                                                        <div key={index} style={cardStyle}>
-                                                            <p style={itemStyle}><b>{index + 1}</b>) {item.name}</p>
-                                                            <p style={itemStyle}><i>{item.overview}</i></p>
-                                                        </div>
+                                                        <ResultCard key={index} title={item.name} overview={item.overview} release_date={item.first_air_date} />
                                                     );
                                                 })
                                             }
                                         </Tab>
                                     </Tabs>
                                 </div>
-                            </div>
+                            </Col>
                             :
                             null
                     }
@@ -102,19 +132,6 @@ const Search = props => {
             </Container>
         </Layout>
     );
-};
-
-// possibly return query in return object to remove useRouter() dependency?
-Search.getInitialProps = async ({ req, query: { title } }) => {
-    // avoids unnecessary call to API if no query params were given
-    if (typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
-        const res = await searchByTitle(title);
-
-        // returns object with movie and tv show results (res.response.movies OR res.response.shows)
-        return { result: res.response }
-    } else {
-        return { result: null }
-    }
 };
 
 export default Search;

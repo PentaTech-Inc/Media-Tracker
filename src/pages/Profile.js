@@ -4,6 +4,7 @@
  * Lists a user's username and profile picture, favorite TV shows & movies, and other statistics
  */
 
+import React from 'react';
 import Layout from '../components/Layout';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -42,7 +43,7 @@ const profileCard = {
     borderStyle: 'solid',
     borderColor: '#d8d8d8',
     borderWidth: 2,
-    
+
 };
 
 const profileImg = {
@@ -130,17 +131,17 @@ const Profile = () => {
 
             <Tabs defaultActiveKey="statistics" id="tabs" style={tabs} className="nav-justified">
                 <Tab eventKey="statistics" title="Statistics" style={tab}>
-                    <div style={section}> 
+                    <div style={section}>
                         <p>Blah</p>
                     </div>
                 </Tab>
                 <Tab eventKey="favorites" title="Favorites" style={tab}>
-                    <div style={section}> 
+                    <div style={section}>
                         <p>Blah</p>
                     </div>
                 </Tab>
                 <Tab eventKey="friends" title="Friends" style={tab}>
-                    <div style={section}> 
+                    <div style={section}>
                         <p>Blah</p>
                     </div>
                 </Tab>

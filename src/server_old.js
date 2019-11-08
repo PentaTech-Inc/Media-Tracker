@@ -14,11 +14,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 const { createServer } = require('http')
 const { parse } = require('url')
-const next = require('next')
 const dev = process.env.NODE_DEV !== 'production' //true false
 const nextApp = next({ dev })
 const handle = nextApp.getRequestHandler() //part of next config
@@ -27,9 +26,9 @@ const handle = nextApp.getRequestHandler() //part of next config
 require('./config/passport')(passport);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL, { useUnifiedTopology: true , useNewUrlParser: true })
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+mongoose.connect(process.env.MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true })
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err));
 
 // set up EJS views
 app.set('view engine', 'ejs')
@@ -38,66 +37,65 @@ app.set('layout', 'layout')             // hook up express layouts
 app.use(expressLayouts)                 // use the express layouts
 app.use(express.static('public'))       // tell where public files are like stylesheets and js files
 
-nextApp.prepare().then(() => {
-    // Express body parser
-    app.use(express.urlencoded({ extended: true }));
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
 
-    // Express session
-    app.use(
+// Express session
+app.use(
     session({
         secret: 'secret',
         resave: true,
         saveUninitialized: true
     })
-    );
+);
 
-    // Passport middleware
-    app.use(passport.initialize());
-    app.use(passport.session());
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-    // Connect flash
-    app.use(flash());
+// Connect flash
+app.use(flash());
 
-    // Global variables
-    app.use(function(req, res, next) {
+// Global variables
+app.use(function (req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
-    next();
-    });
+    // next();
+});
 
-    // Routes
-    app.use('/', require('./routes/index.js'));
-    app.use('/auth', require('./routes/index.js'));
-    app.use('/users', require('./routes/users.js'));
+// Routes
+app.use('/', require('./routes/index.js'));
+app.use('/auth', require('./routes/index.js'));
+app.use('/users', require('./routes/users.js'));
 
-    app.get('*', (req,res) => {
-        return handle(req,res) 
-    })
-    
-    // createServer((req, res) => {
-    //     // Be sure to pass `true` as the second argument to `url.parse`.
-    //     // This tells it to parse the query portion of the URL.
-    //     const parsedUrl = parse(req.url, true)
-    //     const { pathname, query } = parsedUrl
-    
-    //     if (pathname === '') {
-    //       app.render(req, res, '/index', query)
-    //     } else if (pathname === '') {
-    //       app.render(req, res, '/index', query)
-    //     }
-    //     else if (pathname === '/auth') {
-    //         app.use('/auth', require('./routes/index.js'));
-    //     } else {
-    //       handle(req, res, parsedUrl)
-    //     }
-    //   }).listen(3000, err => {
-    //     if (err) throw err
-    //     console.log('> Ready on http://localhost:3000')
-    //   })
-    // for all the react stuff, that doesn't have preset express route
 
+app.get('*', (req, res) => {
+    return handle(req, res)
 })
+
+createServer((req, res) => {
+    // Be sure to pass `true` as the second argument to `url.parse`.
+    // This tells it to parse the query portion of the URL.
+    const parsedUrl = parse(req.url, true)
+    const { pathname, query } = parsedUrl
+
+    if (pathname === '') {
+        app.render(req, res, '/index', query)
+    } else if (pathname === '') {
+        app.render(req, res, '/index', query)
+    }
+    else if (pathname === '/auth') {
+        app.use('/auth', require('./routes/index.js'));
+    } else {
+        handle(req, res, parsedUrl)
+    }
+}).listen(3000, err => {
+    if (err) throw err
+    console.log('> Ready on http://localhost:3000')
+})
+// for all the react stuff, that doesn't have preset express route
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -106,7 +104,7 @@ app.use(cors());
 // report server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-/** 
+/**
  * Create GET route
  * @returns search result after calling both movie and show APIs
  */

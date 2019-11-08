@@ -1,5 +1,5 @@
 /**
- * Index
+ * Home
  * @summary The home page of our website.
  */
 

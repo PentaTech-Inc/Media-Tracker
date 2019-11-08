@@ -4,6 +4,7 @@
  * Describes what the service does and how it benefits users.
  */
 
+import React from 'react';
 import Layout from '../components/Layout';
 import pentatechLogo from '../assets/pentatech-logo.png';
 
@@ -44,7 +45,7 @@ const About = () => {
                 <h1 style={heading}>Media Tracker</h1>
                 <br />
                 <p style={paragraph}><strong>Media Tracker</strong> is an application that helps you keep track of your TV shows and movies while also connecting you with others who share the same interests. With Media Tracker, you can rate and organize your shows, keep track of trending series, and discuss your favorite media in forums while gaining titles, friends, and more! </p>
-                
+
                 <p style={paragraph}>Your input helps others discover your favorite shows and movies. Start contributing today and become a part of the Media Tracker community!
                 <br /><br />
                 </p>

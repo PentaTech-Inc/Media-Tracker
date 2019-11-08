@@ -2,14 +2,14 @@
  * SearchBar
  * @summary This component is the default search bar used to query for movies or shows.
  */
+import React from 'react';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
+import { withRouter } from 'react-router-dom';
 
 
 const SearchBar = props => {
-    const router = useRouter();
     const [input, setInput] = useState(''); // state of input in search bar
 
     // handles the changes in search bar's input field and updates the state of input var
@@ -24,10 +24,12 @@ const SearchBar = props => {
     */
     const handleSubmit = event => {
         event.preventDefault();
-        if (input === "")
-            router.push('/search');
-        else
-            router.push('/search?title=' + input.split(" ").join("\+"));
+        if (input === "") {
+            props.history.push("/search");
+        }
+        else {
+            props.history.push("search?title=" + input.split(" ").join("\+"))
+        }
     };
 
     return (
@@ -40,4 +42,4 @@ const SearchBar = props => {
     );
 };
 
-export default SearchBar;
+export default withRouter(SearchBar);

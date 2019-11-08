@@ -4,12 +4,11 @@
  * Contains site branding, page links, and a search bar.
  */
 
+import React from 'react';
 import SearchBar from './SearchBar';
-import NavBar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import NavLink from './NavLink';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Link from 'next/link';
 
 
 const brandStyle = {
@@ -21,20 +20,25 @@ const navListStyle = {
     flexDirection: 'row'
 };
 
+const linkStyle = {
+    marginRight: 15,
+    color: 'whitesmoke'
+};
+
 const Header = () => {
     return (
-        <NavBar bg="primary" expand="sm">
-            <NavBar.Brand href="/" style={brandStyle}>Media Tracker</NavBar.Brand>
+        <Navbar bg="primary" expand="sm">
+            <Navbar.Brand href="/" style={brandStyle}>Media Tracker</Navbar.Brand>
             <Nav style={navListStyle}>
-                <NavLink title="Home" />
-                <NavLink title="About" />
-                <NavLink title="Profile" />
+                <Nav.Link href="/" style={linkStyle}>Home</Nav.Link>
+                <Nav.Link href="/about" style={linkStyle}>About</Nav.Link>
+                <Nav.Link href="/profile" style={linkStyle}>Profile</Nav.Link>
             </Nav>
             <Nav className="ml-auto">
                 <SearchBar />
             </Nav>
             <a href="/auth" className="btn btn-outline-light btn-lg">Sign-up/Login</a>
-        </NavBar>
+        </Navbar>
     );
 };
 
