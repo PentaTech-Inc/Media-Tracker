@@ -39,14 +39,6 @@ mongoose
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
-app.get('/api/home', function (req, res) {
-    res.send('Welcome!');
-});
-
-app.get('/api/profile', withAuth, function (req, res) {
-    res.send('The password is potato');
-});
-
 // route to register a user
 app.get('/api/register', function (req, res) {
     const { username, email, password } = req.query;
@@ -56,7 +48,7 @@ app.get('/api/register', function (req, res) {
             res.status(500)
                 .send("Error registering new user please try again.");
         } else {
-            res.status(200).send("Welcome to the club!");
+            res.status(200).send("Welcome!");
         }
     });
 });
@@ -104,7 +96,32 @@ app.get('/api/auth', function (req, res) {
 
 /** Simply check if valid token is saved in browser cookies */
 app.get('/checkToken', withAuth, function (req, res) {
-    res.sendStatus(200);
+    res.send(200);
+});
+
+app.get('/getUserDetails', withAuth, function (req, res) {
+    const token =
+        req.query.token ||
+        req.headers['x-access-token'] ||
+        req.cookies.token;
+    if (!token) {
+        res.status(401).send('Unauthorized: No token provided');
+    } else {
+        jwt.verify(token, secret, function (err, decoded) {
+            if (err) {
+                res.status(401).send('Unauthorized: Invalid token');
+            } else {
+                req.email = decoded.email;
+                // omit _id, password, and __v fields from result
+                User.findOne({ email: req.email }, { _id: 0, password: 0, __v: 0 }, (err, user) => {
+                    if (err) {
+                        res.status(401).send('Invalid email: Query unsuccessful');
+                    }
+                    res.status(200).send(user);
+                });
+            }
+        });
+    }
 });
 
 /**

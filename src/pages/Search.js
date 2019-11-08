@@ -72,7 +72,6 @@ const Search = props => {
     useEffect(() => {
         const fetchResults = async () => {
             let res;
-            console.log("Title: " + title);
             if (typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
                 const res = await searchByTitle(title);
                 setResults(res.response);
@@ -84,7 +83,7 @@ const Search = props => {
     }, [title]);
 
     return (
-        <Layout>
+        <div>
             <Container fluid>
                 <Row style={rowStyle}>
                     <Col style={colStyle}><h1>Search</h1></Col>
@@ -130,7 +129,7 @@ const Search = props => {
                     }
                 </Row>
             </Container>
-        </Layout>
+        </div>
     );
 };
 

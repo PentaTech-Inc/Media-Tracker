@@ -5,12 +5,11 @@
  */
 
 import React from 'react';
-import Layout from '../components/Layout';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { FaUserPlus } from 'react-icons/fa';
 import { FaCommentDots } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rowStyle = {
     textAlign: 'center',
@@ -99,15 +98,32 @@ import { FaBeer } from 'react-icons/fa';
 */
 
 const Profile = () => {
+    const [details, setDetails] = useState({ data: {} });
+
+    useEffect(() => {
+        fetch("http://localhost:5000/getUserDetails", { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+            }).then(data => {
+                setDetails({ data: data });
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error checking for valid token.');
+            });
+
+    }, []);
 
     return (
-        <Layout fluid={true}>
+        <div fluid>
             <Row style={rowStyle}>
                 <Col style={colStyle}>
                     <div style={profileCard}>
-                        <img src="" alt="profile picture" style={profileImg} />
+                        <img src="" alt="profile" style={profileImg} />
                         <br />
-                        <h3 style={username}>Username</h3>
+                        <h3 style={username}>{details.data.username}</h3>
 
                         <Row style={alignCenter}>
                             <Col>
@@ -147,7 +163,7 @@ const Profile = () => {
                 </Tab>
             </Tabs>
 
-        </Layout>
+        </div>
     );
 };
 
