@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
-import '../styles/Login.css';
+import '../styles/Register.css';
 
-const Login = props => {
+const Register = props => {
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     useEffect(() => {
         // if logged in redirect to profile
@@ -25,16 +27,30 @@ const Login = props => {
     }, []);
 
     function validateForm() {
-        return email.length > 0 && password.length > 0;
+        return username.length > 0 && email.length > 0
+            && password.length > 0 && (password === confirmPassword);
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch("http://localhost:5000/api/auth?email=" + email + "&password=" + password
+        fetch("http://localhost:5000/api/register?username=" + username + "&email=" + email + "&password=" + password
             , { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
-                    props.history.push('/');
+                    alert("Registration successful. Welcome!");
+                    fetch("http://localhost:5000/api/auth?email=" + email + "&password=" + password
+                        , { credentials: 'include' })
+                        .then(res => {
+                            if (res.status === 200) {
+                                props.history.push('/profile');
+                            } else {
+                                const error = new Error(res.error);
+                                throw error;
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
                 } else {
                     const error = new Error(res.error);
                     throw error;
@@ -42,19 +58,27 @@ const Login = props => {
             })
             .catch(err => {
                 console.error(err);
-                alert('Error logging in. Please try again.');
+                alert('Error registering. Please try again.');
             });
     }
 
     return (
         <Layout>
-            <h1>Login</h1>
-            <div className="Login">
+            <h1>Register</h1>
+            <div className="Register">
                 <form onSubmit={handleSubmit}>
+                    <FormGroup controlId="username" bsSize="large">
+                        <Form.Label>Username</Form.Label>
+                        <FormControl
+                            autoFocus
+                            type="username"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </FormGroup>
                     <FormGroup controlId="email" bsSize="large">
                         <Form.Label>Email</Form.Label>
                         <FormControl
-                            autoFocus
                             type="email"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
@@ -68,8 +92,16 @@ const Login = props => {
                             type="password"
                         />
                     </FormGroup>
+                    <FormGroup controlId="confirmPassword" bsSize="large">
+                        <Form.Label>Confirm password</Form.Label>
+                        <FormControl
+                            value={confirmPassword}
+                            onChange={e => setConfirmPassword(e.target.value)}
+                            type="password"
+                        />
+                    </FormGroup>
                     <Button block bsSize="large" disabled={!validateForm()} type="submit">
-                        Login
+                        Register
                     </Button>
                 </form>
             </div>
@@ -77,4 +109,4 @@ const Login = props => {
     );
 };
 
-export default withRouter(Login);
+export default withRouter(Register);

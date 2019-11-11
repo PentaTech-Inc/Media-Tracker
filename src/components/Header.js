@@ -5,6 +5,8 @@
  */
 
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,6 +29,8 @@ const linkStyleLogin = {
     backgroundColor: 'whitesmoke',
     color: '#4688F1',
     fontWeight: 'bold',
+    marginRight: 0,
+    marginLeft: 0
 };
 
 const logoStyle = {
@@ -34,7 +38,45 @@ const logoStyle = {
     height: 40
 };
 
-const Header = () => {
+const Header = props => {
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [details, setDetails] = useState({ data: {} });
+    const [username, setUsername] = useState("");
+
+    useEffect(() => {
+        // if logged in redirect to profile
+        fetch("http://localhost:5000/getUserDetails", { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    setLoggedIn(true);
+                    return res.json();
+                }
+            }).then(data => {
+                setUsername(data.username);
+            })
+            .catch(err => {
+                // user not logged in, or error
+            });
+    }, [loggedIn]);
+
+    const handleLogout = event => {
+        event.preventDefault();
+        fetch("http://localhost:5000/logout"
+            , { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    props.history.push('/login');
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error logging out. Please try again.');
+            });
+    }
+
     return (
         <Navbar bg="primary" expand="lg">
             <Navbar.Brand href="/" style={brandStyle}>
@@ -46,13 +88,27 @@ const Header = () => {
                 <Nav className="mr-auto">
                     <Nav.Link href="/" style={linkStyle}>Home</Nav.Link>
                     <Nav.Link href="/about" style={linkStyle}>About</Nav.Link>
-                    <Nav.Link href="/profile" style={linkStyle}>Profile</Nav.Link>
+                    {loggedIn ?
+                        <Nav.Link href={"/profile/" + username} style={linkStyle}>Profile</Nav.Link>
+                        :
+                        null
+                    }
                 </Nav>
                 <SearchBar className="mr-sm-2" />
-                <Nav.Link href="/login"><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
+                {
+                    !loggedIn ?
+                        (
+                            <Nav>
+                                <Nav.Link href="/login"><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
+                                <Nav.Link href="/register"><Button style={linkStyleLogin} size="sm" variant="none">Register</Button></Nav.Link>
+                            </Nav>
+                        )
+                        :
+                        <Nav.Link href=""><Button onClick={handleLogout} style={linkStyleLogin} size="sm" variant="none">Logout</Button></Nav.Link>
+                }
             </Navbar.Collapse>
         </Navbar>
     );
 };
 
-export default Header;
+export default withRouter(Header);

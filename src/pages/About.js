@@ -39,7 +39,7 @@ const logo = {
 const About = () => {
 
     return (
-        <div>
+        <Layout>
             <div style={body}>
                 <br />
                 <h1 style={heading}>Media Tracker</h1>
@@ -53,7 +53,7 @@ const About = () => {
                 <br />
                 <img src={pentatechLogo} alt="pentatech logo" style={logo} />
             </div>
-        </div>
+        </Layout>
     );
 };
 

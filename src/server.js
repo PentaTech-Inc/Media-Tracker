@@ -94,8 +94,14 @@ app.get('/api/auth', function (req, res) {
     });
 });
 
-/** Simply check if valid token is saved in browser cookies */
-app.get('/checkToken', withAuth, function (req, res) {
+/** Check if valid token is saved in browser cookies */
+app.get('/checkToken', withAuth, (req, res) => {
+    res.send(200);
+});
+
+/** Logout user */
+app.get('/logout', withAuth, (req, res) => {
+    res.clearCookie('token');
     res.send(200);
 });
 

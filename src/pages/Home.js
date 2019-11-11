@@ -29,7 +29,7 @@ const rowStyle = {
 const Home = props => {
 
     return (
-        <div>
+        <Layout>
             <Container fluid={true} style={containerStyle}>
                 <Row style={rowStyle}>
                     <Col><h1>Home</h1></Col>
@@ -55,7 +55,7 @@ const Home = props => {
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </Layout>
     );
 };
 

@@ -6,9 +6,10 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col, Tabs, Tab } from 'react-bootstrap';
 import { FaUserPlus } from 'react-icons/fa';
 import { FaCommentDots } from 'react-icons/fa';
+import Layout from '../components/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rowStyle = {
@@ -117,53 +118,54 @@ const Profile = () => {
     }, []);
 
     return (
-        <div fluid>
-            <Row style={rowStyle}>
-                <Col style={colStyle}>
-                    <div style={profileCard}>
-                        <img src="" alt="profile" style={profileImg} />
-                        <br />
-                        <h3 style={username}>{details.data.username}</h3>
+        <Layout>
+            <div fluid>
+                <Row style={rowStyle}>
+                    <Col style={colStyle}>
+                        <div style={profileCard}>
+                            <img src="" alt="profile" style={profileImg} />
+                            <br />
+                            <h3 style={username}>{details.data.username}</h3>
 
-                        <Row style={alignCenter}>
-                            <Col>
-                                <a href=""><FaUserPlus style={icon} size="xs" /><br /><small>Add User</small></a>
-                            </Col>
-                            <Col>
-                                <a href=""><FaCommentDots style={icon} size="xs" /><br /><small>Message</small></a>
-                            </Col>
-                        </Row>
-                        <br />
-                    </div>
-                </Col>
+                            <Row style={alignCenter}>
+                                <Col>
+                                    <a href=""><FaUserPlus style={icon} size="xs" /><br /><small>Add User</small></a>
+                                </Col>
+                                <Col>
+                                    <a href=""><FaCommentDots style={icon} size="xs" /><br /><small>Message</small></a>
+                                </Col>
+                            </Row>
+                            <br />
+                        </div>
+                    </Col>
 
-                <Col style={colStyle}>
-                    <div>
-                        <h3 style={underline}>Latest Updates</h3>
+                    <Col style={colStyle}>
+                        <div>
+                            <h3 style={underline}>Latest Updates</h3>
 
-                    </div>
-                </Col>
-            </Row>
+                        </div>
+                    </Col>
+                </Row>
 
-            <Tabs defaultActiveKey="statistics" id="tabs" style={tabs} className="nav-justified">
-                <Tab eventKey="statistics" title="Statistics" style={tab}>
-                    <div style={section}>
-                        <p>Blah</p>
-                    </div>
-                </Tab>
-                <Tab eventKey="favorites" title="Favorites" style={tab}>
-                    <div style={section}>
-                        <p>Blah</p>
-                    </div>
-                </Tab>
-                <Tab eventKey="friends" title="Friends" style={tab}>
-                    <div style={section}>
-                        <p>Blah</p>
-                    </div>
-                </Tab>
-            </Tabs>
-
-        </div>
+                <Tabs defaultActiveKey="statistics" id="tabs" style={tabs} className="nav-justified">
+                    <Tab eventKey="statistics" title="Statistics" style={tab}>
+                        <div style={section}>
+                            <p>Blah</p>
+                        </div>
+                    </Tab>
+                    <Tab eventKey="favorites" title="Favorites" style={tab}>
+                        <div style={section}>
+                            <p>Blah</p>
+                        </div>
+                    </Tab>
+                    <Tab eventKey="friends" title="Friends" style={tab}>
+                        <div style={section}>
+                            <p>Blah</p>
+                        </div>
+                    </Tab>
+                </Tabs>
+            </div>
+        </Layout>
     );
 };
 
