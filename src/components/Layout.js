@@ -13,9 +13,11 @@ import '../styles/index.css';
 
 
 const layoutStyle = {
+    backgroundColor: 'whitesmoke',
     margin: 20,
     padding: 20,
-    border: '1px solid #DDD'
+    border: '1px solid #DDD',
+    borderRadius: 5
 };
 
 /**
