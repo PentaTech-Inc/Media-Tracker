@@ -1,9 +1,27 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 
+const cardStyle = {
+    backgroundColor: '#212121'
+};
+
+const cardHeaderStyle = {
+    backgroundColor: 'whitesmoke'
+};
+
 const cardImageStyle = {
     width: 185,
     height: 278,
+};
+
+const cardTitleStyle = {
+    color: 'whitesmoke',
+    height: '4rem'
+};
+
+const cardTextStyle = {
+    color: 'lightgrey',
+    height: '3rem'
 };
 
 const ResultCard = props => {
@@ -22,16 +40,18 @@ const ResultCard = props => {
     const posterBaseURL = "http://image.tmdb.org/t/p/w185_and_h278_bestv2/"
 
     return (
-        <Card style={{ width: '18rem' }} className="text-center">
-            <Card.Header>
+        <Card style={cardStyle} className="text-center">
+            <Card.Header style={cardHeaderStyle}>
                 <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
             </Card.Header>
             <Card.Body>
-                <Card.Title>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
-                <Card.Text>
-                    <i>{overview}</i>
+                <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                <Card.Text style={cardTextStyle}>
+                    <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                 </Card.Text>
-                <Button variant="primary">Add to list</Button>
+                <Card.Footer>
+                    <Button>Add to list</Button>
+                </Card.Footer>
             </Card.Body>
         </Card>
     );

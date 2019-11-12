@@ -27,7 +27,18 @@ const colStyle = {
 };
 
 const tabsStyle = {
-    padding: 5
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingBottom: 0,
+    borderRadius: 5,
+    borderLeft: '1px solid #4688F1',
+    borderRight: '1px solid #4688F1',
+    borderTop: '1px solid #4688F1'
+};
+
+const tabStyle = {
+    // for possible future styling
 };
 
 const Search = props => {
@@ -54,13 +65,13 @@ const Search = props => {
     //         {
     //             title: "Avengers: Infinity War",
     //             release_date: "2019-10-04",
-    //             overview: "One of the Marvel Avengers movies.",
+    //             overview: "One of the Marvelfopk14fpok4qpofkqp,lwe,clp,plfm4rfomkg4lwfm4,[qowq,cpq4,pokfopqf[pc,2pd,2p3ro4kopfk[prqo,4po[p13po[ktok3opk[4po3kfp[3,dq]]]]]]] Avengers movies.",
     //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
     //         },
     //         {
     //             title: "The Avengers: End Game",
     //             release_date: "2019-05-10",
-    //             overview: "The first of Marvel's Avengers movies.",
+    //             overview: "The first of Marvel's Avengerfpo234kfpo3k4qoprw[fd,3,r,2o3f[pd4f43fs movies.",
     //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
     //         },
     //         {
@@ -72,7 +83,7 @@ const Search = props => {
     //         {
     //             title: "The Avengers: End Game",
     //             release_date: "2019-05-10",
-    //             overview: "The first of Marvel's Avengers movies.",
+    //             overview: "The first of M[g5lropcaldp[cwfqkopkvewp[dmoifjo14[3jfkod43ij[po1kd,1omkregqkovckq,[fom4po3[kfp4,co,2[pqdok23kropgk1plq,wlpc,pdarvel's Avengers movies.",
     //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
     //         }
     //     ],
@@ -80,7 +91,7 @@ const Search = props => {
     //         {
     //             name: "The Office",
     //             first_air_date: "2009-05-12",
-    //             overview: "A paper company is met with surprises every day by their crazy boss Michael Scott.",
+    //             overview: "A paper company is met with surprises every day by their crazyfopkqrpgqkpo43kpf,cpmpo34mgqpokfpoq,o3rkopkgpokq4owfmpmc,q boss Michael Scott.",
     //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
     //         },
     //         {
@@ -98,7 +109,7 @@ const Search = props => {
     //         {
     //             name: "Parks and Recreation",
     //             first_air_date: "2011-07-19",
-    //             overview: "A day-to-day look at the Parks and Recreation department of local government.",
+    //             overview: "A day-to-day look at the Parks and Recreation department of local government.mrqgeokrmgkmwerlgmkwremglwkermgklemclqwecpworfkorvwmbpc;kmlq;wemfeiofmiqeg",
     //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
     //         },
     //         {
@@ -146,30 +157,36 @@ const Search = props => {
                             <Col style={colStyle}>
                                 <h5>Results for:</h5>
 
-                                <p>{`${title}`}</p>
+                                <p>{title}</p>
                                 <div>
                                     <Tabs style={tabsStyle} defaultActiveKey="movies" id="results-tab">
-                                        <Tab eventKey="movies" title="Movies">
-                                            <CardColumns className="card-columns">
-                                                {
-                                                    results.movies.map((item, index) => {
+                                        <Tab stlye={tabStyle} eventKey="movies" title="Movies">
+                                            {results.movies.length > 0 ?
+                                                <CardColumns className="card-columns text-center">
+                                                    {results.movies.map((item, index) => {
                                                         return (
                                                             <ResultCard key={index} title={item.title} overview={item.overview} release_date={item.release_date} poster={item.poster_path} />
                                                         );
                                                     })
-                                                }
-                                            </CardColumns>
+                                                    }
+                                                </CardColumns>
+                                                :
+                                                <p>No results</p>
+                                            }
                                         </Tab>
-                                        <Tab eventKey="shows" title="Shows">
-                                            <CardColumns className="card-columns">
-                                                {
-                                                    results.shows.map((item, index) => {
+                                        <Tab style={tabStyle} eventKey="shows" title="Shows">
+                                            {results.shows.length > 0 ?
+                                                <CardColumns className="card-columns text-center">
+                                                    {results.shows.map((item, index) => {
                                                         return (
                                                             <ResultCard key={index} title={item.name} overview={item.overview} release_date={item.first_air_date} poster={item.poster_path} />
                                                         );
                                                     })
-                                                }
-                                            </CardColumns>
+                                                    }
+                                                </CardColumns>
+                                                :
+                                                <p>No results</p>
+                                            }
                                         </Tab>
                                     </Tabs>
                                 </div>
