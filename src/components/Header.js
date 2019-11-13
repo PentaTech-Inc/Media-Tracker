@@ -51,7 +51,7 @@ const Header = props => {
 
     useEffect(() => {
         // if logged in redirect to profile
-        fetch("http://localhost:5000/api/getUserDetails", { credentials: 'include' })
+        fetch("/api/getUserDetails", { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     setLoggedIn(true);
@@ -67,7 +67,7 @@ const Header = props => {
 
     const handleLogout = event => {
         event.preventDefault();
-        fetch("http://localhost:5000/api/logout"
+        fetch("/api/logout"
             , { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {

@@ -12,7 +12,7 @@ import axios from 'axios';
  */
 export const searchByTitle = async (title) => {
     try {
-        const res = await axios.get('http://localhost:5000/search-title?title=' + title);
+        const res = await axios.get('/search-title?title=' + title);
         return { response: res.data.results }
     } catch (error) {
         return { response: null }

@@ -11,7 +11,7 @@ const Login = props => {
 
     useEffect(() => {
         // if logged in redirect to profile
-        fetch("http://localhost:5000/api/getUserDetails", { credentials: 'include' })
+        fetch("/api/getUserDetails", { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -30,7 +30,7 @@ const Login = props => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch("http://localhost:5000/api/auth?email=" + email + "&password=" + password
+        fetch("/api/auth?email=" + email + "&password=" + password
             , { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
@@ -48,7 +48,7 @@ const Login = props => {
 
     return (
         <Layout>
-            <h1>Login</h1>
+            <h1 style={{ borderBottom: '1px solid black' }}>Login</h1>
             <div className="Login">
                 <form onSubmit={handleSubmit}>
                     <FormGroup controlId="email" bsSize="large">

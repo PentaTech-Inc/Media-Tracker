@@ -146,7 +146,7 @@ const Search = props => {
         <Layout>
             <Container>
                 <Row style={rowStyle}>
-                    <Col style={colStyle}><h1>Search</h1></Col>
+                    <Col style={colStyle}><h1 style={{ borderBottom: '1px solid black' }}>Search</h1></Col>
                 </Row>
                 <br />
                 <Row>
@@ -198,7 +198,7 @@ const Search = props => {
                             <div>
                                 <h5>Search movies or TV shows!</h5>
                                 <p>Add titles to your lists to keep track of what you've watched!</p>
-                                <p>Powered by <a href="https://www.themoviedb.org" target="_blank">TMDb</a></p>
+                                <p>Powered by <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDb</a>.</p>
                             </div>
                     }
                 </Row>

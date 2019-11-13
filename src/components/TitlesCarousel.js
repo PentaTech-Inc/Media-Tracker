@@ -18,7 +18,7 @@ const carouselStyle = {
 const TitlesCarousel = props => {
     // eslint-disable-next-line no-labels
     // eslint-disable-next-line no-unused-expressions
-    mixins: [Carousel.ControllerMixin];
+    //mixins: [Carousel.ControllerMixin];
     return (
         <div>
             <h5>{props.title}</h5>
@@ -29,12 +29,12 @@ const TitlesCarousel = props => {
                     renderCenterRightControls={({ nextSlide }) => (
                         <button onClick={nextSlide}>&gt;</button>)}
                     renderBottomCenterControls={({ pagingDots }) => (<></>)}>
-                    <img src={theOfficeCover} />
-                    <img src={parksAndRecCover} />
-                    <img src={gotCover} />
-                    <img src={theOfficeCover} />
-                    <img src={parksAndRecCover} />
-                    <img src={gotCover} />
+                    <img src={theOfficeCover} alt="" />
+                    <img src={parksAndRecCover} alt="" />
+                    <img src={gotCover} alt="" />
+                    <img src={theOfficeCover} alt="" />
+                    <img src={parksAndRecCover} alt="" />
+                    <img src={gotCover} alt="" />
                 </Carousel>
             </div>
         </div>

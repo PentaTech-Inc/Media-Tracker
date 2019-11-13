@@ -28,7 +28,7 @@ const SearchBar = props => {
             props.history.push("/search");
         }
         else {
-            props.history.push("search?title=" + escape(input).split("%20").join("\+"))
+            props.history.push("/search?title=" + escape(input).split("%20").join("\+"))
         }
     };
 

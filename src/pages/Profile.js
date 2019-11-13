@@ -7,8 +7,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Row, Col, Tabs, Tab } from 'react-bootstrap';
-import { FaUserPlus } from 'react-icons/fa';
-import { FaCommentDots } from 'react-icons/fa';
+import { FaUserPlus, FaCommentDots, FaCalendar } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -89,20 +88,11 @@ const section = {
 };
 
 
-/*
-Install FontAwesome icons:
-npm install react-icons --save
-
-Usage: 
-import { FaBeer } from 'react-icons/fa';
-<FaBeer /> 
-*/
-
 const Profile = () => {
     const [details, setDetails] = useState({ data: {} });
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/getUserDetails", { credentials: 'include' })
+        fetch("/api/getUserDetails", { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -117,14 +107,17 @@ const Profile = () => {
 
     }, []);
 
+    let date = details.data.dateJoined + ""; // make string
+    date = date.substring(4, 7) + " " + date.substring(11, 15);
     return (
         <Layout>
-            <div fluid={true}>
+            <h1 style={{ borderBottom: '1px solid black' }}>{details.data.username}</h1>
+            <div className="fluid">
                 <Row style={rowStyle}>
                     <Col md={6} lg={4}>
                         <img src={details.data.avatar} alt="profile" style={profileImg} />
                         <br />
-                        <h3 style={username}>{details.data.username}</h3>
+                        <h5 style={username}><FaCalendar /> Joined {date}</h5>
                     </Col>
 
                     <Col md={6} lg={8}>
