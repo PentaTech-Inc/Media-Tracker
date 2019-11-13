@@ -10,18 +10,18 @@ const cardHeaderStyle = {
 };
 
 const cardImageStyle = {
-    width: 185,
-    height: 278,
+    width: '185px',
+    height: '278px',
 };
 
 const cardTitleStyle = {
     color: 'whitesmoke',
-    height: '4rem'
+    height: '65px'
 };
 
 const cardTextStyle = {
     color: 'lightgrey',
-    height: '3rem'
+    height: '40px'
 };
 
 const ResultCard = props => {
@@ -40,7 +40,7 @@ const ResultCard = props => {
     const posterBaseURL = "http://image.tmdb.org/t/p/w185_and_h278_bestv2/"
 
     return (
-        <Card style={cardStyle} className="text-center">
+        <Card style={cardStyle} className="card text-center">
             <Card.Header style={cardHeaderStyle}>
                 <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
             </Card.Header>

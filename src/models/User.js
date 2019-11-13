@@ -6,7 +6,12 @@ const saltRounds = 10;
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  dateJoined: { type: String, required: true },
+  avatar: { type: String, default: 'https://i.imgur.com/tZXYBtb.png' },
+  movies: [{ type: String }],
+  shows: [{ type: String }],
+  comments: [{ type: String }]
 });
 
 /** Password hashing with bcrpyt middleware */
@@ -38,6 +43,7 @@ UserSchema.methods.isCorrectPassword = function (password, callback) {
       callback(err, same);
     }
   });
-}
+};
+
 
 module.exports = mongoose.model('User', UserSchema);

@@ -42,7 +42,8 @@ mongoose
 // route to register a user
 app.get('/api/register', function (req, res) {
     const { username, email, password } = req.query;
-    const user = new User({ username, email, password });
+    const dateJoined = new Date();
+    const user = new User({ username, email, password, dateJoined });
     user.save(function (err) {
         if (err) {
             res.status(500)
@@ -95,17 +96,17 @@ app.get('/api/auth', function (req, res) {
 });
 
 /** Check if valid token is saved in browser cookies */
-app.get('/checkToken', withAuth, (req, res) => {
+app.get('/api/checkToken', withAuth, (req, res) => {
     res.send(200);
 });
 
 /** Logout user */
-app.get('/logout', withAuth, (req, res) => {
+app.get('/api/logout', withAuth, (req, res) => {
     res.clearCookie('token');
     res.send(200);
 });
 
-app.get('/getUserDetails', withAuth, function (req, res) {
+app.get('/api/getUserDetails', withAuth, function (req, res) {
     const token =
         req.query.token ||
         req.headers['x-access-token'] ||
@@ -113,7 +114,7 @@ app.get('/getUserDetails', withAuth, function (req, res) {
     if (!token) {
         res.status(401).send('Unauthorized: No token provided');
     } else {
-        jwt.verify(token, secret, function (err, decoded) {
+        jwt.verify(token, secret, (err, decoded) => {
             if (err) {
                 res.status(401).send('Unauthorized: Invalid token');
             } else {
@@ -124,6 +125,31 @@ app.get('/getUserDetails', withAuth, function (req, res) {
                         res.status(401).send('Invalid email: Query unsuccessful');
                     }
                     res.status(200).send(user);
+                });
+            }
+        });
+    }
+});
+
+app.get('/api/settings', withAuth, (req, res) => {
+    const { avatarURL } = req.query;
+    const token =
+        req.query.token ||
+        req.headers['x-access-token'] ||
+        req.cookies.token;
+    if (!token) {
+        res.status(401).send('Unauthorized: No token provided');
+    } else {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                res.status(401).send('Unauthorized: Invalid token');
+            } else {
+                req.email = decoded.email;
+                User.findOneAndUpdate({ email: req.email }, { $set: { avatar: 'https://i.imgur.com/' + avatarURL } }, (err, avatarURL) => {
+                    if (err) {
+                        res.status(401).send('Invalid email: Update unsuccessful');
+                    }
+                    res.status(200).send(avatarURL);
                 });
             }
         });
