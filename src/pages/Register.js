@@ -13,7 +13,7 @@ const Register = props => {
 
     useEffect(() => {
         // if logged in redirect to profile
-        fetch("http://localhost:5000/getUserDetails", { credentials: 'include' })
+        fetch("http://localhost:5000/api/getUserDetails", { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -42,7 +42,7 @@ const Register = props => {
                         , { credentials: 'include' })
                         .then(res => {
                             if (res.status === 200) {
-                                props.history.push('/profile');
+                                props.history.push('/profile/' + username);
                             } else {
                                 const error = new Error(res.error);
                                 throw error;

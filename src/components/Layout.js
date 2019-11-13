@@ -17,7 +17,8 @@ const layoutStyle = {
     margin: 20,
     padding: 20,
     border: '1px solid #DDD',
-    borderRadius: 5
+    borderRadius: 5,
+    minHeight: '45vh'
 };
 
 /**

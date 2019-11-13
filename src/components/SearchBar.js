@@ -28,14 +28,14 @@ const SearchBar = props => {
             props.history.push("/search");
         }
         else {
-            props.history.push("search?title=" + input.split(" ").join("\+"))
+            props.history.push("search?title=" + escape(input).split("%20").join("\+"))
         }
     };
 
     return (
         <div>
-            <Form inline>
-                <FormControl style={{width:164}} size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2 " />
+            <Form style={{ marginRight: 5 }} inline>
+                <FormControl style={{ width: 164 }} size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2 " />
                 <Button size='sm' variant={props.buttonStyle ? props.buttonStyle : 'light'} type='submit' onClick={handleSubmit}><FaSearch /></Button>
             </Form>
         </div>

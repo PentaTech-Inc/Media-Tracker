@@ -95,17 +95,17 @@ app.get('/api/auth', function (req, res) {
 });
 
 /** Check if valid token is saved in browser cookies */
-app.get('/checkToken', withAuth, (req, res) => {
+app.get('/api/checkToken', withAuth, (req, res) => {
     res.send(200);
 });
 
 /** Logout user */
-app.get('/logout', withAuth, (req, res) => {
+app.get('/api/logout', withAuth, (req, res) => {
     res.clearCookie('token');
     res.send(200);
 });
 
-app.get('/getUserDetails', withAuth, function (req, res) {
+app.get('/api/getUserDetails', withAuth, function (req, res) {
     const token =
         req.query.token ||
         req.headers['x-access-token'] ||

@@ -46,7 +46,10 @@ const Search = props => {
     const query = qs.parse(props.location.search, {
         ignoreQueryPrefix: true
     });
-    let title = query.title;
+    let title = null;
+    if (query.title)
+        title = query.title.replace("&", "");
+
 
     // const results = {
     //     movies: [
@@ -129,7 +132,7 @@ const Search = props => {
 
     useEffect(() => {
         const fetchResults = async () => {
-            if (typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
+            if (title && typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
                 const res = await searchByTitle(title);
                 setResults(res.response);
             } else {
@@ -192,7 +195,11 @@ const Search = props => {
                                 </div>
                             </Col>
                             :
-                            null
+                            <div>
+                                <h5>Search movies or TV shows!</h5>
+                                <p>Add titles to your lists to keep track of what you've watched!</p>
+                                <p>Powered by <a href="https://www.themoviedb.org" target="_blank">TMDb</a></p>
+                            </div>
                     }
                 </Row>
             </Container>
