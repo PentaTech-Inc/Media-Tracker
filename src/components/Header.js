@@ -13,57 +13,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import mediaTrackerLogo from '../assets/MediaTrackerLogoDark.png';
 
 
-const brandStyle = {
-    color: 'whitesmoke',
-    fontWeight: 'bold'
-};
-
-const linkStyle = {
-    marginRight: 15,
-    color: 'whitesmoke'
-};
-
-const linkStyleLogin = {
-    border: "1px solid whitesmoke",
-    borderRadius: 5,
-    backgroundColor: 'whitesmoke',
-    color: '#4688F1',
-    fontWeight: 'bold',
-    marginRight: 0,
-    marginLeft: 0
-};
-
-const logoStyle = {
-    width: 40,
-    height: 40
-};
-
-const navDropdownStyle = {
-    padding: 0,
-    backgroundColor: 'whitesmoke',
-    borderRadius: 5,
-    maxWidth: 'fit-content',
-};
-
 const Header = props => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
 
-    useEffect(() => {
-        // if logged in redirect to profile
-        fetch("/api/getUserDetails", { credentials: 'include' })
-            .then(res => {
-                if (res.status === 200) {
-                    setLoggedIn(true);
-                    return res.json();
-                }
-            }).then(data => {
-                setUsername(data.username);
-            })
-            .catch(err => {
-                // user not logged in, or error
-            });
-    }, [loggedIn]);
+    // if logged in redirect to profile
+    fetch("/api/getUserDetails", { credentials: 'include' })
+        .then(res => {
+            if (res.status === 200) {
+                setLoggedIn(true);
+                return res.json();
+            }
+        }).then(data => {
+            setUsername(data.username);
+        })
+        .catch(err => {
+            // user not logged in, or error
+        });
 
     const handleLogout = event => {
         event.preventDefault();
@@ -112,11 +78,42 @@ const Header = props => {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href=""><Button onClick={handleLogout} style={{ boxShadow: 'none', margin: 0, padding: 0 }} size="sm" variant="none">Logout</Button></NavDropdown.Item>
                         </NavDropdown>
-
                 }
             </Navbar.Collapse>
         </Navbar>
     );
+};
+
+const brandStyle = {
+    color: 'whitesmoke',
+    fontWeight: 'bold'
+};
+
+const linkStyle = {
+    marginRight: 15,
+    color: 'whitesmoke'
+};
+
+const linkStyleLogin = {
+    border: "1px solid whitesmoke",
+    borderRadius: 5,
+    backgroundColor: 'whitesmoke',
+    color: '#4688F1',
+    fontWeight: 'bold',
+    marginRight: 0,
+    marginLeft: 0
+};
+
+const logoStyle = {
+    width: 40,
+    height: 40
+};
+
+const navDropdownStyle = {
+    padding: 0,
+    backgroundColor: 'whitesmoke',
+    borderRadius: 5,
+    maxWidth: 'fit-content',
 };
 
 export default withRouter(Header);
