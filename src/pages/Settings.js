@@ -4,34 +4,6 @@ import Layout from '../components/Layout';
 import { Modal, Button, Badge, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const mainImageStyle = {
-    width: 75,
-    height: 75,
-    marginBottom: -15,
-    padding: 0
-};
-
-const imageStyle = {
-    width: 75,
-    height: 75,
-    padding: 0
-};
-
-const mainBtnStyle = {
-    maxWidth: 75,
-    maxHeight: 75,
-    padding: 0,
-    borderRadius: 50,
-    margin: 5
-};
-
-const btnStyle = {
-    maxWidth: 75,
-    maxHeight: 75,
-    padding: 0,
-    borderRadius: 50,
-    margin: 5
-};
 
 const Settings = props => {
     const [details, setDetails] = useState({ data: {} });
@@ -126,6 +98,35 @@ const Settings = props => {
             </Modal>
         </Layout>
     );
+};
+
+const mainImageStyle = {
+    width: 75,
+    height: 75,
+    marginBottom: -15,
+    padding: 0
+};
+
+const imageStyle = {
+    width: 75,
+    height: 75,
+    padding: 0
+};
+
+const mainBtnStyle = {
+    maxWidth: 75,
+    maxHeight: 75,
+    padding: 0,
+    borderRadius: 50,
+    margin: 5
+};
+
+const btnStyle = {
+    maxWidth: 75,
+    maxHeight: 75,
+    padding: 0,
+    borderRadius: 50,
+    margin: 5
 };
 
 export default Settings;
