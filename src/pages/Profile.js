@@ -7,15 +7,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Row, Col, Tabs, Tab } from 'react-bootstrap';
-import { FaUserPlus } from 'react-icons/fa';
-import { FaCommentDots } from 'react-icons/fa';
+import { FaUserPlus, FaCommentDots, FaCalendar } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rowStyle = {
     textAlign: 'center',
     marginTop: 20,
-    marginBottom: 100,
+    marginBottom: 20,
     marginLeft: '5%',
     marginRight: '5%'
 };
@@ -89,20 +88,11 @@ const section = {
 };
 
 
-/*
-Install FontAwesome icons:
-npm install react-icons --save
-
-Usage: 
-import { FaBeer } from 'react-icons/fa';
-<FaBeer /> 
-*/
-
 const Profile = () => {
     const [details, setDetails] = useState({ data: {} });
 
     useEffect(() => {
-        fetch("http://localhost:5000/getUserDetails", { credentials: 'include' })
+        fetch("/api/getUserDetails", { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -117,36 +107,27 @@ const Profile = () => {
 
     }, []);
 
+    let date = details.data.dateJoined + ""; // make string
+    date = date.substring(4, 7) + " " + date.substring(11, 15);
     return (
         <Layout>
-            <div fluid>
+            <h1 style={{ borderBottom: '1px solid black' }}>{details.data.username}</h1>
+            <div className="fluid">
                 <Row style={rowStyle}>
-                    <Col style={colStyle}>
-                        <div style={profileCard}>
-                            <img src="" alt="profile" style={profileImg} />
-                            <br />
-                            <h3 style={username}>{details.data.username}</h3>
-
-                            <Row style={alignCenter}>
-                                <Col>
-                                    <a href=""><FaUserPlus style={icon} size="xs" /><br /><small>Add User</small></a>
-                                </Col>
-                                <Col>
-                                    <a href=""><FaCommentDots style={icon} size="xs" /><br /><small>Message</small></a>
-                                </Col>
-                            </Row>
-                            <br />
-                        </div>
+                    <Col md={6} lg={4}>
+                        <img src={details.data.avatar} alt="profile" style={profileImg} />
+                        <br />
+                        <h5 style={username}><FaCalendar /> Joined {date}</h5>
                     </Col>
 
-                    <Col style={colStyle}>
-                        <div>
-                            <h3 style={underline}>Latest Updates</h3>
-
-                        </div>
+                    <Col md={6} lg={8}>
+                        <h3 style={underline}>Movies watched</h3>
+                        <br />
+                        <h3 style={underline}>Shows watched</h3>
                     </Col>
                 </Row>
 
+                {/**
                 <Tabs defaultActiveKey="statistics" id="tabs" style={tabs} className="nav-justified">
                     <Tab eventKey="statistics" title="Statistics" style={tab}>
                         <div style={section}>
@@ -164,6 +145,7 @@ const Profile = () => {
                         </div>
                     </Tab>
                 </Tabs>
+                */}
             </div>
         </Layout>
     );

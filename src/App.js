@@ -5,6 +5,7 @@ import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import withAuth from './components/withAuth';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/search?:title" component={Search} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/settings" component={withAuth(Settings)} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

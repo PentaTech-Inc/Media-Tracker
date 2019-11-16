@@ -13,7 +13,7 @@ const Register = props => {
 
     useEffect(() => {
         // if logged in redirect to profile
-        fetch("http://localhost:5000/getUserDetails", { credentials: 'include' })
+        fetch("/api/getUserDetails", { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     return res.json();
@@ -33,16 +33,16 @@ const Register = props => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch("http://localhost:5000/api/register?username=" + username + "&email=" + email + "&password=" + password
+        fetch("/api/register?username=" + username + "&email=" + email + "&password=" + password
             , { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
                     alert("Registration successful. Welcome!");
-                    fetch("http://localhost:5000/api/auth?email=" + email + "&password=" + password
+                    fetch("/api/auth?email=" + email + "&password=" + password
                         , { credentials: 'include' })
                         .then(res => {
                             if (res.status === 200) {
-                                props.history.push('/profile');
+                                props.history.push('/profile/' + username);
                             } else {
                                 const error = new Error(res.error);
                                 throw error;
@@ -64,7 +64,7 @@ const Register = props => {
 
     return (
         <Layout>
-            <h1>Register</h1>
+            <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
             <div className="Register">
                 <form onSubmit={handleSubmit}>
                     <FormGroup controlId="username" bsSize="large">

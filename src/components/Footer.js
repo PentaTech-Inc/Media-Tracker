@@ -28,7 +28,7 @@ const Footer = () => {
                             Participate in forums for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.
                         </p>
                     </MDBCol>
-                    <MDBCol md="4" class="text-center">
+                    <MDBCol md="4" className="text-center">
                         <h5 className="title"><strong>Quick Links</strong></h5>
                         <ul>
                             <li className="list-unstyled">
