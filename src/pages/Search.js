@@ -17,108 +17,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Search.css'
 
 
-const rowStyle = {
-    width: '100%',
-};
-
-const colStyle = {
-    padding: 0,
-    margin: 0
-};
-
-const tabsStyle = {
-    padding: 5
-};
-
 const Search = props => {
     const [results, setResults] = useState(null);
     const query = qs.parse(props.location.search, {
         ignoreQueryPrefix: true
     });
-    let title = query.title;
-
-    // const results = {
-    //     movies: [
-    //         {
-    //             title: "Avengers: Infinity War",
-    //             release_date: "2019-10-04",
-    //             overview: "One of the Marvel Avengers movies.",
-    //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-    //         },
-    //         {
-    //             title: "The Avengers: End Game",
-    //             release_date: "2019-05-10",
-    //             overview: "The first of Marvel's Avengers movies.",
-    //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
-    //         },
-    //         {
-    //             title: "Avengers: Infinity War",
-    //             release_date: "2019-10-04",
-    //             overview: "One of the Marvel Avengers movies.",
-    //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-    //         },
-    //         {
-    //             title: "The Avengers: End Game",
-    //             release_date: "2019-05-10",
-    //             overview: "The first of Marvel's Avengers movies.",
-    //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
-    //         },
-    //         {
-    //             title: "Avengers: Infinity War",
-    //             release_date: "2019-10-04",
-    //             overview: "One of the Marvel Avengers movies.",
-    //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-    //         },
-    //         {
-    //             title: "The Avengers: End Game",
-    //             release_date: "2019-05-10",
-    //             overview: "The first of Marvel's Avengers movies.",
-    //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
-    //         }
-    //     ],
-    //     shows: [
-    //         {
-    //             name: "The Office",
-    //             first_air_date: "2009-05-12",
-    //             overview: "A paper company is met with surprises every day by their crazy boss Michael Scott.",
-    //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-    //         },
-    //         {
-    //             name: "Parks and Recreation",
-    //             first_air_date: "2011-07-19",
-    //             overview: "A day-to-day look at the Parks and Recreation department of local government.",
-    //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
-    //         },
-    //         {
-    //             name: "The Office",
-    //             first_air_date: "2009-05-12",
-    //             overview: "A paper company is met with surprises every day by their crazy boss Michael Scott.",
-    //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-    //         },
-    //         {
-    //             name: "Parks and Recreation",
-    //             first_air_date: "2011-07-19",
-    //             overview: "A day-to-day look at the Parks and Recreation department of local government.",
-    //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
-    //         },
-    //         {
-    //             name: "The Office",
-    //             first_air_date: "2009-05-12",
-    //             overview: "A paper company is met with surprises every day by their crazy boss Michael Scott.",
-    //             poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-    //         },
-    //         {
-    //             name: "Parks and Recreation",
-    //             first_air_date: "2011-07-19",
-    //             overview: "A day-to-day look at the Parks and Recreation department of local government.",
-    //             poster_path: "/cezWGskPY5x7GaglTTRN4Fugfb8.jpg"
-    //         }
-    //     ]
-    // };
+    let title = null;
+    if (query.title)
+        title = query.title.replace("&", "");
 
     useEffect(() => {
         const fetchResults = async () => {
-            if (typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
+            if (title && typeof title !== 'undefined' && title.replace(/^\s+/, '').replace(/\s+$/, '') !== '') {
                 const res = await searchByTitle(title);
                 setResults(res.response);
             } else {
@@ -132,7 +42,7 @@ const Search = props => {
         <Layout>
             <Container>
                 <Row style={rowStyle}>
-                    <Col style={colStyle}><h1>Search</h1></Col>
+                    <Col style={colStyle}><h1 style={{ borderBottom: '1px solid black' }}>Search</h1></Col>
                 </Row>
                 <br />
                 <Row>
@@ -146,41 +56,75 @@ const Search = props => {
                             <Col style={colStyle}>
                                 <h5>Results for:</h5>
 
-                                <p>{`${title}`}</p>
+                                <p>{title}</p>
                                 <div>
                                     <Tabs style={tabsStyle} defaultActiveKey="movies" id="results-tab">
-                                        <Tab eventKey="movies" title="Movies">
-                                            <CardColumns className="card-columns">
-                                                {
-                                                    results.movies.map((item, index) => {
+                                        <Tab stlye={tabStyle} eventKey="movies" title="Movies">
+                                            {results.movies.length > 0 ?
+                                                <CardColumns className="card-columns text-center">
+                                                    {results.movies.map((item, index) => {
                                                         return (
-                                                            <ResultCard key={index} title={item.title} overview={item.overview} release_date={item.release_date} poster={item.poster_path} />
+                                                            <ResultCard key={index} id={item.id} type={item.media_type} title={item.title} overview={item.overview} release_date={item.release_date} poster={item.poster_path} />
                                                         );
                                                     })
-                                                }
-                                            </CardColumns>
+                                                    }
+                                                </CardColumns>
+                                                :
+                                                <p>No results</p>
+                                            }
                                         </Tab>
-                                        <Tab eventKey="shows" title="Shows">
-                                            <CardColumns className="card-columns">
-                                                {
-                                                    results.shows.map((item, index) => {
+                                        <Tab style={tabStyle} eventKey="shows" title="Shows">
+                                            {results.shows.length > 0 ?
+                                                <CardColumns className="card-columns text-center">
+                                                    {results.shows.map((item, index) => {
                                                         return (
-                                                            <ResultCard key={index} title={item.name} overview={item.overview} release_date={item.first_air_date} poster={item.poster_path} />
+                                                            <ResultCard key={index} id={item.id} type={item.media_type} title={item.name} overview={item.overview} release_date={item.first_air_date} poster={item.poster_path} />
                                                         );
                                                     })
-                                                }
-                                            </CardColumns>
+                                                    }
+                                                </CardColumns>
+                                                :
+                                                <p>No results</p>
+                                            }
                                         </Tab>
                                     </Tabs>
                                 </div>
                             </Col>
                             :
-                            null
+                            <div>
+                                <h5>Search movies or TV shows!</h5>
+                                <p>Add titles to your lists to keep track of what you've watched!</p>
+                                <p>Powered by <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDb</a>.</p>
+                            </div>
                     }
                 </Row>
             </Container>
         </Layout>
     );
+};
+
+const rowStyle = {
+    width: '100%',
+};
+
+const colStyle = {
+    padding: 0,
+    margin: 0
+};
+
+const tabsStyle = {
+    paddingTop: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingBottom: 0,
+    borderRadius: 5,
+    borderLeft: '1px solid #4688F1',
+    borderRight: '1px solid #4688F1',
+    borderTop: '1px solid #4688F1'
+};
+
+const tabStyle = {
+    // for possible future styling
 };
 
 export default Search;

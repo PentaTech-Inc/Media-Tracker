@@ -6,9 +6,10 @@ function NotFound() {
 
     return (
         <Layout>
-            <h1>Sorry, but the page you are looking for cannot be found :(</h1>
-            <br></br>
-            <h3><Link to="/">Click here</Link> to be taken back to the home page!</h3>
+            <h1 style={{ borderBottom: '1px solid black' }}>Error 404 - page not found</h1>
+            <br />
+            <h4>Sorry, but the page you are looking for cannot be found.</h4>
+            <h5><Link to="/">Click here</Link> to be taken back to the home page!</h5>
         </Layout>
     );
 };
