@@ -35,6 +35,7 @@ const secret = process.env.MONGO_SECRET;
 
 mongoose
     .connect(mongo_uri, {
+        useUnifiedTopology: true,
         useNewUrlParser: true,
         useCreateIndex: true
     })
@@ -99,13 +100,13 @@ app.get('/api/auth', (req, res) => {
 
 /** Check if valid token is saved in browser cookies */
 app.get('/api/checkToken', withAuth, (req, res) => {
-    res.send(200);
+    res.sendStatus(200);
 });
 
 /** Logout user */
 app.get('/api/logout', withAuth, (req, res) => {
     res.clearCookie('token');
-    res.send(200);
+    res.sendStatus(200);
 });
 
 app.get('/api/getUserDetails', withAuth, (req, res) => {
@@ -214,6 +215,8 @@ app.get('/api/addTitle', (req, res) => {
             if (title) {
                 res.status(202).send("Title already in database.");
             } else {
+                res.status(401).send('Movie added to database successfully');
+                //console.log('Movie added to database successfully')
                 // do nothing; continue adding title
             }
         });
@@ -226,6 +229,8 @@ app.get('/api/addTitle', (req, res) => {
             if (title) {
                 res.status(202).send("Title already in database.");
             } else {
+                res.status(401).send('Show added to database successfully');
+                //console.log('Show added to database successfully')
                 // do nothing; continue adding title
             }
         });

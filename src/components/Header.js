@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import mediaTrackerLogo from '../assets/MediaTrackerLogoDark.png';
+import mediaTrackerLogo from '../assets/AppLogo.png';
 
 
 const Header = props => {
