@@ -30,10 +30,9 @@
     "react-slick": "^0.25.2",
     "slick-carousel": "^1.8.1"
   },
-  
   "scripts": {
     "start": "react-scripts start",
-    "heroku-postbuild": "npm run build && npm run devStart",
+    "heroku-postbuild": "npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
