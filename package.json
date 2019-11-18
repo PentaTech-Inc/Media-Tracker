@@ -33,7 +33,7 @@
   
   "scripts": {
     "start": "react-scripts start",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "npm run build && npm run devStart",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
