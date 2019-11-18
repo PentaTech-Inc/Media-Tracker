@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <HashBrowser>
+      <HashRouter>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
@@ -29,7 +29,7 @@ function App() {
           <Route path="/settings" component={withAuth(Settings)} />
           <Route component={NotFound} />
         </Switch>
-      </HashBrowser>
+      </HashRouter>
     </div>
   );
 };
