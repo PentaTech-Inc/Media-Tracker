@@ -13,7 +13,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import TitlesCarousel from '../components/TitlesCarousel';
 import TitlesList from '../components/TitlesList';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from '../assets/MediaTrackerLogoLight.png';
+import logo from '../assets/app_logo_circle_medium.png';
 
 const containerStyle = {
     padding: 0,
