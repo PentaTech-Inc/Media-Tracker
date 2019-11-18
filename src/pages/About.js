@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Layout from '../components/Layout';
-import pentatechLogo from '../assets/pentatech-logo.png';
+import pentatechLogo from '../assets/team_logo_large_words.png';
 
 const body = {
     paddingLeft: 75,

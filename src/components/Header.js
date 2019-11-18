@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import mediaTrackerLogo from '../assets/MediaTrackerLogoDark.png';
+import mediaTrackerLogo from '../assets/app_logo_circle_small.png';
 
 
 const Header = props => {
@@ -50,7 +50,7 @@ const Header = props => {
     }
 
     return (
-        <Navbar bg="primary" expand="lg">
+        <Navbar bg="primary" expand="lg" sticky="top">
             <Navbar.Brand href="/" style={brandStyle}>
                 <img src={mediaTrackerLogo} alt="media tracker logo" style={logoStyle} />
             </Navbar.Brand>
