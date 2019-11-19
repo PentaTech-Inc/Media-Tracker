@@ -9,14 +9,14 @@ import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import Media from './pages/Media';
 import withAuth from './components/withAuth';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 // BrowserRouter => HashRouter
 
 function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
@@ -29,7 +29,7 @@ function App() {
           <Route path="/settings" component={withAuth(Settings)} />
           <Route component={NotFound} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };
