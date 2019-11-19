@@ -37,7 +37,7 @@ const Home = props => {
     const [username, setUsername] = useState("");
 
     // if logged in redirect to profile
-    fetch("http://localhost:5000/getUserDetails", { credentials: 'include' })
+    fetch("/api/getUserDetails", { credentials: 'include' })
         .then(res => {
             if (res.status === 200) {
                 setLoggedIn(true);
@@ -52,7 +52,7 @@ const Home = props => {
 
     const handleLogout = event => {
         event.preventDefault();
-        fetch("http://localhost:5000/logout"
+        fetch("/api/logout"
             , { credentials: 'include' })
             .then(res => {
                 if (res.status === 200) {
@@ -97,31 +97,31 @@ const Home = props => {
                         </Col>
                     </Row>
                 </Layout>
-            : // NOT LOGGED IN
-            <div fluid style={body}>
-                <Header />
-                <Row style={header}>
-                    <div style={heading}>
-                        <span style={headingTitle}>
-                            <img style={headingLogo} src={logo} alt="Logo" />
-                            <h1 style={title}>Media Tracker</h1>
-                        </span>
-                        <h4 style={slogan}>Keep all of your shows and movies in one place.</h4>
-                    </div>
-                </Row>
+                : // NOT LOGGED IN
+                <div fluid style={body}>
+                    <Header />
+                    <Row style={header}>
+                        <div style={heading}>
+                            <span style={headingTitle}>
+                                <img style={headingLogo} src={logo} alt="Logo" />
+                                <h1 style={title}>Media Tracker</h1>
+                            </span>
+                            <h4 style={slogan}>Keep all of your shows and movies in one place.</h4>
+                        </div>
+                    </Row>
 
-                <div style={ornament} />
+                    <div style={ornament} />
 
-                <Row style={blurb}>
-                    <h3 style={blurbTitle}><strong>Keep Track of your Media</strong></h3>
+                    <Row style={blurb}>
+                        <h3 style={blurbTitle}><strong>Keep Track of your Media</strong></h3>
 
-                    <p style={paragraph}><strong>Media Tracker</strong> is an application that helps you keep track of your TV shows and movies while also connecting you with others who share the same interests. With Media Tracker, you can rate and organize your shows, keep track of trending series, and discuss your favorite media in forums while gaining titles, friends, and more! </p>
-                    <p style={paragraph}>Your input helps others discover your favorite shows and movies. Start contributing today and become a part of the Media Tracker community!
+                        <p style={paragraph}><strong>Media Tracker</strong> is an application that helps you keep track of your TV shows and movies while also connecting you with others who share the same interests. With Media Tracker, you can rate and organize your shows, keep track of trending series, and discuss your favorite media in forums while gaining titles, friends, and more! </p>
+                        <p style={paragraph}>Your input helps others discover your favorite shows and movies. Start contributing today and become a part of the Media Tracker community!
                     <br />
-                    </p>
-                </Row>
-                <Footer />
-            </div>
+                        </p>
+                    </Row>
+                    <Footer />
+                </div>
             }
         </div>
     );
