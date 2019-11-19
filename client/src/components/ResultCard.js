@@ -1,14 +1,50 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const ResultCard = props => {
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [username, setUsername] = useState("");
     let id = -1;
     let type = "";
     let title = "";
     let overview = "";
     let releaseDate = "";
     let posterPath = "";
+
+    // if logged in redirect to profile
+    fetch("/api/getUserDetails", { credentials: 'include' })
+    .then(res => {
+        if (res.status === 200) {
+            setLoggedIn(true);
+            return res.json();
+        }
+    }).then(data => {
+        setUsername(data.username);
+    })
+    .catch(err => {
+        // user not logged in, or error
+    });
+
+    const handleLogout = event => {
+    event.preventDefault();
+    fetch("/api/logout"
+        , { credentials: 'include' })
+        .then(res => {
+            if (res.status === 200) {
+                props.history.push('/login');
+            } else {
+                const error = new Error(res.error);
+                throw error;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Error logging out. Please try again.');
+        });
+    }
+
     if (props.id)
         id = props.id;
     if (props.type)
@@ -57,7 +93,11 @@ const ResultCard = props => {
                     <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                 </Card.Text>
                 <Card.Footer>
-                    <Button>Add to list</Button>
+                    {loggedIn ?
+                        (<Button>Add to list</Button>)
+                        :
+                        void(0)
+                    }
                 </Card.Footer>
             </Card.Body>
         </Card>
