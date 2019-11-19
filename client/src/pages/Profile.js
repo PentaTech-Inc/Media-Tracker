@@ -62,15 +62,21 @@ const Profile = () => {
                         <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
                             <div style={{ width: 105, height: 198 }}>
                                 {/* hard coded as backup */}
-                                <Card as="div">
-                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" />
-                                </Card>
-                                <Card as="div">
-                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2//dr6x4GyyegBWtinPBzipY02J2lV.jpg" />
-                                </Card>
-                                <Card as="div">
-                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg" />
-                                </Card>
+                            <row>
+                                <col>
+                                    <Card as="div">
+                                        <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" />
+                                    </Card>
+                                </col>
+                                    <Card as="div">
+                                        <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" />
+                                    </Card>
+                                <col>
+                                    <Card as="div">
+                                        <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg" />
+                                    </Card>
+                                </col>
+                            </row>
                             </div>
                         </Slider>
                         <h3 style={underline}>Shows watched</h3>
