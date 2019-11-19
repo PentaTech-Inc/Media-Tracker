@@ -2,6 +2,7 @@
   "name": "media-tracker",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
   "dependencies": {
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
@@ -32,8 +33,8 @@
     "slick-carousel": "^1.8.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "heroku-postbuild": "concurrently \"npm run build\" \"npm run devStart\"", 
+    "start": "node src/server.js",
+    "heroku-postbuild": "concurrently \"cd src\" \"npm install\" \"npm run build\"", 
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
