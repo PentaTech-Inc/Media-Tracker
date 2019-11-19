@@ -11,7 +11,7 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const withAuth = require('./middleware');
+const withAuth = require('./client/src/middleware');
 const path = require('path');
 const app = express();
 
@@ -34,9 +34,9 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // https://medium.com/@faizanv/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
 // Import our User schema
-const User = require('./models/User.js');
-const Movie = require('./models/Movie.js');
-const Show = require('./models/Show.js');
+const User = require('./client/src/models/User.js');
+const Movie = require('./client/src/models/Movie.js');
+const Show = require('./client/src/models/Show.js');
 const mongo_uri = process.env.MONGO_URL;
 const secret = process.env.MONGO_SECRET;
 
