@@ -187,28 +187,51 @@ app.get('/api/settings', withAuth, (req, res) => {
 
 /** Add to user list */
 app.get('/api/addToList', withAuth, (req, res) => {
-    const [id, type] = req.query;
-    fetch("/api/addTitle?id=" + id + "&type=" + type)
-        .then(res => {
-            if (res.status === 200) {
-                // continue
-            } else if (res.status === 202) {
-                res.status(202).send("Error: Title already in database.");
-            } else if (res.status === 500) {
-                alert("Error: Insufficient information for title. Available only as a search result.")
+    const { id, type } = req.query;
+    const token =
+        req.query.token ||
+        req.headers['x-access-token'] ||
+        req.cookies.token;
+    if (!token) {
+        res.status(401).send('Unauthorized: No token provided');
+    } else {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                res.status(401).send('Unauthorized: Invalid token');
             } else {
-                const error = new Error(res.error);
-                throw error;
+                req.email = decoded.email;
+                if (type === "movie") {
+                    User.findOneAndUpdate(
+                        { email: req.email },
+                        { $push: { movies: id } },
+                        function (error, title) {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send("Internal server error.");
+                            } else {
+                                console.log(title);
+                                res.status(200).send("Added to Movies list!");
+                            }
+                        });
+                } else if (type === "tv") {
+                    User.findOneAndUpdate(
+                        { email: req.email },
+                        { $push: { shows: id } },
+                        function (error, title) {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send("Internal server error.");
+                            } else {
+                                console.log(title);
+                                res.status(200).send("Added to Shows list!");
+                            }
+                        });
+                }
             }
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Error navigating to title\'s page. Please try again.');
-        });
-
-    // STILL BEING WORKED ON
+        }
+        )
+    }
 });
-
 /** Insert new document into media collection of DB */
 app.get('/api/addTitle', (req, res) => {
     const { id, type } = req.query;
@@ -243,7 +266,6 @@ app.get('/api/addTitle', (req, res) => {
     } else {
         res.status(500).send("Error: Invalid type.");
     }
-
     if (type === "movie") {
         axios.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + process.env.MOVIEDB_KEY + '&language=en-US&page=1&include_adult=false')
             .then(m => {
@@ -299,7 +321,6 @@ app.get('/api/addTitle', (req, res) => {
             })
     }
 });
-
 /** Return details about certain title from DB */
 app.get('/api/getTitleDetails', (req, res) => {
     const { id, type } = req.query;
@@ -334,6 +355,20 @@ app.get('/api/getTitleDetails', (req, res) => {
     } else {
         res.status(500).send("Error: Invalid type.");
     }
+});
+app.get('/api/getPopularMovies', (req, res) => {
+    axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' + process.env.MOVIEDB_KEY + '&language=en-US&page=1&include_adult=false')
+        .then(result => {
+            res.status(200).send(result.data.results);
+        })
+        .catch(err => res.send(err));
+});
+app.get('/api/getPopularShows', (req, res) => {
+    axios.get('https://api.themoviedb.org/3/tv/popular?api_key=' + process.env.MOVIEDB_KEY + '&language=en-US&page=1&include_adult=false')
+        .then(result => {
+            res.status(200).send(result.data.results);
+        })
+        .catch(err => res.send(err));
 });
 
 /**
