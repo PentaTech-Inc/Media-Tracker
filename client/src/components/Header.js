@@ -54,7 +54,7 @@ const Header = props => {
             <Navbar.Brand href="/" style={brandStyle}>
                 <img src={mediaTrackerLogo} alt="media tracker logo" style={logoStyle} />
             </Navbar.Brand>
-            <Navbar.Brand href="#/" style={brandStyle}>Media Tracker</Navbar.Brand>
+            <Navbar.Brand href="/" style={brandStyle}>Media Tracker</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
