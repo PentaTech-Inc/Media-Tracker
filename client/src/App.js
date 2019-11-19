@@ -9,7 +9,7 @@ import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import Media from './pages/Media';
 import withAuth from './components/withAuth';
-import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // BrowserRouter => HashRouter
 
 function App() {
