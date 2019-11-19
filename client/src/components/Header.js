@@ -54,27 +54,27 @@ const Header = props => {
             <Navbar.Brand href="/" style={brandStyle}>
                 <img src={mediaTrackerLogo} alt="media tracker logo" style={logoStyle} />
             </Navbar.Brand>
-            <Navbar.Brand href="#/" style={brandStyle}>Media Tracker</Navbar.Brand>
+            <Navbar.Brand href="/" style={brandStyle}>Media Tracker</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="#/" style={linkStyle}>Home</Nav.Link>
-                    <Nav.Link href="#/about" style={linkStyle}>About</Nav.Link>
-                    <Nav.Link href="#/search" style={linkStyle}>Search</Nav.Link>
+                    <Nav.Link href="/" style={linkStyle}>Home</Nav.Link>
+                    <Nav.Link href="/about" style={linkStyle}>About</Nav.Link>
+                    <Nav.Link href="/search" style={linkStyle}>Search</Nav.Link>
                 </Nav>
                 <SearchBar className="mr-sm-2" />
                 {
                     !loggedIn ?
                         (
                             <Nav>
-                                <Nav.Link href="#/login"><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
-                                <Nav.Link href="#/register"><Button style={linkStyleLogin} size="sm" variant="none">Register</Button></Nav.Link>
+                                <Nav.Link href="/login"><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
+                                <Nav.Link href="/register"><Button style={linkStyleLogin} size="sm" variant="none">Register</Button></Nav.Link>
                             </Nav>
                         )
                         :
                         <NavDropdown style={navDropdownStyle} title={username} id="basic-nav-dropdown">
-                            <NavDropdown.Item href={"#/profile/" + username}>Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="#/settings">Settings</NavDropdown.Item>
+                            <NavDropdown.Item href={"/profile/" + username}>Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href=""><Button onClick={handleLogout} style={{ boxShadow: 'none', margin: 0, padding: 0 }} size="sm" variant="none">Logout</Button></NavDropdown.Item>
                         </NavDropdown>

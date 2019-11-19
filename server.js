@@ -217,12 +217,12 @@ app.get('/api/addTitle', (req, res) => {
     if (type === "movie") {
         Movie.findOne({ id: id }, { _id: 0, __v: 0 }, (err, title) => {
             if (err) {
-                res.status(500).send('Error: Query unsuccessful.');
-            }
-            if (title) {
+                return;
+            } else if (title) {
                 res.status(202).send("Title already in database.");
+                return;
             } else {
-                res.status(401).send('Movie added to database successfully');
+                //res.status(401).send('Movie added to database successfully');
                 //console.log('Movie added to database successfully')
                 // do nothing; continue adding title
             }
@@ -230,13 +230,12 @@ app.get('/api/addTitle', (req, res) => {
     } else if (type === "tv") {
         Show.findOne({ id: id }, { _id: 0, __v: 0 }, (err, title) => {
             if (err) {
-                res.status(500).send('Error: Query unsuccessful.');
                 return;
-            }
-            if (title) {
+            } else if (title) {
                 res.status(202).send("Title already in database.");
+                return;
             } else {
-                res.status(401).send('Show added to database successfully');
+                //res.status(401).send('Show added to database successfully');
                 //console.log('Show added to database successfully')
                 // do nothing; continue adding title
             }
@@ -262,16 +261,15 @@ app.get('/api/addTitle', (req, res) => {
                 });
                 movie.save(err => {
                     if (err) {
+                        console.log("MOVIE DUPLICATE");
                         res.status(401).send("Error: Duplicate title.");
                     }
                     else {
+                        console.log("MOVIE ADDED TO DB");
                         res.status(200).send("Movie added to database!");
                     }
                 });
             })
-            .catch(err => {
-                res.status(500).send(err);
-            });
     } else if (type === "tv") {
         axios.get('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + process.env.MOVIEDB_KEY + '&language=en-US&page=1&include_adult=false')
             .then(s => {
@@ -290,16 +288,15 @@ app.get('/api/addTitle', (req, res) => {
                 });
                 show.save(err => {
                     if (err) {
+                        console.log("SHOW DUPLICATE");
                         res.status(401).send("Error: Duplicate title.");
                     }
                     else {
+                        console.log("SHOW ADDED TO DB");
                         res.status(200).send("Show added to database!");
                     }
                 });
             })
-            .catch(err => {
-                res.status(500).send(err);
-            });
     }
 });
 
