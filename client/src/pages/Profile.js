@@ -24,8 +24,6 @@ const Profile = () => {
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,
-        variableWidth: true,
-        adaptiveHeight: true
     };
 
     useEffect(() => {
@@ -61,18 +59,44 @@ const Profile = () => {
                         <h3 style={underline}>Movies watched</h3>
                         <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
                             <div style={{ width: 105, height: 198 }}>
-                                <Card as="div">
+                                {/* hard coded as backup */}
+                                <Card style={{marginLeft: 5, marginRight: 5}}>
+                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/vn94LlNrbUWIZZyAdmvUepFBeaY.jpg" />
+                                </Card>                            </div>
+                            <div style={{ width: 105, height: 198 }}>
+                                {/* hard coded as backup */}
+                                <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/lcq8dVxeeOqHvvgcte707K0KVx5.jpg" />
+                                </Card>                            </div>
+                            <div style={{ width: 105, height: 198 }}>
+                                {/* hard coded as backup */}
+                                <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg" />
+                                </Card>                            </div>
+                            <div style={{ width: 105, height: 198 }}>
+                                {/* hard coded as backup */}
+                                <Card style={{ marginLeft: 5, marginRight: 5 }}>
                                     <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" />
-                                </Card>
-                            </div>
+                                </Card>                            </div>
                         </Slider>
+                        <br />
                         <h3 style={underline}>Shows watched</h3>
                         <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
                             <div style={{ width: 105, height: 198 }}>
-                                <Card as="div">
-                                    <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" />
+                                <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                    {/* <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" /> */}
                                 </Card>
                             </div>
+                            <div style={{ width: 105, height: 198 }}>
+                                {/* hard coded as backup */}
+                                <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                    {/* <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" /> */}
+                                </Card>                            </div>
+                            <div style={{ width: 105, height: 198 }}>
+                                {/* hard coded as backup */}
+                                <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                    {/* <Card.Img src="http://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" /> */}
+                                </Card>                            </div>
                         </Slider>
                     </Col>
                 </Row>
