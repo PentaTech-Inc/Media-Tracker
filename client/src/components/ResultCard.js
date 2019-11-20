@@ -87,19 +87,24 @@ const ResultCard = props => {
                     <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
                 </a>
             </Card.Header>
-            <Card.Body style={cardBodyStyle}>
-                <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
-                <Card.Text style={cardTextStyle}>
-                    <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
-                </Card.Text>
-                <Card.Footer>
-                    {loggedIn ?
+            {loggedIn ?
+                (<Card.Body style={{height: 240}}>
+                    <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                    <Card.Text style={cardTextStyle}>
+                        <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
+                    </Card.Text>
+                    <Card.Footer>
                         (<Button>Add to list</Button>)
-                        :
-                        void (0)
-                    }
-                </Card.Footer>
-            </Card.Body>
+                    </Card.Footer>
+                </Card.Body>)
+                :
+                <Card.Body>
+                    <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                    <Card.Text style={cardTextStyle}>
+                        <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
+                    </Card.Text>
+                </Card.Body>
+            }
         </Card>
     );
 };
@@ -110,10 +115,6 @@ const cardStyle = {
 
 const cardHeaderStyle = {
     backgroundColor: 'whitesmoke'
-};
-
-const cardBodyStyle = {
-    height: 240
 };
 
 const cardImageStyle = {
