@@ -114,8 +114,7 @@ const Home = props => {
                 // LOGGED IN
                 <Layout fluid={true} style={containerStyle}>
                     <Row style={rowStyle}>
-                        <Col><h1 style={{textAlign: 'center'}}><strong>Welcome</strong></h1></Col>
-                        <br />
+                        <Col><h1><strong>Welcome, {username}</strong></h1></Col>
                     </Row>
                     <br />
                     <Row style={rowStyle}>
