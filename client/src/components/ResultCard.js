@@ -89,7 +89,11 @@ const ResultCard = props => {
             </Card.Header>
             {loggedIn ?
                 (<Card.Body style={{height: 240}}>
-                    <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                    <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
+                        <Card.Title style={cardTitleStyle}>
+                            {title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})
+                        </Card.Title>
+                    </a>
                     <Card.Text style={cardTextStyle}>
                         <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                     </Card.Text>
@@ -99,7 +103,11 @@ const ResultCard = props => {
                 </Card.Body>)
                 :
                 <Card.Body>
-                    <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                    <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
+                        <Card.Title style={cardTitleStyle}>
+                            {title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})
+                        </Card.Title>
+                    </a>
                     <Card.Text style={cardTextStyle}>
                         <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                     </Card.Text>
@@ -114,7 +122,7 @@ const cardStyle = {
 };
 
 const cardHeaderStyle = {
-    backgroundColor: 'whitesmoke'
+    backgroundColor: 'white'
 };
 
 const cardImageStyle = {

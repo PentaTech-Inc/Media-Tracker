@@ -75,7 +75,7 @@ const Search = props => {
                                                     }
                                                 </CardColumns>
                                                 :
-                                                <p>No results</p>
+                                                <p><br />No results</p>
                                             }
                                         </Tab>
                                         <Tab style={tabStyle} eventKey="shows" title="Shows">
@@ -89,7 +89,7 @@ const Search = props => {
                                                     }
                                                 </CardColumns>
                                                 :
-                                                <p>No results</p>
+                                                <p><br />No results</p>
                                             }
                                         </Tab>
                                     </Tabs>
@@ -122,14 +122,13 @@ const tabsStyle = {
     paddingLeft: 5,
     paddingRight: 5,
     paddingBottom: 0,
-    borderRadius: 5,
-    borderLeft: '1px solid #4688F1',
-    borderRight: '1px solid #4688F1',
-    borderTop: '1px solid #4688F1'
+    borderRadius: 5
 };
 
 const tabStyle = {
-    // for possible future styling
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingBottom: 5,
 };
 
 export default Search;
