@@ -115,6 +115,7 @@ const Home = props => {
                 <Layout fluid={true} style={containerStyle}>
                     <Row style={rowStyle}>
             <Col style={{textAlign: 'center'}}><h1><strong>Welcome, {username}</strong></h1></Col>
+
                     </Row>
                     <br />
                     <Row style={rowStyle}>
@@ -141,6 +142,7 @@ const Home = props => {
                                             <div>Loading...</div>
                                         }
                                     </Slider>
+
                                     <h3 style={underline}>Trending TV Shows</h3>
                                     <Slider style={{ marginTop: 30, marginBottom: 40 }} {...settings}>
                                         {popularShows ?
