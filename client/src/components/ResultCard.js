@@ -15,34 +15,34 @@ const ResultCard = props => {
 
     // if logged in redirect to profile
     fetch("/api/getUserDetails", { credentials: 'include' })
-    .then(res => {
-        if (res.status === 200) {
-            setLoggedIn(true);
-            return res.json();
-        }
-    }).then(data => {
-        setUsername(data.username);
-    })
-    .catch(err => {
-        // user not logged in, or error
-    });
-
-    const handleLogout = event => {
-    event.preventDefault();
-    fetch("/api/logout"
-        , { credentials: 'include' })
         .then(res => {
             if (res.status === 200) {
-                props.history.push('/login');
-            } else {
-                const error = new Error(res.error);
-                throw error;
+                setLoggedIn(true);
+                return res.json();
             }
+        }).then(data => {
+            setUsername(data.username);
         })
         .catch(err => {
-            console.error(err);
-            alert('Error logging out. Please try again.');
+            // user not logged in, or error
         });
+
+    const handleLogout = event => {
+        event.preventDefault();
+        fetch("/api/logout"
+            , { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    props.history.push('/login');
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error logging out. Please try again.');
+            });
     }
 
     if (props.id)
@@ -87,19 +87,24 @@ const ResultCard = props => {
                     <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
                 </a>
             </Card.Header>
-            <Card.Body>
-                <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
-                <Card.Text style={cardTextStyle}>
-                    <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
-                </Card.Text>
-                <Card.Footer>
-                    {loggedIn ?
+            {loggedIn ?
+                (<Card.Body style={{height: 240}}>
+                    <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                    <Card.Text style={cardTextStyle}>
+                        <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
+                    </Card.Text>
+                    <Card.Footer>
                         (<Button>Add to list</Button>)
-                        :
-                        void(0)
-                    }
-                </Card.Footer>
-            </Card.Body>
+                    </Card.Footer>
+                </Card.Body>)
+                :
+                <Card.Body>
+                    <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
+                    <Card.Text style={cardTextStyle}>
+                        <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
+                    </Card.Text>
+                </Card.Body>
+            }
         </Card>
     );
 };
@@ -119,12 +124,14 @@ const cardImageStyle = {
 
 const cardTitleStyle = {
     color: 'whitesmoke',
-    height: '65px'
+    fontSize: '20sp',
+    height: 40
 };
 
 const cardTextStyle = {
     color: 'lightgrey',
-    height: '40px'
+    height: '40px',
+    marginBottom: 30
 };
 
 export default withRouter(ResultCard);

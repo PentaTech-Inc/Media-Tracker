@@ -38,6 +38,8 @@ const Search = props => {
         fetchResults();
     }, [title]);
 
+    const [key, setKey] = useState('movies');
+
     return (
         <Layout>
             <Container>
@@ -54,12 +56,15 @@ const Search = props => {
                         // If no search was made, just '--domain--/search', omit search results section
                         results !== null ?
                             <Col style={colStyle}>
-                                <h5>Results for:</h5>
+                                { key === 'movies' ?
+                                    <div><h5>{results.movies.length} results for:</h5><p>{title}</p></div>
+                                    :
+                                    <div><h5>{results.shows.length} results for:</h5><p>{title}</p></div>
+                                }
 
-                                <p>{title}</p>
                                 <div>
-                                    <Tabs style={tabsStyle} defaultActiveKey="movies" id="results-tab">
-                                        <Tab stlye={tabStyle} eventKey="movies" title="Movies">
+                                    <Tabs style={tabsStyle} activeKey={key} onSelect={k => setKey(k)} id="results-tab">
+                                        <Tab style={tabStyle} eventKey="movies" title="Movies">
                                             {results.movies.length > 0 ?
                                                 <CardColumns className="card-columns text-center">
                                                     {results.movies.map((item, index) => {
@@ -92,7 +97,7 @@ const Search = props => {
                             </Col>
                             :
                             <div>
-                                <h5>Search movies or TV shows!</h5>
+                                <h5>Search for movies and TV shows.</h5>
                                 <p>Add titles to your lists to keep track of what you've watched!</p>
                                 <p>Powered by <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDb</a>.</p>
                             </div>
