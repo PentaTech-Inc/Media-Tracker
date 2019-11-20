@@ -87,7 +87,7 @@ const ResultCard = props => {
                     <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
                 </a>
             </Card.Header>
-            <Card.Body>
+            <Card.Body style={cardBodyStyle}>
                 <Card.Title style={cardTitleStyle}>{title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})</Card.Title>
                 <Card.Text style={cardTextStyle}>
                     <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
@@ -112,6 +112,10 @@ const cardHeaderStyle = {
     backgroundColor: 'whitesmoke'
 };
 
+const cardBodyStyle = {
+    height: 240
+};
+
 const cardImageStyle = {
     width: '185px',
     height: '278px',
@@ -119,12 +123,14 @@ const cardImageStyle = {
 
 const cardTitleStyle = {
     color: 'whitesmoke',
-    height: '65px'
+    fontSize: '20sp',
+    height: 40
 };
 
 const cardTextStyle = {
     color: 'lightgrey',
-    height: '40px'
+    height: '40px',
+    marginBottom: 30
 };
 
 export default withRouter(ResultCard);
