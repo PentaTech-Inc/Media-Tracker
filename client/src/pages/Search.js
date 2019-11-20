@@ -57,12 +57,12 @@ const Search = props => {
                         results !== null ?
                             <Col style={colStyle}>
                                 { key === 'movies' ?
-                                    <div><h5>{results.movies.length} results for:</h5><p>{title}</p></div>
+                                    <div><h5><strong>{results.movies.length} results for:</strong></h5><p>{title}</p></div>
                                     :
-                                    <div><h5>{results.shows.length} results for:</h5><p>{title}</p></div>
+                                    <div><h5><strong>{results.shows.length} results for:</strong></h5><p>{title}</p></div>
                                 }
 
-                                <div>
+                                <div style={resultsStyle}>
                                     <Tabs style={tabsStyle} activeKey={key} onSelect={k => setKey(k)} id="results-tab">
                                         <Tab style={tabStyle} eventKey="movies" title="Movies">
                                             {results.movies.length > 0 ?
@@ -117,12 +117,17 @@ const colStyle = {
     margin: 0
 };
 
+const resultsStyle = {
+    borderRadius: 5,
+    border: '1px solid #4688F1',
+    padding: 10
+};
+
 const tabsStyle = {
     paddingTop: 5,
     paddingLeft: 5,
     paddingRight: 5,
     paddingBottom: 0,
-    borderRadius: 5
 };
 
 const tabStyle = {

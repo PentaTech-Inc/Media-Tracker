@@ -35,8 +35,8 @@ const SearchBar = props => {
     return (
         <div>
             <Form style={{ marginRight: 5 }} inline>
-                <FormControl style={{ width: 164 }} size='sm' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2 " />
-                <Button size='sm' variant={props.buttonStyle ? props.buttonStyle : 'light'} type='submit' onClick={handleSubmit}><FaSearch /></Button>
+                <FormControl style={{ width: 200 }} size='md' onChange={handleChange} type="text" placeholder="Search" className="mr-sm-2 " />
+                <Button size='md' variant={props.buttonStyle ? props.buttonStyle : 'light'} type='submit' onClick={handleSubmit} style={{marginLeft: 0, borderRadius: 10}}><FaSearch /></Button>
             </Form>
         </div>
     );

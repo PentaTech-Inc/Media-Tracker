@@ -62,12 +62,12 @@ const Header = props => {
                     <Nav.Link href="#/about" style={linkStyle}>About</Nav.Link>
                     <Nav.Link href="#/search" style={linkStyle}>Search</Nav.Link>
                 </Nav>
-                <SearchBar className="mr-sm-2" />
+                <SearchBar className="mr-sm-2" buttonStyle="dark" />
                 {
                     !loggedIn ?
                         (
-                            <Nav>
-                                <Nav.Link href="#/login"><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
+                            <Nav style={{marginLeft: 20}}>
+                                <Nav.Link href="#/login" ><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
                                 <Nav.Link href="#/register"><Button style={linkStyleLogin} size="sm" variant="none">Register</Button></Nav.Link>
                             </Nav>
                         )
@@ -114,6 +114,7 @@ const navDropdownStyle = {
     backgroundColor: 'whitesmoke',
     borderRadius: 5,
     maxWidth: 'fit-content',
+    marginLeft: 20
 };
 
 export default withRouter(Header);
