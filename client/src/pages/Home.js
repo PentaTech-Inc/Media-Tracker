@@ -262,7 +262,7 @@ const ornament = {
     padding: '1.5em'
 };
 const blurb = {
-    padding: '5em 10em 5em 10em',
+    padding: '5% 10% 5% 10%',
     backgroundColor: '#00000C',
     textAlign: 'left',
     color: 'white',
@@ -278,7 +278,8 @@ const blurbTitle = {
 };
 const paragraph = {
     color: 'white',
-    display: 'block'
+    display: 'block',
+    fontSize: '1.2em'
 };
 export default withRouter(Home);
 
