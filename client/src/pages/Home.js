@@ -114,7 +114,8 @@ const Home = props => {
                 // LOGGED IN
                 <Layout fluid={true} style={containerStyle}>
                     <Row style={rowStyle}>
-                        <Col><h1>Welcome, {username}</h1></Col>
+                        <Col><h1 style={{textAlign: 'center'}}><strong>Welcome</strong></h1></Col>
+                        <br />
                     </Row>
                     <br />
                     <Row style={rowStyle}>
@@ -126,7 +127,7 @@ const Home = props => {
                             <Row className="justify-content-md-left">
                                 <Col>
                                     <h3 style={underline}>Trending Movies</h3>
-                                    <Slider style={{ marginTop: 30, marginBottom: 50 }} {...settings}>
+                                    <Slider style={{ marginTop: 30, marginBottom: 40 }} {...settings}>
                                         {popularMovies ?
                                             popularMovies.map((item, index) => {
                                                 return (
@@ -142,7 +143,7 @@ const Home = props => {
                                         }
                                     </Slider><br />
                                     <h3 style={underline}>Trending TV Shows</h3>
-                                    <Slider style={{ marginTop: 30, marginBottom: 50 }} {...settings}>
+                                    <Slider style={{ marginTop: 30, marginBottom: 40 }} {...settings}>
                                         {popularShows ?
                                             popularShows.map((item, index) => {
                                                 return (
