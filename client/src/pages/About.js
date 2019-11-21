@@ -22,7 +22,8 @@ const heading = {
 };
 
 const paragraph = {
-    color: '#25467a'
+    color: '#25467a',
+    fontSize: '18pt'
 };
 
 const sig = {
