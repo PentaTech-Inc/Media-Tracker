@@ -47,8 +47,8 @@ const Home = props => {
         dots: true,
         infinite: false,
         speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 5,
+        slidesToShow: 4,
+        slidesToScroll: 4,
         variableWidth: false,
         adaptiveHeight: false,
         nextArrow: <NextArrow />,
@@ -155,7 +155,7 @@ const Home = props => {
                                                 popularMovies.map((item, index) => {
                                                     return (
                                                         <div style={{ width: 218, height: 330}}>
-                                                            <Card style={{ width: '100%', height: '100%', marginLeft: 5, marginRight: 5 }} as="div">
+                                                            <Card style={{ width: '95%', height: '95%', marginLeft: '5%', marginRight: '5%' }} as="div">
                                                                 <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "movie")}>
                                                                     <Card.Img style={{ width: '100%', height: '100%'}} src={basePosterPath + item.poster_path} />
                                                                 </a>
@@ -174,7 +174,7 @@ const Home = props => {
                                                 popularShows.map((item, index) => {
                                                     return (
                                                         <div key={index} style={{ width: 218, height: 330 }}>
-                                                            <Card style={{ width: '100%', height: '100%', marginLeft: 5, marginRight: 5 }} as="div">
+                                                            <Card style={{ width: '95%', height: '95%', marginLeft: '5%', marginRight: '5%' }} as="div">
                                                                 <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "tv")}>
                                                                     <Card.Img style={{ width: '100%', height: '100%' }} src={basePosterPath + item.poster_path} />
                                                                 </a>
