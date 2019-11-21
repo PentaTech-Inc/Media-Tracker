@@ -65,11 +65,11 @@ const Register = props => {
     }
 
     return (
-        <div style={body}>
+        <div>
             <Header />
+            <h1 style={headingStyle}>Register</h1>
+            <br />
             <div className="Register" style={registerStyle}>
-                <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
-                <br />
                 <form onSubmit={handleSubmit} style={formStyle}>
                     <FormGroup controlId="username" bsSize="large">
                         <Form.Label>Username</Form.Label>
@@ -115,19 +115,31 @@ const Register = props => {
     );
 };
 
-const body = {
-    backgroundColor: '#00000F',
+const headingStyle = {
+    width: '50%',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 30,
+    marginBottom: 10,
+    fontFamily: 'Impact',
+    fontSize: '50pt',
+    color: '#2d74da',
+    borderBottomStyle: 'solid',
+    bordBottomColor: '#25467a',
+    borderBottomWidth: '3',
+    textAlign: 'center'
 };
 
 const registerStyle = {
-    paddingLeft: '6%',
-    paddingRight: '6%',
+    paddingLeft: '3%',
+    paddingRight: '3%',
     paddingTop: '3%',
-    paddingBottom: '5%',
+    paddingBottom: '3%',
     textAlign: 'center',
     width: '50%',
     display: 'block',
-    margin: '3% auto 3% auto',
+    margin: '0 auto 3% auto',
     backgroundColor: 'white',
     borderRadius: 5
 };
