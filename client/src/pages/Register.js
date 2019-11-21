@@ -4,6 +4,8 @@ import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import '../styles/Register.css';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 const Register = props => {
     const [username, setUsername] = useState("");
@@ -63,10 +65,12 @@ const Register = props => {
     }
 
     return (
-        <Layout>
-            <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
-            <div className="Register">
-                <form onSubmit={handleSubmit}>
+        <div style={body}>
+            <Header />
+            <div className="Register" style={registerStyle}>
+                <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
+                <br />
+                <form onSubmit={handleSubmit} style={formStyle}>
                     <FormGroup controlId="username" bsSize="large">
                         <Form.Label>Username</Form.Label>
                         <FormControl
@@ -100,13 +104,39 @@ const Register = props => {
                             type="password"
                         />
                     </FormGroup>
+                    <br /><br />
                     <Button block bsSize="large" disabled={!validateForm()} type="submit">
                         Register
                     </Button>
                 </form>
             </div>
-        </Layout>
+            <Footer />
+        </div>
     );
+};
+
+const body = {
+    backgroundColor: '#00000F',
+};
+
+const registerStyle = {
+    paddingLeft: '6%',
+    paddingRight: '6%',
+    paddingTop: '3%',
+    paddingBottom: '5%',
+    textAlign: 'center',
+    width: '50%',
+    display: 'block',
+    margin: '3% auto 3% auto',
+    backgroundColor: 'white',
+    borderRadius: 5
+};
+
+const formStyle = {
+    display: 'block',
+    margin: 'auto',
+    width: '100%',
+    textAlign: 'left'
 };
 
 export default withRouter(Register);

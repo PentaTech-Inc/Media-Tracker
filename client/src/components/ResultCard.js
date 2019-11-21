@@ -82,7 +82,7 @@ const ResultCard = props => {
 
     return (
         <Card style={cardStyle} className="card text-center">
-            <Card.Header style={cardHeaderStyle}>
+            <Card.Header style={{background: 'linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(' + posterBaseURL + posterPath + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
                 <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
                     <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
                 </a>
@@ -121,9 +121,9 @@ const cardStyle = {
     backgroundColor: '#212121'
 };
 
-const cardHeaderStyle = {
-    backgroundColor: 'white'
-};
+// const cardHeaderStyle = {
+//     backgroundColor: 'white'
+// };
 
 const cardImageStyle = {
     width: '185px',

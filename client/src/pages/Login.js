@@ -4,6 +4,8 @@ import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import '../styles/Login.css';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 const Login = props => {
     const [email, setEmail] = useState("");
@@ -47,10 +49,12 @@ const Login = props => {
     }
 
     return (
-        <Layout>
-            <h1 style={{ borderBottom: '1px solid black' }}>Login</h1>
-            <div className="Login">
-                <form onSubmit={handleSubmit}>
+        <div fluid style={body}>
+            <Header />
+            <div className="Login" style={loginStyle}>
+                <h1 style={{ borderBottom: '1px solid black' }}>Login</h1>
+                <br />
+                <form onSubmit={handleSubmit} style={formStyle}>
                     <FormGroup controlId="email" bsSize="large">
                         <Form.Label>Email</Form.Label>
                         <FormControl
@@ -68,13 +72,39 @@ const Login = props => {
                             type="password"
                         />
                     </FormGroup>
+                    <br /><br />
                     <Button block bsSize="large" disabled={!validateForm()} type="submit">
                         Login
                     </Button>
                 </form>
             </div>
-        </Layout>
+            <Footer />
+        </div>
     );
+};
+
+const body = {
+    backgroundColor: '#000009',
+};
+
+const loginStyle = {
+    paddingLeft: '6%',
+    paddingRight: '6%',
+    paddingTop: '3%',
+    paddingBottom: '5%',
+    textAlign: 'center',
+    width: '50%',
+    display: 'block',
+    margin: '3% auto 3% auto',
+    backgroundColor: 'white',
+    borderRadius: 5
+};
+
+const formStyle = {
+    display: 'block',
+    margin: 'auto',
+    width: '100%',
+    textAlign: 'left'
 };
 
 export default withRouter(Login);

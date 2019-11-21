@@ -23,9 +23,10 @@ const Footer = () => {
                 <MDBRow>
                     <MDBCol md="4" className="text-center">
                         <h5 className="title"><strong>Media Tracker</strong> by PentaTech Inc</h5>
-                        <p>
+                        <p><small>
                             <strong>Media Tracker</strong> is an application that helps you keep track of shows and movies you watch, while also making it social!
                             Participate in forums for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.
+                            </small>
                         </p>
                     </MDBCol>
                     <MDBCol md="4" className="text-center">

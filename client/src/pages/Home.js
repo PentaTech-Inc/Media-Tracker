@@ -172,7 +172,7 @@ const Home = props => {
                         <div style={heading}>
                             <span style={headingTitle}>
                                 <img style={headingLogo} src={logo} alt="Logo" />
-                                <h1 style={title}>Media Tracker</h1>
+                                <h1 style={title}>MEDIA TRACKER</h1>
                             </span>
                             <h4 style={slogan}>Keep all of your shows and movies in one place.</h4>
                         </div>
@@ -220,10 +220,11 @@ const underline = {
 };
 const body = {
     width: '100%',
+    overflowY: 'hide'
 };
 const header = {
     height: '84vh',
-    width: '100vw',
+    width: '99.7vw',
     backgroundColor: 'black',
     color: 'white',
     backgroundImage: 'linear-gradient(45deg, #000000 25%, #000824 25%, #003352 50%, #000000 50%, #0D3357 75%, #003352 75%, #003352 100%)',
@@ -242,6 +243,7 @@ const headingTitle = {
 const title = {
     width: '60%',
     fontSize: '4em',
+    fontFamily: 'Impact',
     marginLeft: '.5em',
     borderBottomStyle: 'solid',
     borderBottomColor: 'white',
@@ -266,6 +268,7 @@ const blurb = {
     backgroundColor: '#00000C',
     textAlign: 'left',
     color: 'white',
+    width: '99.7vw'
 };
 const blurbTitle = {
     width: '50%',
