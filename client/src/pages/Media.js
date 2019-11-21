@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -16,6 +17,41 @@ import Footer from '../components/Footer.js';
 import { FaStar } from 'react-icons/fa';
 
 const Media = props => {
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [username, setUsername] = useState("");
+
+    // if logged in redirect to profile
+    fetch("/api/getUserDetails", { credentials: 'include' })
+        .then(res => {
+            if (res.status === 200) {
+                setLoggedIn(true);
+                return res.json();
+            }
+        }).then(data => {
+            setUsername(data.username);
+        })
+        .catch(err => {
+            // user not logged in, or error
+        });
+
+        const handleLogout = event => {
+            event.preventDefault();
+            fetch("/api/logout"
+                , { credentials: 'include' })
+                .then(res => {
+                    if (res.status === 200) {
+                        props.history.push('/login');
+                    } else {
+                        const error = new Error(res.error);
+                        throw error;
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Error logging out. Please try again.');
+                });
+        }
+
     const [media, setMedia] = useState({
         data: {
             id: 0,
@@ -107,7 +143,11 @@ const Media = props => {
                                 <div style={mediaCard}>
                                     <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                     <br />
-                                    <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+  Add to List</Button>
+                                    {loggedIn ?
+                                        <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+ Add to List</Button>
+                                        :
+                                        void(0)
+                                    }     
                                 </div>
                             </Col>
                             <Col md={8} lg={8} xl={9} style={colStyle}>
@@ -134,7 +174,11 @@ const Media = props => {
                                 <div style={mediaCard}>
                                     <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                     <br />
-                                    <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
+                                    {loggedIn ?
+                                        <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+ Add to List</Button>
+                                        :
+                                        void(0)
+                                    }
                                 </div>
                             </Col>
                             <Col md={8} lg={8} xl={9} style={colStyle}>
@@ -201,7 +245,8 @@ const mediaCard = {
 
 const mediaPoster = {
     width: '185px',
-    height: '278px'
+    height: '278px',
+    marginBottom: 20
 };
 
 const mediaTitle = {

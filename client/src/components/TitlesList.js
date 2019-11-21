@@ -39,7 +39,7 @@ const TitlesList = props => {
 
     return (
         <div>
-            <h5>{props.title}</h5>
+            <h5 style={heading}>{props.title}</h5>
             <ul style={listStyle}>
                 {(type === "movie" && lists.data.movies) ? (lists.data.movies).map((item, index) => {
                     return (
@@ -62,22 +62,36 @@ const TitlesList = props => {
     );
 }
 
+const heading = {
+    fontFamily: 'Impact',
+    fontSize: '25pt',
+    color: '#b0bef3',
+    marginTop: '5px',
+    display: 'block',
+    backgroundColor: '#1c496d',
+    padding: '15px 10px 10px 10px'
+};
+
 const listStyle = {
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#d1d7f4',
     listStyle: 'none',
     paddingBottom: 1,
     paddingTop: 6,
     paddingLeft: 3,
-    paddingRight: 3,
+    paddingRight: 5,
+    paddingTop: 15,
+    paddingBottom: 15,
     borderRadius: 5,
-    minHeight: 50
+    minHeight: 50,
+    fontWeight: 'bold',
+    marginBottom: '50px',
+    color: '#252e6a'
 }
 
 const itemStyle = {
-    backgroundColor: '#DCDCDC',
-    marginBottom: 5,
+    marginBottom: 7,
     paddingLeft: 10,
-    borderRadius: 5
+    borderRadius: 5,
 }
 
 export default TitlesList;

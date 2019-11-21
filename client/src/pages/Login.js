@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import '../styles/Login.css';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import { Link } from 'react-router-dom';
 
 const Login = props => {
     const [email, setEmail] = useState("");
@@ -49,11 +50,11 @@ const Login = props => {
     }
 
     return (
-        <div fluid style={body}>
+        <div>
             <Header />
+            <h1 style={headingStyle}>Login</h1>
+            <br />
             <div className="Login" style={loginStyle}>
-                <h1 style={{ borderBottom: '1px solid black' }}>Login</h1>
-                <br />
                 <form onSubmit={handleSubmit} style={formStyle}>
                     <FormGroup controlId="email" bsSize="large">
                         <Form.Label>Email</Form.Label>
@@ -77,25 +78,40 @@ const Login = props => {
                         Login
                     </Button>
                 </form>
+                <br/>
+                <Link to="/register">Create Account</Link>
             </div>
             <Footer />
         </div>
+        
     );
 };
 
-const body = {
-    backgroundColor: '#000009',
+const headingStyle = {
+    width: '50%',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 30,
+    marginBottom: 10,
+    fontFamily: 'Impact',
+    fontSize: '50pt',
+    color: '#2d74da',
+    borderBottomStyle: 'solid',
+    bordBottomColor: '#25467a',
+    borderBottomWidth: '3',
+    textAlign: 'center'
 };
 
 const loginStyle = {
-    paddingLeft: '6%',
-    paddingRight: '6%',
+    paddingLeft: '3%',
+    paddingRight: '3%',
     paddingTop: '3%',
-    paddingBottom: '5%',
+    paddingBottom: '3%',
     textAlign: 'center',
     width: '50%',
     display: 'block',
-    margin: '3% auto 3% auto',
+    margin: '0 auto 3% auto',
     backgroundColor: 'white',
     borderRadius: 5
 };
