@@ -220,10 +220,11 @@ const underline = {
 };
 const body = {
     width: '100%',
+    overflowY: 'hide'
 };
 const header = {
     height: '84vh',
-    width: '100vw',
+    width: '99.7vw',
     backgroundColor: 'black',
     color: 'white',
     backgroundImage: 'linear-gradient(45deg, #000000 25%, #000824 25%, #003352 50%, #000000 50%, #0D3357 75%, #003352 75%, #003352 100%)',
@@ -266,6 +267,7 @@ const blurb = {
     backgroundColor: '#00000C',
     textAlign: 'left',
     color: 'white',
+    width: '99.7vw'
 };
 const blurbTitle = {
     width: '50%',
