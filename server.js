@@ -20,7 +20,7 @@ const port = process.env.PORT || 5000;
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/', function (req, res) {
     // res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-    res.sendFile(path.join(__dirname+ '/client/build/index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.use(cors({
@@ -185,6 +185,27 @@ app.get('/api/settings', withAuth, (req, res) => {
     }
 });
 
+app.get('/api/getUserLists', (req, res) => {
+    const { name } = req.query;
+    let user = null;
+    let moviesList = [];
+    let showsList = [];
+    User.findOne({ username: name }, { _id: 0, __v: 0, password: 0, email: 0, avatar: 0, dateJoined: 0, comments: 0 },
+        async (error, usr) => {
+            if (error) {
+                throw error;
+            }
+            user = usr;
+            moviesList = await Movie.find()
+                .where('id')
+                .in((user.movies));
+            showsList = await Show.find()
+                .where('id')
+                .in((user.shows));
+            res.status(200).send({ movies: moviesList, shows: showsList });
+        })
+});
+
 /** Add to user list */
 app.get('/api/addToList', withAuth, (req, res) => {
     const { id, type } = req.query;
@@ -232,6 +253,7 @@ app.get('/api/addToList', withAuth, (req, res) => {
         )
     }
 });
+
 /** Insert new document into media collection of DB */
 app.get('/api/addTitle', (req, res) => {
     const { id, type } = req.query;

@@ -57,9 +57,9 @@ const Search = props => {
                         results !== null ?
                             <Col style={colStyle}>
                                 { key === 'movies' ?
-                                    <div><h5><strong>{results.movies.length} results for:</strong></h5><p>{title}</p></div>
+                                    <div><h3><strong>{results.movies.length} results for:</strong></h3><h5>{title}</h5><br /></div>
                                     :
-                                    <div><h5><strong>{results.shows.length} results for:</strong></h5><p>{title}</p></div>
+                                    <div><h3><strong>{results.shows.length} results for:</strong></h3><h5>{title}</h5><br /></div>
                                 }
 
                                 <div style={resultsStyle}>

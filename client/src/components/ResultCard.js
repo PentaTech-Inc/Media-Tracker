@@ -80,15 +80,55 @@ const ResultCard = props => {
             });
     };
 
+    const handleClick = (event) => {
+        event.preventDefault();
+        fetch("/api/addTitle?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log("Title added successfully.");
+                } else if (res.status === 202) {
+                    console.log("Title already in database.");
+                } else if (res.status === 500) {
+                    alert("Error adding title to list.");
+                    return;
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error adding title to list. Please try again, or email us for further assistance.');
+                return;
+            });
+        fetch("/api/addToList?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    alert("Added to list!");
+                } else if (res.status === 202) {
+                    alert("Added to list");
+                } else if (res.status === 500) {
+                    alert("Error: Insufficient information for title. Available only as a search result.")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error adding title to list. Please try again.');
+            });
+    };
+
     return (
         <Card style={cardStyle} className="card text-center">
-            <Card.Header style={{background: 'linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(' + posterBaseURL + posterPath + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+            <Card.Header style={{ background: 'linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(' + posterBaseURL + posterPath + ')', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                 <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
                     <Card.Img variant="top" style={cardImageStyle} src={posterBaseURL + posterPath} />
                 </a>
             </Card.Header>
             {loggedIn ?
-                (<Card.Body style={{height: 240}}>
+                (<Card.Body style={{ height: 240 }}>
                     <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
                         <Card.Title style={cardTitleStyle}>
                             {title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})
@@ -98,7 +138,7 @@ const ResultCard = props => {
                         <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                     </Card.Text>
                     <Card.Footer>
-                        (<Button style={{borderRadius: 5}}>Add to list</Button>)
+                        (<Button style={{ borderRadius: 5 }} onClick={handleClick}>+ Add to list</Button>)
                     </Card.Footer>
                 </Card.Body>)
                 :
