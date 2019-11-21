@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 
 const saltRounds = 10;
 
@@ -20,7 +20,7 @@ UserSchema.pre('save', function (next) {
   if (this.isNew || this.isModified('password')) {
     // Saving reference to this because of changing scopes
     const document = this;
-    bcrypt.hash(document.password, saltRounds,
+    bcryptjs.hash(document.password, saltRounds,
       function (err, hashedPassword) {
         if (err) {
           next(err);
@@ -36,7 +36,7 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.methods.isCorrectPassword = function (password, callback) {
-  bcrypt.compare(password, this.password, function (err, same) {
+  bcryptjs.compare(password, this.password, function (err, same) {
     if (err) {
       callback(err);
     } else {
