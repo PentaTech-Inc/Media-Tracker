@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
@@ -15,41 +14,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaStar } from 'react-icons/fa';
 
 const Media = props => {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [username, setUsername] = useState("");
-
-    // if logged in redirect to profile
-    fetch("/api/getUserDetails", { credentials: 'include' })
-    .then(res => {
-        if (res.status === 200) {
-            setLoggedIn(true);
-            return res.json();
-        }
-    }).then(data => {
-        setUsername(data.username);
-    })
-    .catch(err => {
-        // user not logged in, or error
-    });
-
-    const handleLogout = event => {
-    event.preventDefault();
-    fetch("/api/logout"
-        , { credentials: 'include' })
-        .then(res => {
-            if (res.status === 200) {
-                props.history.push('/login');
-            } else {
-                const error = new Error(res.error);
-                throw error;
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Error logging out. Please try again.');
-        });
-    }
-
     const [media, setMedia] = useState({
         data: {
             id: 0,
@@ -108,6 +72,27 @@ const Media = props => {
             });
     }, []);
 
+    const handleClick = (event) => {
+        event.preventDefault();
+        fetch("/api/addToList?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    alert("Added to list!");
+                } else if (res.status === 202) {
+                    alert("Added to list");
+                } else if (res.status === 500) {
+                    alert("Error: Insufficient information for title. Available only as a search result.")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error navigating to title\'s page. Please try again.');
+            });
+    };
+
     return (
         <Layout fluid={true} style={body}>
             <Container fluid>
@@ -117,12 +102,7 @@ const Media = props => {
                             <div style={mediaCard}>
                                 <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                 <br />
-                                {loggedIn ?
-                                    (<Button variant="primary" type="submit">Add to List</Button>)
-                                    :
-                                    void(0)
-                                }
-                                
+                                <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
                             </div>
                         </Col>
                         <Col md={8} lg={8} xl={9} style={colStyle}>
@@ -140,16 +120,6 @@ const Media = props => {
                                 <hr />
 
                                 <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
-
-                                {/* Leaving off for now but would like to implement in the future
-                            <div>
-                                <h4><strong>Details</strong></h4>
-                                <p>
-                                    <strong>Creator:&nbsp;&nbsp;</strong>Blah <br />
-                                    <strong>Cast:&nbsp;&nbsp;</strong>Blah
-                            </p>
-                            </div>
-                            */}
                             </div>
                         </Col>
                     </Row>
@@ -159,11 +129,7 @@ const Media = props => {
                             <div style={mediaCard}>
                                 <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                 <br />
-                                {loggedIn ?
-                                    (<Button variant="primary" type="submit">Add to List</Button>)
-                                    :
-                                    void(0)
-                                }
+                                <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
                             </div>
                         </Col>
                         <Col md={8} lg={8} xl={9} style={colStyle}>

@@ -47,8 +47,8 @@ const Home = props => {
         dots: true,
         infinite: false,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         variableWidth: false,
         adaptiveHeight: false,
         nextArrow: <NextArrow />,
@@ -107,23 +107,46 @@ const Home = props => {
                 console.error(err);
                 alert('Error logging out. Please try again.');
             });
-    }
+    };
+
+    const handleMediaPage = (id, type) => (event) => {
+        event.preventDefault();
+        fetch("/api/addTitle?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    props.history.push("/media?id=" + id + "&type=" + type);
+                } else if (res.status === 202) {
+                    props.history.push("/media?id=" + id + "&type=" + type);
+                } else if (res.status === 500) {
+                    console.log(res);
+                    alert("Error: Insufficient information for title. Available only as a search result.")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error navigating to title\'s page. Please try again.');
+            });
+    };
+
     return (
         <div>
             {loggedIn ?
                 // LOGGED IN
                 <Layout fluid={true} style={containerStyle}>
                     <Row style={rowStyle}>
-            <Col style={{textAlign: 'center'}}><h1><strong>Welcome, {username}</strong></h1></Col>
+                        <Col style={{ textAlign: 'center' }}><h1><strong>Welcome, {username}</strong></h1></Col>
 
                     </Row>
                     <br />
                     <Row style={rowStyle}>
-                        <Col sm={4} md={4} lg={3} xl={3}>
-                            <TitlesList title="My Movies" />
-                            <TitlesList title="My Shows" />
+                        <Col md={4} lg={3} xl={3}>
+                            <TitlesList title="My Movies" type="movie" />
+                            <TitlesList title="My Shows" type="tv" />
                         </Col>
-                        <Col sm={8} md={8} lg={9} xl={9}>
+                        <Col md={8} lg={9} xl={9}>
                             <Row className="justify-content-md-left">
                                 <Col>
                                     <h3 style={underline}>Trending Movies</h3>
@@ -133,7 +156,10 @@ const Home = props => {
                                                 return (
                                                     <div style={{ width: 105, height: 198 }}>
                                                         <Card style={{ width: 105, height: 198, marginLeft: 5, marginRight: 5 }} as="div">
-                                                            <Card.Img style={{ width: 105, height: 198 }} src={basePosterPath + item.poster_path} />
+                                                            <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "movie")}>
+
+                                                                <Card.Img style={{ width: 105, height: 198 }} src={basePosterPath + item.poster_path} />
+                                                            </a>
                                                         </Card>
                                                     </div>
                                                 );
@@ -150,7 +176,9 @@ const Home = props => {
                                                 return (
                                                     <div key={index} style={{ width: 105, height: 198 }}>
                                                         <Card style={{ width: 105, height: 198, marginLeft: 5, marginRight: 5 }} as="div">
-                                                            <Card.Img style={{ width: 105, height: 198 }} src={basePosterPath + item.poster_path} />
+                                                            <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "tv")}>
+                                                                <Card.Img style={{ width: 105, height: 198 }} src={basePosterPath + item.poster_path} />
+                                                            </a>
                                                         </Card>
                                                     </div>
                                                 );
