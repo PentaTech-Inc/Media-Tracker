@@ -107,7 +107,7 @@ const Media = props => {
                                 <div style={mediaCard}>
                                     <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                     <br />
-                                    <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+  Add to List</Button>
+                                    <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+ Add to List</Button>
                                 </div>
                             </Col>
                             <Col md={8} lg={8} xl={9} style={colStyle}>
@@ -134,7 +134,7 @@ const Media = props => {
                                 <div style={mediaCard}>
                                     <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                     <br />
-                                    <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
+                                    <Button variant="primary" type="submit" onClick={handleClick}>+ Add to List</Button>
                                 </div>
                             </Col>
                             <Col md={8} lg={8} xl={9} style={colStyle}>
