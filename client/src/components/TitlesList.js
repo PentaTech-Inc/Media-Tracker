@@ -68,7 +68,7 @@ const heading = {
     color: '#b0bef3',
     marginTop: '5px',
     display: 'block',
-    backgroundColor: '#19273c',
+    backgroundColor: '#1c496d',
     padding: '15px 10px 10px 10px'
 };
 
