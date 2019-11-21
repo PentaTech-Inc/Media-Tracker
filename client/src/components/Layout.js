@@ -27,10 +27,12 @@ const layoutStyle = {
  */
 const Layout = props => {
     return (
-        <div>
-            <Header /> {/* will be displayed across all pages */}
-            <div style={layoutStyle}>
-                {props.children} {/* page's actual content */}
+        <div className="Site">
+            <div className="Site-content">
+                <Header /> {/* will be displayed across all pages */}
+                <div style={layoutStyle}>
+                    {props.children} {/* page's actual content */}
+                </div>
             </div>
             <Footer /> {/* will be displayed on all pages */}
         </div>
