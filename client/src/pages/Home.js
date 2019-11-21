@@ -172,7 +172,7 @@ const Home = props => {
                         <div style={heading}>
                             <span style={headingTitle}>
                                 <img style={headingLogo} src={logo} alt="Logo" />
-                                <h1 style={title}>Media Tracker</h1>
+                                <h1 style={title}>MEDIA TRACKER</h1>
                             </span>
                             <h4 style={slogan}>Keep all of your shows and movies in one place.</h4>
                         </div>
@@ -243,6 +243,7 @@ const headingTitle = {
 const title = {
     width: '60%',
     fontSize: '4em',
+    fontFamily: 'Impact',
     marginLeft: '.5em',
     borderBottomStyle: 'solid',
     borderBottomColor: 'white',
