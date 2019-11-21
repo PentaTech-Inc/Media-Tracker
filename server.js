@@ -13,6 +13,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const withAuth = require('./client/src/middleware');
 const path = require('path');
+const fetch = require('node-fetch')
 const app = express();
 
 const port = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
     // res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
+
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -185,28 +187,73 @@ app.get('/api/settings', withAuth, (req, res) => {
     }
 });
 
-/** Add to user list */
-app.get('/api/addToList', withAuth, (req, res) => {
-    const [id, type] = req.query;
-    fetch("/api/addTitle?id=" + id + "&type=" + type)
-        .then(res => {
-            if (res.status === 200) {
-                // continue
-            } else if (res.status === 202) {
-                res.status(202).send("Error: Title already in database.");
-            } else if (res.status === 500) {
-                alert("Error: Insufficient information for title. Available only as a search result.")
-            } else {
-                const error = new Error(res.error);
+app.get('/api/getUserLists', (req, res) => {
+    const { name } = req.query;
+    let user = null;
+    let moviesList = [];
+    let showsList = [];
+    User.findOne({ username: name }, { _id: 0, __v: 0, password: 0, email: 0, avatar: 0, dateJoined: 0, comments: 0 },
+        async (error, usr) => {
+            if (error) {
                 throw error;
             }
+            user = usr;
+            moviesList = await Movie.find()
+                .where('id')
+                .in((user.movies));
+            showsList = await Show.find()
+                .where('id')
+                .in((user.shows));
+            res.status(200).send({ movies: moviesList, shows: showsList });
         })
-        .catch(err => {
-            console.error(err);
-            alert('Error navigating to title\'s page. Please try again.');
-        });
+});
 
-    // STILL BEING WORKED ON
+/** Add to user list */
+app.get('/api/addToList', withAuth, (req, res) => {
+    const { id, type } = req.query;
+    const token =
+        req.query.token ||
+        req.headers['x-access-token'] ||
+        req.cookies.token;
+    if (!token) {
+        res.status(401).send('Unauthorized: No token provided');
+    } else {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                res.status(401).send('Unauthorized: Invalid token');
+            } else {
+                req.email = decoded.email;
+                if (type === "movie") {
+                    User.findOneAndUpdate(
+                        { email: req.email },
+                        { $push: { movies: id } },
+                        function (error, title) {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send("Internal server error.");
+                            } else {
+                                console.log(title);
+                                res.status(200).send("Added to Movies list!");
+                            }
+                        });
+                } else if (type === "tv") {
+                    User.findOneAndUpdate(
+                        { email: req.email },
+                        { $push: { shows: id } },
+                        function (error, title) {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send("Internal server error.");
+                            } else {
+                                console.log(title);
+                                res.status(200).send("Added to Shows list!");
+                            }
+                        });
+                }
+            }
+        }
+        )
+    }
 });
 
 /** Insert new document into media collection of DB */
@@ -334,6 +381,22 @@ app.get('/api/getTitleDetails', (req, res) => {
     } else {
         res.status(500).send("Error: Invalid type.");
     }
+});
+
+app.get('/api/getPopularMovies', (req, res) => {
+    axios.get('https://api.themoviedb.org/3/movie/popular?api_key=' + process.env.MOVIEDB_KEY + '&language=en-US&page=1&include_adult=false')
+        .then(result => {
+            res.status(200).send(result.data.results);
+        })
+        .catch(err => res.send(err));
+});
+
+app.get('/api/getPopularShows', (req, res) => {
+    axios.get('https://api.themoviedb.org/3/tv/popular?api_key=' + process.env.MOVIEDB_KEY + '&language=en-US&page=1&include_adult=false')
+        .then(result => {
+            res.status(200).send(result.data.results);
+        })
+        .catch(err => res.send(err));
 });
 
 /**

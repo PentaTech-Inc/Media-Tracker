@@ -9,11 +9,15 @@ import { withRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
-import { Container, Row, Col } from 'react-bootstrap';
-import TitlesCarousel from '../components/TitlesCarousel';
+import Slider from 'react-slick';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import TitlesList from '../components/TitlesList';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 import logo from '../assets/app_logo_circle_medium.png';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '../styles/Profile.css';
 
 const containerStyle = {
     padding: 0,
@@ -30,11 +34,21 @@ const rowStyle = {
     paddingRight: 0
 };
 
+const rowStyle1 = {
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: '5%',
+    marginRight: '5%'
+};
+
 
 const Home = props => {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [details, setDetails] = useState({ data: {} });
+    const [popularMovies, setPopularMovies] = useState(null);
+    const [popularShows, setPopularShows] = useState(null);
     const [username, setUsername] = useState("");
+    const basePosterPath = "http://image.tmdb.org/t/p/w185_and_h278_bestv2";
 
     // if logged in redirect to profile
     fetch("/api/getUserDetails", { credentials: 'include' })
@@ -49,6 +63,45 @@ const Home = props => {
         .catch(err => {
             // user not logged in, or error
         });
+
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        variableWidth: false,
+        adaptiveHeight: false,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />
+    };
+
+    useEffect(() => {
+        fetch("/api/getPopularMovies")
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+            }).then(data => {
+                setPopularMovies(data);
+
+            })
+            .catch(err => {
+                //
+            });
+        fetch("/api/getPopularShows")
+            .then(res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+            }).then(data => {
+                setPopularShows(data);
+
+            })
+            .catch(err => {
+                //
+            })
+    }, [])
 
     const handleLogout = event => {
         event.preventDefault();
@@ -68,37 +121,91 @@ const Home = props => {
             });
     }
 
+
+
+    const handleMediaPage = (id, type) => (event) => {
+        event.preventDefault();
+        fetch("/api/addTitle?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    props.history.push("/media?id=" + id + "&type=" + type);
+                } else if (res.status === 202) {
+                    props.history.push("/media?id=" + id + "&type=" + type);
+                } else if (res.status === 500) {
+                    console.log(res);
+                    alert("Error: Insufficient information for title. Available only as a search result.")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error navigating to title\'s page. Please try again.');
+            });
+    };
+
     return (
         <div>
             {loggedIn ?
                 // LOGGED IN
                 <Layout fluid={true} style={containerStyle}>
                     <Row style={rowStyle}>
-                        <Col><h1>Home</h1></Col>
+                        <Col><h1 style={{ borderBottom: '1px solid black' }}>Home</h1></Col>
                     </Row>
                     <br />
                     <Row style={rowStyle}>
-                        <Col sm={4} md={4} lg={3} xl={3}>
-                            <TitlesList title="My List" />
-                            <TitlesList title="Popular Titles" />
+                        <Col md={4} lg={3} xl={3}>
+                            <TitlesList title="My Movies" type="movie" />
+                            <TitlesList title="My Shows" type="tv" />
                         </Col>
-                        <Col sm={8} md={8} lg={9} xl={9} style={rightColStyle}>
-                            <Row className="justify-content-md-left">
-                                <Col><TitlesCarousel title="Currently Watching" /></Col>
+                        <Col md={8} lg={9} xl={9}>
+                            <Row className="justify-content-md-center">
+                                <Col>
+                                    <h3 style={underline}>Popular Movies</h3>
+                                    <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
+                                        {popularMovies ?
+                                            popularMovies.map((item, index) => {
+                                                return (
+                                                    <div key={index} style={{ width: 110, height: 203 }}>
+                                                        <Card style={{ width: 105, height: 198, marginLeft: 5, marginRight: 5 }} as="div">
+                                                            <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "movie")}>
+                                                                <Card.Img style={{ width: 105, height: 198 }} src={basePosterPath + item.poster_path} />
+                                                            </a>
+                                                        </Card>
+                                                    </div>
+                                                );
+                                            })
+                                            :
+                                            <div>Loading...</div>
+                                        }
+                                    </Slider>
+                                    <h3 style={underline}>Popular Shows</h3>
+                                    <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
+                                        {popularShows ?
+                                            popularShows.map((item, index) => {
+                                                return (
+                                                    <div key={index} style={{ width: 105, height: 198 }}>
+                                                        <Card style={{ width: 105, height: 198, marginLeft: 5, marginRight: 5 }} as="div">
+                                                            <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "tv")}>
+                                                                <Card.Img style={{ width: 105, height: 198 }} src={basePosterPath + item.poster_path} />
+                                                            </a>
+                                                        </Card>
+                                                    </div>
+                                                );
+                                            })
+                                            :
+                                            <div>Loading...</div>
+                                        }
+                                    </Slider>
+                                </Col>
                             </Row>
                             <br />
-                            <Row className="justify-content-md-left">
-                                <Col><TitlesCarousel title="Recommended for Fabian" /></Col>
-                            </Row>
-                            <br />
-                            <Row className="justify-content-md-left">
-                                <Col><TitlesCarousel title="Friends are watching" /></Col>
-                            </Row>
                         </Col>
                     </Row>
                 </Layout>
                 : // NOT LOGGED IN
-                <div fluid style={body}>
+                <div fluid="true" style={body}>
                     <Header />
                     <Row style={header}>
                         <div style={heading}>
@@ -125,6 +232,36 @@ const Home = props => {
             }
         </div>
     );
+};
+
+const NextArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style, borderRadius: 50, display: "block", background: "lightgrey" }}
+            onClick={onClick}
+        />
+    );
+}
+
+const PrevArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style, borderRadius: 50, display: "block", background: "lightgrey" }}
+            onClick={onClick}
+        />
+    );
+}
+
+const underline = {
+    textAlign: 'left',
+    color: '#1f57a4',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'cornflowerBlue',
+    borderBottomWidth: 2
 };
 
 const body = {

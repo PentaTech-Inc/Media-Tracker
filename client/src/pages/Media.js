@@ -72,6 +72,27 @@ const Media = props => {
             });
     }, []);
 
+    const handleClick = (event) => {
+        event.preventDefault();
+        fetch("/api/addToList?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    alert("Added to list!");
+                } else if (res.status === 202) {
+                    alert("Added to list");
+                } else if (res.status === 500) {
+                    alert("Error: Insufficient information for title. Available only as a search result.")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error navigating to title\'s page. Please try again.');
+            });
+    };
+
     return (
         <Layout fluid={true} style={body}>
             <Container fluid>
@@ -81,7 +102,7 @@ const Media = props => {
                             <div style={mediaCard}>
                                 <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                 <br />
-                                <Button variant="primary" type="submit">Add to List</Button>
+                                <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
                             </div>
                         </Col>
                         <Col md={8} lg={8} xl={9} style={colStyle}>
@@ -99,16 +120,6 @@ const Media = props => {
                                 <hr />
 
                                 <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
-
-                                {/* Leaving off for now but would like to implement in the future
-                            <div>
-                                <h4><strong>Details</strong></h4>
-                                <p>
-                                    <strong>Creator:&nbsp;&nbsp;</strong>Blah <br />
-                                    <strong>Cast:&nbsp;&nbsp;</strong>Blah
-                            </p>
-                            </div>
-                            */}
                             </div>
                         </Col>
                     </Row>
@@ -118,7 +129,7 @@ const Media = props => {
                             <div style={mediaCard}>
                                 <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
                                 <br />
-                                <Button variant="primary" type="submit">Add to List</Button>
+                                <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
                             </div>
                         </Col>
                         <Col md={8} lg={8} xl={9} style={colStyle}>

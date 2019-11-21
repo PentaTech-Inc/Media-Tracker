@@ -44,6 +44,46 @@ const ResultCard = props => {
             });
     };
 
+    const handleClick = (event) => {
+        event.preventDefault();
+        fetch("/api/addTitle?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log("Title added successfully.");
+                } else if (res.status === 202) {
+                    console.log("Title already in database.");
+                } else if (res.status === 500) {
+                    alert("Error adding title to list.");
+                    return;
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error adding title to list. Please try again, or email us for further assistance.');
+                return;
+            });
+        fetch("/api/addToList?id=" + id + "&type=" + type)
+            .then(res => {
+                if (res.status === 200) {
+                    alert("Added to list!");
+                } else if (res.status === 202) {
+                    alert("Added to list");
+                } else if (res.status === 500) {
+                    alert("Error: Insufficient information for title. Available only as a search result.")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error adding title to list. Please try again.');
+            });
+    };
+
     return (
         <Card style={cardStyle} className="card text-center">
             <Card.Header style={cardHeaderStyle}>
@@ -57,7 +97,7 @@ const ResultCard = props => {
                     <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                 </Card.Text>
                 <Card.Footer>
-                    <Button>Add to list</Button>
+                    <Button onClick={handleClick}>Add to list</Button>
                 </Card.Footer>
             </Card.Body>
         </Card>

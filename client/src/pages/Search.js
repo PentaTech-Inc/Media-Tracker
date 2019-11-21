@@ -40,65 +40,63 @@ const Search = props => {
 
     return (
         <Layout>
-            <Container>
-                <Row style={rowStyle}>
-                    <Col style={colStyle}><h1 style={{ borderBottom: '1px solid black' }}>Search</h1></Col>
-                </Row>
-                <br />
-                <Row>
-                    <Col style={colStyle}><SearchBar buttonStyle='dark' /></Col> {/* ...props to implement child components inheriting size? */}
-                </Row>
-                <br />
-                <Row style={rowStyle}>
-                    {
-                        // If no search was made, just '--domain--/search', omit search results section
-                        results !== null ?
-                            <Col style={colStyle}>
-                                <h5>Results for:</h5>
+            <h1 style={{ borderBottom: '1px solid black' }}>Search</h1>
+            <br />
+            <Row>
+                <Col style={colStyle}><SearchBar buttonStyle='dark' /></Col> {/* ...props to implement child components inheriting size? */}
+            </Row>
+            <br />
+            <Row style={rowStyle}>
+                {
+                    // If no search was made, just '--domain--/search', omit search results section
+                    results !== null ?
+                        <Col style={colStyle}>
+                            <h5>Results for:</h5>
 
-                                <p>{title}</p>
-                                <div>
-                                    <Tabs style={tabsStyle} defaultActiveKey="movies" id="results-tab">
-                                        <Tab stlye={tabStyle} eventKey="movies" title="Movies">
-                                            {results.movies.length > 0 ?
-                                                <CardColumns className="card-columns text-center">
-                                                    {results.movies.map((item, index) => {
-                                                        return (
-                                                            <ResultCard key={index} id={item.id} type={item.media_type} title={item.title} overview={item.overview} release_date={item.release_date} poster={item.poster_path} />
-                                                        );
-                                                    })
-                                                    }
-                                                </CardColumns>
-                                                :
-                                                <p>No results</p>
-                                            }
-                                        </Tab>
-                                        <Tab style={tabStyle} eventKey="shows" title="Shows">
-                                            {results.shows.length > 0 ?
-                                                <CardColumns className="card-columns text-center">
-                                                    {results.shows.map((item, index) => {
-                                                        return (
-                                                            <ResultCard key={index} id={item.id} type={item.media_type} title={item.name} overview={item.overview} release_date={item.first_air_date} poster={item.poster_path} />
-                                                        );
-                                                    })
-                                                    }
-                                                </CardColumns>
-                                                :
-                                                <p>No results</p>
-                                            }
-                                        </Tab>
-                                    </Tabs>
-                                </div>
-                            </Col>
-                            :
+                            <p>{title}</p>
+                            <div>
+                                <Tabs style={tabsStyle} defaultActiveKey="movies" id="results-tab">
+                                    <Tab stlye={tabStyle} eventKey="movies" title="Movies">
+                                        {results.movies.length > 0 ?
+                                            <CardColumns className="card-columns text-center">
+                                                {results.movies.map((item, index) => {
+                                                    return (
+                                                        <ResultCard key={index} id={item.id} type={item.media_type} title={item.title} overview={item.overview} release_date={item.release_date} poster={item.poster_path} />
+                                                    );
+                                                })
+                                                }
+                                            </CardColumns>
+                                            :
+                                            <p>No results</p>
+                                        }
+                                    </Tab>
+                                    <Tab style={tabStyle} eventKey="shows" title="Shows">
+                                        {results.shows.length > 0 ?
+                                            <CardColumns className="card-columns text-center">
+                                                {results.shows.map((item, index) => {
+                                                    return (
+                                                        <ResultCard key={index} id={item.id} type={item.media_type} title={item.name} overview={item.overview} release_date={item.first_air_date} poster={item.poster_path} />
+                                                    );
+                                                })
+                                                }
+                                            </CardColumns>
+                                            :
+                                            <p>No results</p>
+                                        }
+                                    </Tab>
+                                </Tabs>
+                            </div>
+                        </Col>
+                        :
+                        <Col style={colStyle}>
                             <div>
                                 <h5>Search movies or TV shows!</h5>
                                 <p>Add titles to your lists to keep track of what you've watched!</p>
                                 <p>Powered by <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDb</a>.</p>
                             </div>
-                    }
-                </Row>
-            </Container>
+                        </Col>
+                }
+            </Row>
         </Layout>
     );
 };
@@ -109,7 +107,8 @@ const rowStyle = {
 
 const colStyle = {
     padding: 0,
-    margin: 0
+    marginLeft: '5%',
+    marginRight: '5%'
 };
 
 const tabsStyle = {
