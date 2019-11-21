@@ -10,6 +10,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import * as qs from 'qs';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 import { FaStar } from 'react-icons/fa';
 
@@ -94,84 +96,97 @@ const Media = props => {
     };
 
     return (
-        <Layout fluid={true} style={body}>
-            <Container fluid>
-                {type === "movie" ?
-                    <Row>
-                        <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
-                            <div style={mediaCard}>
-                                <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
-                                <br />
-                                <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
-                            </div>
-                        </Col>
-                        <Col md={8} lg={8} xl={9} style={colStyle}>
-                            <div>
-                                <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
-                                <h6 style={mediaDetails}>
-                                    <span>Movie</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.releaseDate ? media.data.releaseDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
-                                </h6>
-
-                                <div style={mediaRating}>
-                                    {media.data.rating ? <FaStar size="xs" style={icon} /> : "No ratings"}&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
-                            <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+        <div>
+            <Header />
+            <div  style={{background: 'linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(' + posterBaseURL + media.data.posterPath + ')', backgroundSize: 'cover', height: '10em', marginLeft: 20, marginRight: 20 }} />
+            <div style={body}>
+                <Container fluid>
+                    {type === "movie" ?
+                        <Row>
+                            <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
+                                <div style={mediaCard}>
+                                    <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
+                                    <br />
+                                    <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+  Add to List</Button>
                                 </div>
+                            </Col>
+                            <Col md={8} lg={8} xl={9} style={colStyle}>
+                                <div>
+                                    <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
+                                    <h6 style={mediaDetails}>
+                                        <span>Movie</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.releaseDate ? media.data.releaseDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
+                                    </h6>
 
-                                <hr />
+                                    <div style={mediaRating}>
+                                        {media.data.rating ? <FaStar size="xs" style={icon} /> : "No ratings"}&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
+                                <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                                    </div>
 
-                                <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
-                            </div>
-                        </Col>
-                    </Row>
-                    :
-                    <Row>
-                        <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
-                            <div style={mediaCard}>
-                                <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
-                                <br />
-                                <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
-                            </div>
-                        </Col>
-                        <Col md={8} lg={8} xl={9} style={colStyle}>
-                            <div>
-                                <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
-                                <h6 style={mediaDetails}>
-                                    <span>TV Series</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.firstAirDate ? media.data.firstAirDate.substring(0, 4) : ""} - {media.data.lastAirDate ? media.data.lastAirDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
-                                </h6>
+                                    <hr />
 
-                                <div style={mediaRating}>
-                                    <FaStar size="xs" style={icon} />&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
-                            <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                                    <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
                                 </div>
+                            </Col>
+                        </Row>
+                        :
+                        <Row>
+                            <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
+                                <div style={mediaCard}>
+                                    <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
+                                    <br />
+                                    <Button variant="primary" type="submit" onClick={handleClick}>Add to List</Button>
+                                </div>
+                            </Col>
+                            <Col md={8} lg={8} xl={9} style={colStyle}>
+                                <div>
+                                    <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
+                                    <h6 style={mediaDetails}>
+                                        <span>TV Series</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.firstAirDate ? media.data.firstAirDate.substring(0, 4) : ""} - {media.data.lastAirDate ? media.data.lastAirDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
+                                    </h6>
 
-                                <hr />
+                                    <div style={mediaRating}>
+                                        <FaStar size="xs" style={icon} />&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
+                                <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                                    </div>
 
-                                <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
+                                    <hr />
 
-                                {/* Leaving off for now but would like to implement in the future
-                            <div>
-                                <h4><strong>Details</strong></h4>
-                                <p>
-                                    <strong>Creator:&nbsp;&nbsp;</strong>Blah <br />
-                                    <strong>Cast:&nbsp;&nbsp;</strong>Blah
-                            </p>
-                            </div>
-                            */}
-                            </div>
-                        </Col>
-                    </Row>
-                }
-            </Container>
-        </Layout>
+                                    <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
+
+                                    {/* Leaving off for now but would like to implement in the future
+                                <div>
+                                    <h4><strong>Details</strong></h4>
+                                    <p>
+                                        <strong>Creator:&nbsp;&nbsp;</strong>Blah <br />
+                                        <strong>Cast:&nbsp;&nbsp;</strong>Blah
+                                </p>
+                                </div>
+                                */}
+                                </div>
+                            </Col>
+                        </Row>
+                    }
+                </Container>
+            </div>
+            <Footer />
+        </div>
     );
 };
 
+const banner = {
+
+};
+
 const body = {
-    paddingTop: 30,
-    paddingBottom: 100,
+    paddingTop: 50,
+    paddingBottom: 20,
     paddingRight: '2.5%',
     paddingLeft: '2.5%',
-    textAlign: 'center'
+    marginLeft: 20,
+    marginRight: 20,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5
 };
 
 const colStyle = {
@@ -186,7 +201,7 @@ const mediaCard = {
 
 const mediaPoster = {
     width: '185px',
-    height: '278px',
+    height: '278px'
 };
 
 const mediaTitle = {
