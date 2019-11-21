@@ -4,12 +4,12 @@
  */
 
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { Container, Row, Col } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button'
 import * as qs from 'qs';
+import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
@@ -19,6 +19,7 @@ import { FaStar } from 'react-icons/fa';
 const Media = props => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
+    const [text, setText] = useState("");
 
     // if logged in redirect to profile
     fetch("/api/getUserDetails", { credentials: 'include' })
@@ -34,23 +35,23 @@ const Media = props => {
             // user not logged in, or error
         });
 
-        const handleLogout = event => {
-            event.preventDefault();
-            fetch("/api/logout"
-                , { credentials: 'include' })
-                .then(res => {
-                    if (res.status === 200) {
-                        props.history.push('/login');
-                    } else {
-                        const error = new Error(res.error);
-                        throw error;
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Error logging out. Please try again.');
-                });
-        }
+    const handleLogout = event => {
+        event.preventDefault();
+        fetch("/api/logout"
+            , { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    props.history.push('/login');
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error logging out. Please try again.');
+            });
+    }
 
     const [media, setMedia] = useState({
         data: {
@@ -134,70 +135,108 @@ const Media = props => {
     return (
         <div>
             <Header />
-            <div  style={{background: 'linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(' + posterBaseURL + media.data.posterPath + ')', backgroundSize: 'cover', height: '10em', marginLeft: 20, marginRight: 20 }} />
+            <div style={{ background: 'linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(' + posterBaseURL + media.data.posterPath + ')', backgroundSize: 'cover', height: '10em', marginLeft: 20, marginRight: 20 }} />
             <div style={body}>
                 <Container fluid>
                     {type === "movie" ?
-                        <Row>
-                            <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
-                                <div style={mediaCard}>
-                                    <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
-                                    <br />
-                                    {loggedIn ?
-                                        <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+ Add to List</Button>
-                                        :
-                                        void(0)
-                                    }     
-                                </div>
-                            </Col>
-                            <Col md={8} lg={8} xl={9} style={colStyle}>
-                                <div>
-                                    <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
-                                    <h6 style={mediaDetails}>
-                                        <span>Movie</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.releaseDate ? media.data.releaseDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
-                                    </h6>
-
-                                    <div style={mediaRating}>
-                                        {media.data.rating ? <FaStar size="xs" style={icon} /> : "No ratings"}&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
-                                <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                        <>
+                            <Row>
+                                <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
+                                    <div style={mediaCard}>
+                                        <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
+                                        <br />
+                                        {loggedIn ?
+                                            <Button variant="primary" type="submit" onClick={handleClick} style={{ marginTop: 20, marginBottom: 30 }}>+ Add to List</Button>
+                                            :
+                                            void (0)
+                                        }
                                     </div>
+                                </Col>
+                                <Col md={8} lg={8} xl={9} style={colStyle}>
+                                    <div>
+                                        <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
+                                        <h6 style={mediaDetails}>
+                                            <span>Movie</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.releaseDate ? media.data.releaseDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
+                                        </h6>
 
-                                    <hr />
+                                        <div style={mediaRating}>
+                                            {media.data.rating ? <FaStar size="xs" style={icon} /> : "No ratings"}&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
+                                <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                                        </div>
 
-                                    <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
-                                </div>
-                            </Col>
-                        </Row>
-                        :
-                        <Row>
-                            <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
-                                <div style={mediaCard}>
-                                    <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
-                                    <br />
+                                        <hr />
+
+                                        <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <h4 className="text-left" style={{ borderBottom: '1px solid black' }}><strong>Comments</strong></h4>
                                     {loggedIn ?
-                                        <Button variant="primary" type="submit" onClick={handleClick} style={{marginTop: 20, marginBottom: 30}}>+ Add to List</Button>
+                                        <>
+                                            <form className="text-left" onSubmit={() => { }}>
+                                                <FormGroup controlId="text" bsSize="large">
+                                                    <Form.Label>Comment</Form.Label>
+                                                    <FormControl
+                                                        value={text}
+                                                        onChange={e => setText(e.target.value)}
+                                                        type="text"
+                                                        placeholder="Start typing here..."
+                                                    />
+                                                </FormGroup>
+                                                <Button style={{ marginLeft: 0, marginTop: 0 }} size="sm" type="submit">
+                                                    Submit
+                                                </Button>
+                                            </form>
+
+                                        </>
                                         :
-                                        void(0)
+                                        <>
+                                            <p className="text-left"><Link to="/login" >Log in</Link> to comment</p>
+                                        </>
                                     }
-                                </div>
-                            </Col>
-                            <Col md={8} lg={8} xl={9} style={colStyle}>
-                                <div>
-                                    <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
-                                    <h6 style={mediaDetails}>
-                                        <span>TV Series</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.firstAirDate ? media.data.firstAirDate.substring(0, 4) : ""} - {media.data.lastAirDate ? media.data.lastAirDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
-                                    </h6>
-
-                                    <div style={mediaRating}>
-                                        <FaStar size="xs" style={icon} />&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
-                                <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                                    <div className="text-left" style={{ minHeight: 50, padding: 10, backgroundColor: 'lightgrey', borderRadius: 5 }}>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>FabianDean</strong>: Great show!</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ChyLim</strong>: Would definitely watch again</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>JasmineDao</strong>: It was oookay. Not my favorite</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>MiguelMenjivar</strong>: DO NOT WATCH STAY AWAY FROM THIS TRASH!!!!</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ValFeist</strong>: Very much enjoyed it.</h6>
                                     </div>
+                                </Col>
+                            </Row>
+                        </>
+                        :
+                        <>
+                            <Row>
+                                <Col md={4} lg={4} xl={3} style={colStyle} className="text-xs-center text-sm-center text-md-left">
+                                    <div style={mediaCard}>
+                                        <img style={mediaPoster} src={media.data.posterPath ? (posterBaseURL + media.data.posterPath) : ""} alt="poster"></img>
+                                        <br />
+                                        {loggedIn ?
+                                            <Button variant="primary" type="submit" onClick={handleClick} style={{ marginTop: 20, marginBottom: 30 }}>+ Add to List</Button>
+                                            :
+                                            void (0)
+                                        }
+                                    </div>
+                                </Col>
+                                <Col md={8} lg={8} xl={9} style={colStyle}>
+                                    <div>
+                                        <h3 style={mediaTitle}><strong>{media.data.title ? media.data.title : ""}</strong></h3>
+                                        <h6 style={mediaDetails}>
+                                            <span>TV Series</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.firstAirDate ? media.data.firstAirDate.substring(0, 4) : ""} - {media.data.lastAirDate ? media.data.lastAirDate.substring(0, 4) : ""}</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span>{media.data.genre ? media.data.genre : ""}</span>
+                                        </h6>
 
-                                    <hr />
+                                        <div style={mediaRating}>
+                                            <FaStar size="xs" style={icon} />&nbsp;<span>{media.data.rating ? media.data.rating : ""}</span>&nbsp;&nbsp;
+                                <span style={votes}>{media.data.voteCount ? (media.data.voteCount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",") : ""} votes</span>
+                                        </div>
 
-                                    <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
+                                        <hr />
 
-                                    {/* Leaving off for now but would like to implement in the future
+                                        <p style={mediaSummary}>{media.data.overview ? media.data.overview : ""}</p>
+
+                                        {/* Leaving off for now but would like to implement in the future
                                 <div>
                                     <h4><strong>Details</strong></h4>
                                     <p>
@@ -206,14 +245,50 @@ const Media = props => {
                                 </p>
                                 </div>
                                 */}
-                                </div>
-                            </Col>
-                        </Row>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <h4 className="text-left" style={{ borderBottom: '1px solid black' }}><strong>Comments</strong></h4>
+                                    {loggedIn ?
+                                        <>
+                                            <form className="text-left" onSubmit={() => { }}>
+                                                <FormGroup controlId="text" bsSize="large">
+                                                    <Form.Label>Comment</Form.Label>
+                                                    <FormControl
+                                                        value={text}
+                                                        onChange={e => setText(e.target.value)}
+                                                        type="text"
+                                                        placeholder="Start typing here..."
+                                                    />
+                                                </FormGroup>
+                                                <Button style={{ marginLeft: 0, marginTop: 0 }} size="sm" type="submit">
+                                                    Submit
+                                                </Button>
+                                            </form>
+
+                                        </>
+                                        :
+                                        <>
+                                            <p className="text-left"><Link to="/login" >Log in</Link> to comment</p>
+                                        </>
+                                    }
+                                    <div className="text-left" style={{ minHeight: 50, padding: 10, backgroundColor: 'lightgrey', borderRadius: 5 }}>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>FabianDean</strong>: Great show!</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ChyLim</strong>: Would definitely watch again</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>JasmineDao</strong>: It was oookay. Not my favorite</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>MiguelMenjivar</strong>: DO NOT WATCH STAY AWAY FROM THIS TRASH!!!!</h6>
+                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ValFeist</strong>: Very much enjoyed it.</h6>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </>
                     }
                 </Container>
             </div>
             <Footer />
-        </div>
+        </div >
     );
 };
 
