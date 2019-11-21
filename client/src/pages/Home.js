@@ -322,7 +322,7 @@ const ornament = {
 };
 const blurb = {
     padding: '5% 10% 5% 10%',
-    backgroundColor: '#212121',
+    backgroundColor: '#0d1a26',
     textAlign: 'left',
     color: 'white',
     width: '99.7vw'
