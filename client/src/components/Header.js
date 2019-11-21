@@ -67,8 +67,8 @@ const Header = props => {
                     !loggedIn ?
                         (
                             <Nav style={{marginLeft: 20}}>
-                                <Nav.Link href="#/login" ><Button style={linkStyleLogin} size="sm" variant="none">Login</Button></Nav.Link>
-                                <Nav.Link href="#/register"><Button style={linkStyleLogin} size="sm" variant="none">Register</Button></Nav.Link>
+                                <Nav.Link href="#/login" ><Button style={linkStyleLogin} size="med" variant="none">Login</Button></Nav.Link>
+                                <Nav.Link href="#/register"><Button style={linkStyleLogin} size="med" variant="none">Register</Button></Nav.Link>
                             </Nav>
                         )
                         :
