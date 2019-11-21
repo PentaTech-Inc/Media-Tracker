@@ -4,6 +4,8 @@ import { Button, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import '../styles/Register.css';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 const Register = props => {
     const [username, setUsername] = useState("");
@@ -63,61 +65,78 @@ const Register = props => {
     }
 
     return (
-        <Layout>
-            <div style={body}>
+        <div style={body}>
+            <Header />
+            <div className="Register" style={registerStyle}>
                 <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
                 <br />
-                <div className="Register">
-                    <form onSubmit={handleSubmit}>
-                        <FormGroup controlId="username" bsSize="large">
-                            <Form.Label>Username</Form.Label>
-                            <FormControl
-                                autoFocus
-                                type="username"
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                            />
-                        </FormGroup>
-                        <FormGroup controlId="email" bsSize="large">
-                            <Form.Label>Email</Form.Label>
-                            <FormControl
-                                type="email"
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                            />
-                        </FormGroup>
-                        <FormGroup controlId="password" bsSize="large">
-                            <Form.Label>Password</Form.Label>
-                            <FormControl
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                            />
-                        </FormGroup>
-                        <FormGroup controlId="confirmPassword" bsSize="large">
-                            <Form.Label>Confirm password</Form.Label>
-                            <FormControl
-                                value={confirmPassword}
-                                onChange={e => setConfirmPassword(e.target.value)}
-                                type="password"
-                            />
-                        </FormGroup>
-                        <br /><br />
-                        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-                            Register
-                        </Button>
-                    </form>
-                </div>
+                <form onSubmit={handleSubmit} style={formStyle}>
+                    <FormGroup controlId="username" bsSize="large">
+                        <Form.Label>Username</Form.Label>
+                        <FormControl
+                            autoFocus
+                            type="username"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </FormGroup>
+                    <FormGroup controlId="email" bsSize="large">
+                        <Form.Label>Email</Form.Label>
+                        <FormControl
+                            type="email"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                        />
+                    </FormGroup>
+                    <FormGroup controlId="password" bsSize="large">
+                        <Form.Label>Password</Form.Label>
+                        <FormControl
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            type="password"
+                        />
+                    </FormGroup>
+                    <FormGroup controlId="confirmPassword" bsSize="large">
+                        <Form.Label>Confirm password</Form.Label>
+                        <FormControl
+                            value={confirmPassword}
+                            onChange={e => setConfirmPassword(e.target.value)}
+                            type="password"
+                        />
+                    </FormGroup>
+                    <br /><br />
+                    <Button block bsSize="large" disabled={!validateForm()} type="submit">
+                        Register
+                    </Button>
+                </form>
             </div>
-        </Layout>
+            <Footer />
+        </div>
     );
 };
 
 const body = {
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    paddingTop: '2%',
-    paddingBottom: '2%'
+    backgroundColor: '#00000F',
+};
+
+const registerStyle = {
+    paddingLeft: '6%',
+    paddingRight: '6%',
+    paddingTop: '3%',
+    paddingBottom: '5%',
+    textAlign: 'center',
+    width: '50%',
+    display: 'block',
+    margin: '3% auto 3% auto',
+    backgroundColor: 'white',
+    borderRadius: 5
+};
+
+const formStyle = {
+    display: 'block',
+    margin: 'auto',
+    width: '100%',
+    textAlign: 'left'
 };
 
 export default withRouter(Register);
