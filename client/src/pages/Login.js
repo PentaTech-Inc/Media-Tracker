@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import '../styles/Login.css';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import { Link } from 'react-router-dom';
 
 const Login = props => {
     const [email, setEmail] = useState("");
@@ -77,6 +78,8 @@ const Login = props => {
                         Login
                     </Button>
                 </form>
+                <br/>
+                <Link to="/register">Create Account</Link>
             </div>
             <Footer />
         </div>

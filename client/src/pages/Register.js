@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import '../styles/Register.css';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import { Link } from 'react-router-dom';
 
 const Register = props => {
     const [username, setUsername] = useState("");
@@ -109,6 +110,8 @@ const Register = props => {
                         Register
                     </Button>
                 </form>
+                <br/>
+                <Link to="/login">Already have an account? Click here to login</Link>
             </div>
             <Footer />
         </div>
