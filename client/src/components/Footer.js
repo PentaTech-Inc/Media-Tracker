@@ -41,6 +41,7 @@ const Footer = () => {
                             <strong>Media Tracker</strong> is an application that helps you keep track of shows and movies you watch, while also making it social!
                             Participate in forums for each title and contribute to its rating.
                             </medium>
+                            <br /><br />
                         </p>
                     </MDBCol>
                     <MDBCol md="4" >
