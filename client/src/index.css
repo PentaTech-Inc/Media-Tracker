@@ -21,7 +21,7 @@ code {
 
   thsese apply for the footer and make it stay at the bottom
 */
-.Site {
+/* .Site {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -39,4 +39,4 @@ code {
   margin-top: var(--space);
   height: 0;
   visibility: hidden;
-}
+} */
