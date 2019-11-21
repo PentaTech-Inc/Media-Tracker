@@ -154,11 +154,10 @@ const Home = props => {
                                             {popularMovies ?
                                                 popularMovies.map((item, index) => {
                                                     return (
-                                                        <div style={{ width: 218, height: 330 }}>
-                                                            <Card style={{ width: 218, height: 330, marginLeft: 5, marginRight: 5 }} as="div">
+                                                        <div style={{ width: 218, height: 330}}>
+                                                            <Card style={{ width: '100%', height: '100%', marginLeft: 5, marginRight: 5 }} as="div">
                                                                 <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "movie")}>
-
-                                                                    <Card.Img style={{ width: 218, height: 330 }} src={basePosterPath + item.poster_path} />
+                                                                    <Card.Img style={{ width: '100%', height: '100%'}} src={basePosterPath + item.poster_path} />
                                                                 </a>
                                                             </Card>
                                                         </div>
