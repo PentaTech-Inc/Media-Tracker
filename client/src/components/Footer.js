@@ -18,19 +18,11 @@ const Footer = () => {
 
     return (
 
-        <MDBFooter color="blue" className="font-small pt-4 mt-4">
+        <MDBFooter color="#78909c" className="font-small pt-4 mt-4">
             <MDBContainer fluid className="text-center text-md-center">
                 <MDBRow>
                     <MDBCol md="4" className="text-center">
-                        <h5 className="title"><strong>Media Tracker</strong> by PentaTech Inc</h5>
-                        <p><small>
-                            <strong>Media Tracker</strong> is an application that helps you keep track of shows and movies you watch, while also making it social!
-                            Participate in forums for each title and contribute to its rating. Your input helps others discover your favorite shows and movies by giving them the confidence to start watching.
-                            </small>
-                        </p>
-                    </MDBCol>
-                    <MDBCol md="4" className="text-center">
-                        <h5 className="title"><strong>Quick Links</strong></h5>
+                        <h4 className="title"><strong>Quick Links</strong></h4>
                         <ul>
                             <li className="list-unstyled">
                                 <Link to="/">Home</Link>
@@ -43,7 +35,15 @@ const Footer = () => {
                             </li>
                         </ul>
                     </MDBCol>
-                    <MDBCol md="4">
+                    <MDBCol md="4" className="text-center">
+                        <h4 className="title"><strong>Media Tracker</strong> by PentaTech Inc</h4>
+                        <p><medium>
+                            <strong>Media Tracker</strong> is an application that helps you keep track of shows and movies you watch, while also making it social!
+                            Participate in forums for each title and contribute to its rating.
+                            </medium>
+                        </p>
+                    </MDBCol>
+                    <MDBCol md="4" >
                         <SearchBar />
                     </MDBCol>
                 </MDBRow>
