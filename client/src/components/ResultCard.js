@@ -138,7 +138,7 @@ const ResultCard = props => {
                         <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                     </Card.Text>
                     <Card.Footer>
-                        (<Button style={{ borderRadius: 5 }} onClick={handleClick}>Add to list</Button>)
+                        (<Button style={{ borderRadius: 5 }} onClick={handleClick}>+ Add to list</Button>)
                     </Card.Footer>
                 </Card.Body>)
                 :
