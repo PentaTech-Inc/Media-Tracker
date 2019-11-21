@@ -48,33 +48,44 @@ const Login = props => {
 
     return (
         <Layout>
-            <h1 style={{ borderBottom: '1px solid black' }}>Login</h1>
-            <div className="Login">
-                <form onSubmit={handleSubmit}>
-                    <FormGroup controlId="email" bsSize="large">
-                        <Form.Label>Email</Form.Label>
-                        <FormControl
-                            autoFocus
-                            type="email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
-                        <Form.Label>Password</Form.Label>
-                        <FormControl
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            type="password"
-                        />
-                    </FormGroup>
-                    <Button block bsSize="large" disabled={!validateForm()} type="submit">
-                        Login
-                    </Button>
-                </form>
+            <div style={body}>
+                <h1 style={{ borderBottom: '1px solid black' }}>Login</h1>
+                <div className="Login">
+                    <br />
+                    <form onSubmit={handleSubmit}>
+                        <FormGroup controlId="email" bsSize="large">
+                            <Form.Label>Email</Form.Label>
+                            <FormControl
+                                autoFocus
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="password" bsSize="large">
+                            <Form.Label>Password</Form.Label>
+                            <FormControl
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                type="password"
+                            />
+                        </FormGroup>
+                        <br /><br />
+                        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+                            Login
+                        </Button>
+                    </form>
+                </div>
             </div>
         </Layout>
     );
+};
+
+const body = {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingTop: '2%',
+    paddingBottom: '2%'
 };
 
 export default withRouter(Login);

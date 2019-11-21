@@ -64,49 +64,60 @@ const Register = props => {
 
     return (
         <Layout>
-            <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
-            <div className="Register">
-                <form onSubmit={handleSubmit}>
-                    <FormGroup controlId="username" bsSize="large">
-                        <Form.Label>Username</Form.Label>
-                        <FormControl
-                            autoFocus
-                            type="username"
-                            value={username}
-                            onChange={e => setUsername(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="email" bsSize="large">
-                        <Form.Label>Email</Form.Label>
-                        <FormControl
-                            type="email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
-                        <Form.Label>Password</Form.Label>
-                        <FormControl
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            type="password"
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="confirmPassword" bsSize="large">
-                        <Form.Label>Confirm password</Form.Label>
-                        <FormControl
-                            value={confirmPassword}
-                            onChange={e => setConfirmPassword(e.target.value)}
-                            type="password"
-                        />
-                    </FormGroup>
-                    <Button block bsSize="large" disabled={!validateForm()} type="submit">
-                        Register
-                    </Button>
-                </form>
+            <div style={body}>
+                <h1 style={{ borderBottom: '1px solid black' }}>Register</h1>
+                <br />
+                <div className="Register">
+                    <form onSubmit={handleSubmit}>
+                        <FormGroup controlId="username" bsSize="large">
+                            <Form.Label>Username</Form.Label>
+                            <FormControl
+                                autoFocus
+                                type="username"
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="email" bsSize="large">
+                            <Form.Label>Email</Form.Label>
+                            <FormControl
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="password" bsSize="large">
+                            <Form.Label>Password</Form.Label>
+                            <FormControl
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                type="password"
+                            />
+                        </FormGroup>
+                        <FormGroup controlId="confirmPassword" bsSize="large">
+                            <Form.Label>Confirm password</Form.Label>
+                            <FormControl
+                                value={confirmPassword}
+                                onChange={e => setConfirmPassword(e.target.value)}
+                                type="password"
+                            />
+                        </FormGroup>
+                        <br /><br />
+                        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+                            Register
+                        </Button>
+                    </form>
+                </div>
             </div>
         </Layout>
     );
+};
+
+const body = {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingTop: '2%',
+    paddingBottom: '2%'
 };
 
 export default withRouter(Register);
