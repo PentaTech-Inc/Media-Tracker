@@ -13,14 +13,15 @@ Participate in a forum for each title and contribute to its rating. Your input h
 ```
 npm install -g
 ```
-6. Open another terminal in your project folder
-7. On one terminal run
+6. Open another terminal in your project folder (root project folder)
+7. On one terminal run: [runs frontend]
 ```
+cd client
 npm run start
 ```
-8. On the other terminal run
+8. On the other terminal run (in root folder) [runs server]:
 ```
-node server.js
+node run start
 ```
 (may substitute nodemon for node if you prefer and have it installed)
 9. Go to http://localhost:3000 in your browser to view project

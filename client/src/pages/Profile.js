@@ -14,6 +14,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/Profile.css';
+import Header from '../components/Header.js';
+import Footer from '../components/Footer.js';
 
 const Profile = props => {
     const [details, setDetails] = useState({ data: {} });
@@ -98,74 +100,77 @@ const Profile = props => {
     let date = details.data.dateJoined + ""; // make string
     date = date.substring(4, 7) + " " + date.substring(11, 15);
     return (
-        <Layout>
-            <h1 style={{ borderBottom: '1px solid black' }}>{details.data.username}</h1>
-            <div className="fluid">
-                <Row style={rowStyle} className="align-items-center">
-                    <Col md={5} lg={4} className="justify-content-center">
-                        <div>
-                            <img src={details.data.avatar} alt="profile" style={profileImg} />
+        <div>
+            <Header />
+            <div>
+                <div>
+                    <Row style={rowStyle}>
+                        <Col md={5} lg={4}>
+                            <div>
+                                <h1 style={headingStyle}>{details.data.username}</h1>
+                                <img src={details.data.avatar} alt="profile" style={profileImg} />
+                                <br />
+                                <h5 style={username}><FaCalendar /> Joined {date}</h5>
+                            </div>
                             <br />
-                            <h5 style={username}><FaCalendar /> Joined {date}</h5>
-                        </div>
-                        <br />
-                        <div>
-                            <h4 style={underline}>Statistics</h4>
-                            <ul style={{ textAlign: 'left', listStyle: 'none' }}>
-                                <li><strong>Movies watched: </strong>{stats.totalMoviesWatched} movies</li>
-                                <li><strong>Total runtime: </strong>{stats.totalRuntimeMovies} min</li>
-                                <li><strong>Shows watched: </strong>{stats.totalShowsWatched} shows</li>
-                                <li><strong>Seasons binged: </strong>{stats.totalSeasonCount} seasons</li>
-                            </ul>
-                        </div>
-                    </Col>
+                            <div style={{display: 'block', margin: 'auto', width: '85%', padding: 10, backgroundColor: '#e7e9f7', borderRadius: 8}}>
+                                <br />
+                                <h4 style={underline2}>Statistics</h4>
+                                <ul style={{ textAlign: 'left', listStyle: 'none', marginLeft: '5%' }}>
+                                    <li><strong>Movies watched: &nbsp;</strong>{stats.totalMoviesWatched}</li>
+                                    <li><strong>Total runtime (min): &nbsp;</strong>{stats.totalRuntimeMovies}</li>
+                                    <li><strong>Shows watched: &nbsp;</strong>{stats.totalShowsWatched}</li>
+                                    <li><strong>Seasons binged: &nbsp;</strong>{stats.totalSeasonCount}</li>
+                                </ul>
+                            </div>
+                        </Col>
 
-                    <Col md={7} lg={8}>
-                        <h3 style={underline}>Movies Watched</h3>
-                        <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
-                            {lists.data.movies ? (lists.data.movies).map((item, index) => {
-                                return (
-                                    <div key={index} style={{ width: 105, height: 198 }}>
-                                        <Card style={{ marginLeft: 5, marginRight: 5 }}>
-                                            <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "movie")}>
-                                                <Card.Img src={"http://image.tmdb.org/t/p/w185_and_h278_bestv2" + item.posterPath} />
-                                            </a>
-                                        </Card>
+                        <Col md={7} lg={8}>
+                            <h3 style={underline}>Movies Watched</h3>
+                            <Slider style={{ marginTop: 10, marginBottom: 30, backgroundColor: '#d1d7f4', padding: 20, borderRadius: 8 }} {...settings}>
+                                {lists.data.movies ? (lists.data.movies).map((item, index) => {
+                                    return (
+                                        <div key={index} style={{ width: 105, height: 198 }}>
+                                            <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                                <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "movie")}>
+                                                    <Card.Img src={"http://image.tmdb.org/t/p/w185_and_h278_bestv2" + item.posterPath} />
+                                                </a>
+                                            </Card>
+                                        </div>
+                                    );
+                                })
+                                    :
+                                    <div>
+                                        <p>Use Search to add movies!</p>
                                     </div>
-                                );
-                            })
-                                :
-                                <div>
-                                    <p>Use Search to add movies!</p>
-                                </div>
-                            }
-                        </Slider>
-                        <br />
-                        <h3 style={underline}>Shows Watched</h3>
-                        <Slider style={{ marginTop: 10, marginBottom: 30 }} {...settings}>
-                            {lists.data.shows ? (lists.data.shows).map((item, index) => {
-                                return (
-                                    <div key={index} style={{ width: 105, height: 198 }}>
-                                        <Card style={{ marginLeft: 5, marginRight: 5 }}>
-                                            <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "tv")}>
-                                                <Card.Img src={"http://image.tmdb.org/t/p/w185_and_h278_bestv2" + item.posterPath} />
-                                            </a>
-                                        </Card>
+                                }
+                            </Slider>
+                            <br />
+                            <h3 style={underline}>Shows Watched</h3>
+                            <Slider style={{ marginTop: 10, marginBottom: 30, backgroundColor: '#d1d7f4', padding: 20, borderRadius: 8 }} {...settings}>
+                                {lists.data.shows ? (lists.data.shows).map((item, index) => {
+                                    return (
+                                        <div key={index} style={{ width: 105, height: 198 }}>
+                                            <Card style={{ marginLeft: 5, marginRight: 5 }}>
+                                                <a style={{ cursor: 'pointer' }} onClick={handleMediaPage(item.id, "tv")}>
+                                                    <Card.Img src={"http://image.tmdb.org/t/p/w185_and_h278_bestv2" + item.posterPath} />
+                                                </a>
+                                            </Card>
+                                        </div>
+                                    );
+                                })
+                                    :
+                                    <div>
+                                        <p>Use Search to add shows!</p>
                                     </div>
-                                );
-                            })
-                                :
-                                <div>
-                                    <p>Use Search to add shows!</p>
-                                </div>
-                            }
-                        </Slider>
-                    </Col>
-                </Row>
-
-
+                                }
+                            </Slider>
+                        </Col>
+                    </Row>
+                </div>
             </div>
-        </Layout >
+            <Footer />
+        </div >
     );
 };
 
@@ -196,15 +201,17 @@ const rowStyle = {
     marginTop: 20,
     marginBottom: 20,
     marginLeft: '5%',
-    marginRight: '5%'
+    marginRight: '5%',
+    backgroundColor: 'whiteSmoke',
+    borderRadius: 10,
+    padding: '4%'
 };
 
-const colStyle = {
-    width: '100%',
-};
-
-const alignCenter = {
-    textAlign: 'center'
+const headingStyle = {
+    fontFamily: 'Impact',
+    fontSize: '40pt',
+    color: '#1f57a4',
+    textAlign: 'center',
 };
 
 const underline = {
@@ -212,7 +219,22 @@ const underline = {
     color: '#1f57a4',
     borderBottomStyle: 'solid',
     borderBottomColor: 'cornflowerBlue',
-    borderBottomWidth: 2
+    borderBottomWidth: 2,
+    fontFamily: 'Impact',
+    marginBottom: 20
+};
+
+const underline2 = {
+    textAlign: 'center',
+    width: '50%',
+    display: 'block',
+    margin: 'auto',
+    marginBottom: 10,
+    color: '#1f57a4',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'cornflowerBlue',
+    borderBottomWidth: 2,
+    fontFamily: 'Impact',
 };
 
 const profileImg = {

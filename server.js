@@ -254,6 +254,91 @@ app.get('/api/addToList', withAuth, (req, res) => {
     }
 });
 
+/** Add comment to Movie/Show and User comment properties */
+app.get('/api/addComment', withAuth, (req, res) => {
+    let { id, comment, type } = req.query;
+    comment = decodeURIComponent(comment); // decode
+    const token =
+        req.query.token ||
+        req.headers['x-access-token'] ||
+        req.cookies.token;
+    if (!token) {
+        res.status(401).send('Unauthorized: No token provided');
+    } else {
+        jwt.verify(token, secret, (err, decoded) => {
+            if (err) {
+                res.status(401).send('Unauthorized: Invalid token');
+            } else {
+                req.email = decoded.email;
+                if (type === "movie") {
+                    User.findOneAndUpdate(
+                        { email: req.email },
+                        { $push: { comments: comment } },
+                        function (error, user) {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send("Failed to update user.");
+                                return;
+                            } else {
+                                Movie.findOneAndUpdate({ id: id }, {
+                                    $push: {
+                                        comments: {
+                                            username: user.username,
+                                            avatar: user.avatar,
+                                            text: comment
+                                        },
+                                        function(error, mov) {
+                                            if (error) {
+                                                console.log(error);
+                                                res.status(500).send("Failed to add comment to movie.");
+                                                return;
+                                            } else {
+                                                console.log(mov);
+                                                res.status(200).send("Added comment!");
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                } else if (type === "tv") {
+                    User.findOneAndUpdate(
+                        { email: req.email },
+                        { $push: { comments: comment } },
+                        function (error, user) {
+                            if (error) {
+                                console.log(error);
+                                res.status(500).send("Failed to update user.");
+                                return;
+                            } else {
+                                Show.findOneAndUpdate({ id: id }, {
+                                    $push: {
+                                        comments: {
+                                            username: user.username,
+                                            avatar: user.avatar,
+                                            text: comment
+                                        },
+                                        function(error, sho) {
+                                            if (error) {
+                                                console.log(error);
+                                                res.status(500).send("Failed to add comment to show.");
+                                                return;
+                                            } else {
+                                                console.log(sho);
+                                                res.status(200).send("Added comment!");
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                }
+            }
+        }
+        )
+    }
+});
+
 /** Insert new document into media collection of DB */
 app.get('/api/addTitle', (req, res) => {
     const { id, type } = req.query;
