@@ -132,6 +132,24 @@ const Media = props => {
             });
     };
 
+    const handleCommentSubmit = (event) => {
+        event.preventDefault();
+        fetch("/api/addComment?id=" + id + "&comment=" + encodeURIComponent(text) + "&type=" + type
+            , { credentials: 'include' })
+            .then(res => {
+                if (res.status === 200) {
+                    window.location.reload(); // reload page to view new comments
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error adding comment. Reload page and try again.');
+            });
+    };
+
     return (
         <div>
             <Header />
@@ -175,7 +193,7 @@ const Media = props => {
                                     <h4 className="text-left" style={{ borderBottom: '1px solid black' }}><strong>Comments</strong></h4>
                                     {loggedIn ?
                                         <>
-                                            <form className="text-left" onSubmit={() => { }}>
+                                            <form className="text-left" onSubmit={handleCommentSubmit}>
                                                 <FormGroup controlId="text" bsSize="large">
                                                     <Form.Label>Comment</Form.Label>
                                                     <FormControl
@@ -197,11 +215,17 @@ const Media = props => {
                                         </>
                                     }
                                     <div className="text-left" style={{ minHeight: 50, padding: 10, backgroundColor: 'lightgrey', borderRadius: 5 }}>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>FabianDean</strong>: Great show!</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ChyLim</strong>: Would definitely watch again</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>JasmineDao</strong>: It was oookay. Not my favorite</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>MiguelMenjivar</strong>: DO NOT WATCH STAY AWAY FROM THIS TRASH!!!!</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ValFeist</strong>: Very much enjoyed it.</h6>
+                                        {media.data.comments ? (media.data.comments).map((item, index) => {
+                                            return (
+                                                <div>
+                                                    <h6 key={index} style={{ borderTop: '1px solid black', borderBottom: '1px solid black', paddingTop: 3, paddingBottom: 3 }}>                                                    <img src={item.avatar} alt="profile" style={profileImg} />
+                                                        <strong>&nbsp;{item.username}</strong>: {item.text}</h6>
+                                                </div>
+                                            );
+                                        })
+                                            :
+                                            <p>No comments</p>
+                                        }
                                     </div>
                                 </Col>
                             </Row>
@@ -253,7 +277,7 @@ const Media = props => {
                                     <h4 className="text-left" style={{ borderBottom: '1px solid black' }}><strong>Comments</strong></h4>
                                     {loggedIn ?
                                         <>
-                                            <form className="text-left" onSubmit={() => { }}>
+                                            <form className="text-left" onSubmit={handleCommentSubmit}>
                                                 <FormGroup controlId="text" bsSize="large">
                                                     <Form.Label>Comment</Form.Label>
                                                     <FormControl
@@ -275,11 +299,17 @@ const Media = props => {
                                         </>
                                     }
                                     <div className="text-left" style={{ minHeight: 50, padding: 10, backgroundColor: 'lightgrey', borderRadius: 5 }}>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>FabianDean</strong>: Great show!</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ChyLim</strong>: Would definitely watch again</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>JasmineDao</strong>: It was oookay. Not my favorite</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>MiguelMenjivar</strong>: DO NOT WATCH STAY AWAY FROM THIS TRASH!!!!</h6>
-                                        <h6 style={{ borderBottom: '1px solid black', paddingBottom: 3 }}><strong>ValFeist</strong>: Very much enjoyed it.</h6>
+                                        {media.data.comments ? (media.data.comments).map((item, index) => {
+                                            return (
+                                                <div>
+                                                    <h6 key={index} style={{ borderTop: '1px solid black', borderBottom: '1px solid black', paddingTop: 3, paddingBottom: 3 }}>                                                    <img src={item.avatar} alt="profile" style={profileImg} />
+                                                        <strong>&nbsp;{item.username}</strong>: {item.text}</h6>
+                                                </div>
+                                            );
+                                        })
+                                            :
+                                            <p>No comments</p>
+                                        }
                                     </div>
                                 </Col>
                             </Row>
@@ -288,7 +318,7 @@ const Media = props => {
                 </Container>
             </div>
             <Footer />
-        </div >
+        </div>
     );
 };
 
@@ -355,6 +385,17 @@ const votes = {
 
 const mediaSummary = {
     textAlign: 'left'
+};
+
+const profileImg = {
+    width: 35,
+    height: 35,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderWidth: 0.4,
+    borderRadius: 500
 };
 
 export default Media;

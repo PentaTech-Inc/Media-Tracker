@@ -258,6 +258,7 @@ app.get('/api/addToList', withAuth, (req, res) => {
 app.get('/api/addComment', withAuth, (req, res) => {
     let { id, comment, type } = req.query;
     comment = decodeURIComponent(comment); // decode
+
     const token =
         req.query.token ||
         req.headers['x-access-token'] ||
@@ -280,25 +281,29 @@ app.get('/api/addComment', withAuth, (req, res) => {
                                 res.status(500).send("Failed to update user.");
                                 return;
                             } else {
-                                Movie.findOneAndUpdate({ id: id }, {
-                                    $push: {
-                                        comments: {
-                                            username: user.username,
-                                            avatar: user.avatar,
-                                            text: comment
-                                        },
-                                        function(error, mov) {
-                                            if (error) {
-                                                console.log(error);
-                                                res.status(500).send("Failed to add comment to movie.");
-                                                return;
-                                            } else {
-                                                console.log(mov);
-                                                res.status(200).send("Added comment!");
+                                Movie.findOneAndUpdate(
+                                    { id: id },
+                                    {
+                                        $push: {
+                                            comments: {
+                                                username: user.username,
+                                                avatar: user.avatar,
+                                                text: comment
                                             }
                                         }
+                                    },
+                                    function (error, mov) {
+                                        if (error) {
+                                            console.log(error);
+                                            res.status(500).send("Failed to add comment to movie.");
+                                            return;
+                                        } else {
+                                            //console.log(mov);
+                                            res.status(200).send("Added comment!");
+                                        }
                                     }
-                                });
+
+                                );
                             }
                         });
                 } else if (type === "tv") {
@@ -311,25 +316,27 @@ app.get('/api/addComment', withAuth, (req, res) => {
                                 res.status(500).send("Failed to update user.");
                                 return;
                             } else {
-                                Show.findOneAndUpdate({ id: id }, {
-                                    $push: {
-                                        comments: {
-                                            username: user.username,
-                                            avatar: user.avatar,
-                                            text: comment
-                                        },
-                                        function(error, sho) {
-                                            if (error) {
-                                                console.log(error);
-                                                res.status(500).send("Failed to add comment to show.");
-                                                return;
-                                            } else {
-                                                console.log(sho);
-                                                res.status(200).send("Added comment!");
+                                Show.findOneAndUpdate({ id: id },
+                                    {
+                                        $push: {
+                                            comments: {
+                                                username: user.username,
+                                                avatar: user.avatar,
+                                                text: comment
                                             }
                                         }
+                                    },
+                                    function (error, sho) {
+                                        if (error) {
+                                            console.log(error);
+                                            res.status(500).send("Failed to add comment to show.");
+                                            return;
+                                        } else {
+                                            //console.log(sho);
+                                            res.status(200).send("Added comment!");
+                                        }
                                     }
-                                });
+                                );
                             }
                         });
                 }
