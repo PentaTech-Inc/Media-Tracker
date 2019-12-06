@@ -128,7 +128,7 @@ const ResultCard = props => {
                 </a>
             </Card.Header>
             {loggedIn ?
-                (<Card.Body style={{ height: 240 }}>
+                <Card.Body style={{ height: 240 }}>
                     <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
                         <Card.Title style={cardTitleStyle}>
                             {title} ({releaseDate.length > 4 ? releaseDate.substring(0, 4) : ""})
@@ -138,9 +138,9 @@ const ResultCard = props => {
                         <i>{overview.length < 100 ? overview : overview.substring(0, 96) + "..."}</i>
                     </Card.Text>
                     <Card.Footer>
-                        (<Button style={{ borderRadius: 5 }} onClick={handleClick}>+ Add to list</Button>)
+                        <Button style={{ borderRadius: 5 }} onClick={handleClick}>+ Add to list</Button>
                     </Card.Footer>
-                </Card.Body>)
+                </Card.Body>
                 :
                 <Card.Body>
                     <a style={{ cursor: 'pointer' }} onClick={handleMediaPage}>
